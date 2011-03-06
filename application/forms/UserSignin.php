@@ -28,7 +28,7 @@ class Application_Form_UserSignin extends Zend_Form
 			 ->addElement($password)
 			 ->addElement('submit','submit', array (
 				'ignore'		=> true,
-				'label'			=> 'Signup'));
+				'label'			=> 'Sign in'));
     }
 
 

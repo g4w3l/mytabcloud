@@ -53,7 +53,7 @@ class Application_Form_UserSignup extends Zend_Form
 			 ->addElement($name)
 			 ->addElement('submit','submit', array (
 				'ignore'		=> true,
-				'label'			=> 'Signup'));
+				'label'			=> 'Sign up'));
     }
 
 
