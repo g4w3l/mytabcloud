@@ -1,0 +1,23 @@
+<?php echo $this->doctype() ?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>MyTabCloud</title>
+        
+        <!-- blueprintcss dependency -->
+        <?php $this->headLink()->appendStylesheet('css/blueprint/screen.css', 'screen, projection') ?>
+        <?php $this->headLink()->appendStylesheet('css/blueprint/print.css', 'print') ?>
+        <?php $this->headLink()->appendStylesheet('css/mytabcloud.css') ?>
+        <?php echo $this->headLink(); ?>
+        <!--[if lte IE8]>
+        <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection" />
+        <![endif]-->       
+        
+                
+    </head>
+    <body>
+               
+        <?php echo $this->layout()->content ?>
+       
+    </body>
+</html>
