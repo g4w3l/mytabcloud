@@ -1,7 +1,7 @@
 <?php
 
-class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
+class Application_Model_DbTable_User extends Zend_Db_Table_Abstract
 {
-    protected $_name = 'mtc_users';
+    protected $_name = 'mtc_user';
 }
 

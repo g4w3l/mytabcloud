@@ -1,7 +1,7 @@
 -- MyTabCloud SQL Scripting
 -- Author : Gael Ratovelo
 
-CREATE TABLE IF NOT EXISTS `mtc_users` (
+CREATE TABLE IF NOT EXISTS `mtc_user` (
     `usr_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
     `usr_login` VARCHAR( 50 ) NOT NULL ,
     `usr_mail` VARCHAR( 100 ) NOT NULL ,
