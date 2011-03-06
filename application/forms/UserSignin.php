@@ -8,6 +8,9 @@ class Application_Form_UserSignin extends Zend_Form
         $this->setMethod('post');
 		$this->setName('signin');
 		
+		$formname = new Zend_Form_Element_Hidden('formname');
+		$formname->setValue($this->getName());
+		
 		// Element Login
 		$login = new Zend_Form_Element_Text('login');
 		$login->setLabel('Login')
@@ -21,10 +24,10 @@ class Application_Form_UserSignin extends Zend_Form
 				 ->setRequired(true)
 				 ->addFilter('StripTags')
 				 ->addFilter('StringTrim')
-				 ->addValidator('NotEmpty')
-				 ->addValidator('StringLength', false, array(6,15));
+				 ->addValidator('NotEmpty');
 		
-		$this->addElement($login)
+		$this->addElement($formname)
+			 ->addElement($login)
 			 ->addElement($password)
 			 ->addElement('submit','submit', array (
 				'ignore'		=> true,

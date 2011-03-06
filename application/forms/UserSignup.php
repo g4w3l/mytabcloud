@@ -7,7 +7,10 @@ class Application_Form_UserSignup extends Zend_Form
     {
         $this->setMethod('post');
 		$this->setName('signup');
-		
+
+		$formname = new Zend_Form_Element_Hidden('formname');
+		$formname->setValue($this->getName());
+
 		// Element Login
 		$login = new Zend_Form_Element_Text('login');
 		$login->setLabel('Login')
@@ -46,7 +49,8 @@ class Application_Form_UserSignup extends Zend_Form
 			  ->addFilter('StringTrim')
 			  ->addValidator('NotEmpty');
 			  
-		$this->addElement($login)
+		$this->addElement($formname)
+			 ->addElement($login)
 			 ->addElement($password)	
 			 ->addElement($password_confirm)
 			 ->addElement($mail)		
