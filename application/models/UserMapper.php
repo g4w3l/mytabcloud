@@ -3,11 +3,7 @@
 class Application_Model_UserMapper
 {
 	protected $_dbTable;
-	
-	public function save($model);
-    public function find($id, $model);
-    public function fetchAll();
-	
+		
 	public function setDbTable($dbTable) {
         if (is_string($dbTable)) { $dbTable = new $dbTable(); }
         if (!$dbTable instanceof Zend_Db_Table_Abstract) { throw new Exception('Invalid table data gateway provided'); }
@@ -32,13 +28,48 @@ class Application_Model_UserMapper
 		);
 		
 		// Vérification s'il s'agit d'un update ou d'un insert
-		if (null === ($id = $guestbook->getId())) {
+		if (null === ($id = $user->getId())) {
             unset($data['usr_id']);
             $this->getDbTable()->insert($data);
         } else {
             $this->getDbTable()->update($data, array('usr_id = ?' => $id));
         }
 	}
-
+	
+	public function find($id, Application_Model_User $user) {
+		// Requête permettant de récupérer un utilisateur par son ID
+		$result = $this->getDbTable()->find($id);
+        if (0 == count($result)) { return; }
+		
+		// On met le résultat de la requête dans un objet Application_Model_User
+        $row = $result->current();
+        $user->setId($row->usr_id)
+			 ->setLogin($row->usr_login)
+			 ->setPassword($row->usr_password)
+			 ->setName($row->usr_name)
+			 ->setCreated($row->usr_created)
+			 ->setMail($row->usr_mail);
+	}
+	
+	public function delete($id)
+    {
+        $result = $this->getDbTable()->delete($id);
+    }
+	
+	public function fetchAll() {
+		$resultSet = $this->getDbTable()->fetchAll();
+        $entries   = array();
+        foreach ($resultSet as $row) {
+            $entry = new Application_Model_User();
+            $entry->setId($row->usr_id)
+				 ->setLogin($row->usr_login)
+				 ->setPassword($row->usr_password)
+				 ->setName($row->usr_name)
+				 ->setCreated($row->usr_created)
+				 ->setMail($row->usr_mail);
+            $entries[] = $entry;
+        }
+        return $entries;
+	}
 }
 
