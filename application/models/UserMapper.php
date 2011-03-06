@@ -22,9 +22,9 @@ class Application_Model_UserMapper
 		$data = array(
 			'usr_login' => $user->getLogin(),
 			'usr_mail' => $user->getMail(),
-			'usr_password' => $user->getPassword(),
+			'usr_password' => md5($user->getPassword()),
 			'usr_name' => $user->getName(),
-			'usr_created' => $user->getCreated()			
+			'usr_created' => date('Y-m-d H:i:s')			
 		);
 		
 		// Vérification s'il s'agit d'un update ou d'un insert
