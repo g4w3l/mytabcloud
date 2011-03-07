@@ -1,0 +1,12 @@
+<?php
+	// Si l'utilisateur n'est pas loggé, on affiche le formulaire de login
+	if(!$this->logged) {
+		$this->form->setAction($this->url());
+		echo $this->message;
+		echo $this->form;		
+		echo "<a href=".$this->signupURL.">New user ? Sign up !</a>";
+	// Sinon on affiche son nom et le lien pour se déconnecter
+	} else {
+		echo "Welcome, " . $this->username . "<br />";
+		echo "<a href=".$this->signoutURL.">Logout</a>";
+	}
