@@ -71,13 +71,13 @@ class Application_Model_Tab
 	
 	public function getArtist() { return $this->_artist; }
 	public function setArtist($artist) {
-		$this->_artist = (int)$artist;
+		$this->_artist = $artist;
 		return $this;
 	}
 	
 	public function getTitle() { return $this->_title; }
 	public function setTitle($title) {
-		$this->_title = (int)$title;
+		$this->_title = $title;
 		return $this;
 	}
 	
@@ -89,7 +89,7 @@ class Application_Model_Tab
 	
 	public function getContent() { return $this->_content; }
 	public function setContent($content) {
-		$this->_content = (int)$content;
+		$this->_content = $content;
 		return $this;
 	}
 	

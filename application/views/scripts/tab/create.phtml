@@ -1,18 +1,31 @@
 <?php ?>
-<form id="createtab" enctype="application/x-www-form-urlencoded" method="post" action="/mytabcloud/public/tab/create">
-    <dl class="zend_form">
-        <dt id="formname-label">&#160;</dt>
-        <dd id="formname-element"><input type="hidden" name="formname" value="createtab" id="formname" /></dd>
-        <dt id="artist-label"><label for="artist" class="required">Artist</label></dt>                     
-        <dd id="artist-element"><input type="text" name="artist" id="artist" value="" /></dd>
-        <dt id="title-label"><label for="title" class="required">Title</label></dt>                     
-        <dd id="title-element"><input type="text" name="title" id="title" value="" /></dd>
-    </dl>
+<?php
+    if($this->logged) {
+        if($this->display_form) {
+?>
+        <form id="createtab" enctype="application/x-www-form-urlencoded" method="post" action="/mytabcloud/public/tab/create">
+            <dl class="zend_form">
+                <dt id="formname-label">&#160;</dt>
+                <dd id="formname-element"><input type="hidden" name="formname" value="createtab" id="formname" /></dd>
+                <dt id="artist-label"><label for="artist" class="required">Artist</label></dt>                     
+                <dd id="artist-element"><input type="text" name="artist" id="artist" value="" /></dd>
+                <dt id="title-label"><label for="title" class="required">Title</label></dt>                     
+                <dd id="title-element"><input type="text" name="title" id="title" value="" /></dd>
+            </dl>
+            
+            <?php echo $this->tab_display; ?>
+                
+            <dl class="zend_form">
+                <dt id="submit-label">&#160;</dt><dd id="submit-element">
+                <input type="submit" name="submit" id="submit" value="Save" /></dd>
+            </dl>
+        </form>
+<?php
+        } else {
+            echo $this->message;
+        }
+    } else {
+        echo "Veuillez vous connecter";
+    }
     
-    <?php echo $this->tab_display; ?>
-        
-    <dl class="zend_form">
-        <dt id="submit-label">&#160;</dt><dd id="submit-element">
-        <input type="submit" name="submit" id="submit" value="Save" /></dd>
-    </dl>
-</form>
+?>

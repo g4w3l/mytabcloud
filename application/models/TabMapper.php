@@ -17,12 +17,12 @@ class Application_Model_TabMapper
     }
     
     public function save(Application_Model_Tab $tab) {
-		// Objet à sauvegarder
+		// Objet … sauvegarder
 		// champ de table -> attribut de l'objet
 		$data = array(
 			'tab_artist' => $tab->getArtist(),
 			'tab_title' => $tab->getTitle(),
-			'tab_nb_strings' => $tab->getNbStrings()),
+			'tab_nb_strings' => $tab->getNbStrings(),
 			'tab_content' => $tab->getContent(),
 			'tab_user' => $tab->getUser()			
 		);
@@ -37,11 +37,11 @@ class Application_Model_TabMapper
 	}
 	
 	public function find($id, Application_Model_Tab $tab) {
-		// Requête permettant de récupérer une tablature par son ID
+		// Requête permettant de r‚cup‚rer une tablature par son ID
 		$result = $this->getDbTable()->find($id);
         if (0 == count($result)) { return; }
 		
-		// On met le résultat de la requête dans un objet Application_Model_Tab
+		// On met le r‚sultat de la requˆte dans un objet Application_Model_Tab
         $row = $result->current();
         $tab->setId($row->tab_id)
 			->setArtist($row->tab_artist)
