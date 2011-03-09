@@ -28,9 +28,9 @@ class UserController extends Zend_Controller_Action
 
         if ($request->isPost() && $request->getParam('formname') == 'signup') {
             if ($form->isValid($request->getPost())) {
-                $comment = new Application_Model_User($form->getValues());
+                $user = new Application_Model_User($form->getValues());
                 $mapper  = new Application_Model_UserMapper();
-                $mapper->save($comment);
+                $mapper->save($user);
                 return $this->_helper->redirector('index');
 			}
 		}

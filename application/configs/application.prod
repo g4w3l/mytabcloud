@@ -16,6 +16,11 @@ resources.db.params.host = "localhost";
 resources.db.params.username = "user";
 resources.db.params.password = "password";
 
+; Constantes servant à configurer l'application
+; - Nombre de beats par ligne de tablature 
+constants.NB_BEATS = 20
+; - Nombre de lignes de tablature par page
+constants.NB_LINES = 5                    
 
 [staging : production]
 resources.view[] =
