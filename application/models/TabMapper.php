@@ -17,7 +17,7 @@ class Application_Model_TabMapper
     }
     
     public function save(Application_Model_Tab $tab) {
-		// Objet � sauvegarder
+		// Objet à sauvegarder
 		// champ de table -> attribut de l'objet
 		$data = array(
 			'tab_artist' => $tab->getArtist(),
@@ -27,7 +27,7 @@ class Application_Model_TabMapper
 			'tab_user' => $tab->getUser()			
 		);
 		
-		// V�rification s'il s'agit d'un update ou d'un insert
+		// Vérification s'il s'agit d'un update ou d'un insert
 		if (null === ($id = $tab->getId())) {
             unset($data['tab_id']);
             $this->getDbTable()->insert($data);
