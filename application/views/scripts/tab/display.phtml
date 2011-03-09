@@ -1,4 +1,7 @@
-Test display <br />
 <?php
-    echo 'Affiche tab : ' . $this->tab->getArtist();
+	if($this->has_tab) {
+		echo $this->tab_display;
+	} else {
+		echo $this->message;
+	}
 ?>

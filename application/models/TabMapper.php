@@ -17,7 +17,7 @@ class Application_Model_TabMapper
     }
     
     public function save(Application_Model_Tab $tab) {
-		// Objet … sauvegarder
+		// Objet ï¿½ sauvegarder
 		// champ de table -> attribut de l'objet
 		$data = array(
 			'tab_artist' => $tab->getArtist(),
@@ -27,7 +27,7 @@ class Application_Model_TabMapper
 			'tab_user' => $tab->getUser()			
 		);
 		
-		// Vérification s'il s'agit d'un update ou d'un insert
+		// Vï¿½rification s'il s'agit d'un update ou d'un insert
 		if (null === ($id = $tab->getId())) {
             unset($data['tab_id']);
             $this->getDbTable()->insert($data);
@@ -37,11 +37,11 @@ class Application_Model_TabMapper
 	}
 	
 	public function find($id, Application_Model_Tab $tab) {
-		// Requête permettant de r‚cup‚rer une tablature par son ID
+		// Requï¿½te permettant de rï¿½cupï¿½rer une tablature par son ID
 		$result = $this->getDbTable()->find($id);
-        if (0 == count($result)) { return; }
+        if (0 == count($result)) { return false; }
 		
-		// On met le r‚sultat de la requˆte dans un objet Application_Model_Tab
+		// On met le rÃ©sultat de la requï¿½te dans un objet Application_Model_Tab
         $row = $result->current();
         $tab->setId($row->tab_id)
 			->setArtist($row->tab_artist)
@@ -49,6 +49,8 @@ class Application_Model_TabMapper
 			->setNbStrings($row->tab_nb_strings)
 			->setContent($row->tab_content)
 			->setUser($row->tab_user);
+		
+		return true;
 	}
 	
 	public function delete($id)

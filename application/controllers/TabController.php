@@ -12,7 +12,7 @@ class TabController extends Zend_Controller_Action
     }
 
     /**
-     * Action par défaut : affiche une liste de tablatures
+     * Action par dï¿½faut : affiche une liste de tablatures
      */         
     public function indexAction()
     {
@@ -26,7 +26,7 @@ class TabController extends Zend_Controller_Action
     }
     
     /**
-     * Action "create" : Crée une tablature
+     * Action "create" : Crï¿½e une tablature
      */         
     public function createAction() 
     {     
@@ -37,27 +37,27 @@ class TabController extends Zend_Controller_Action
             
             $request = $this->getRequest();
              
-             // Si le formulaire de création a été envoyé
+             // Si le formulaire de crï¿½ation a ï¿½tï¿½ envoyï¿½
              if ($request->isPost() && $request->getParam('formname') == 'createtab') {
              
                 $this->view->display_form = false; 
              
-                // On crée l'objet Tab
+                // On crï¿½e l'objet Tab
                 $tab            = new Application_Model_Tab();
                 $tab_content    = array();
                 
                 $tab_artist     = $request->getParam('artist');
                 $tab_title      = $request->getParam('title');      
                 
-                // On va récupérer les valeurs de chaque note
+                // On va rï¿½cupï¿½rer les valeurs de chaque note
                 foreach($request->getParams() as $key => $value) {
-                    // On récupère la note à laquelle cela correspond
+                    // On rï¿½cupï¿½re la note ï¿½ laquelle cela correspond
                     $arr_key = explode("-", $key); // ["note", ligne, corde, temps]
                     
                     // Si il s'agit bien d'une note
                     if($arr_key[0] == "note") {
-                        $beat = (NB_BEATS * (int)$arr_key[1]) + (int)$arr_key[3]; // récupération du temps
-                        $string = $arr_key[2]; // récupération de la corde                                                             
+                        $beat = (NB_BEATS * (int)$arr_key[1]) + (int)$arr_key[3]; // rï¿½cupï¿½ration du temps
+                        $string = $arr_key[2]; // rï¿½cupï¿½ration de la corde                                                             
                         // echo 'Array('.$string.','.$beat.') : ' . $value . '<br />';
                         $tab_content[$string][$beat] = $value;
                     }
@@ -82,7 +82,7 @@ class TabController extends Zend_Controller_Action
              
                 $this->view->display_form = true;
                 
-                // Déclaration des compteurs pour l'affichage
+                // DÃ©claration des compteurs pour l'affichage
                 $ligne      = 0;
                 $beat       = 0;
                 $string     = 0;
@@ -120,16 +120,62 @@ class TabController extends Zend_Controller_Action
      * Action "display" : Affiche une tablature
      */   
     public function displayAction() {
-        // Récupération du paramètre ID
+        // RÃ©cupÃ©ration du paramÃ¨tre ID
         $tab_id = $this->_getParam("id");
                 
-        // Mapper pour récupérer l'entrée                
+        // Mapper pour rÃ©cupÃ©rer l'entrÃ©e                
         $mapper  = new Application_Model_TabMapper();
         $tab     = new Application_Model_Tab();
         
-        $mapper->find($tab_id, $tab);
+        if($mapper->find($tab_id, $tab)) {
+        	$this->view->has_tab	= true;
+        	$this->view->artist 	= $tab->getArtist();
+        	$this->view->title 		= $tab->getTitle();
+        	$tab_content 			= unserialize($tab->getContent());
+        	$tab_display 			= "";
+			$beat_line 				= 0;
+			$beat_begin_line		= 0;
+			$current_beat			= 0;
+			
+			//echo 'Tab content count : ' . count($tab_content[0])/(int)NB_BEATS;
+			
+			// On va afficher la tablature
+			for ($ligne = 0 ; $ligne < count($tab_content[0])/(int)NB_BEATS ; $ligne++) {
+				// Pour chaque nouvelle ligne, on retient le premier beat
+                $beat_begin_line = $current_beat;
+				
+				// On dessine une nouvelle ligne de tablature
+                $tab_display = $tab_display . '<div class="tab_line">';
+    	        $tab_display = $tab_display . '<table class="tab" style="margin-left:20px;" border=0 cellspacing="0" cellpadding="0">';
+                
+				// On va afficher chaque corde
+                for($string = 0 ; $string < $tab->getNbStrings() ; $string++) {
+                	// Pour chaque changement de corde, on se replace au premier beat de la ligne
+                	$current_beat = $beat_begin_line;
+                    $tab_display = $tab_display . '<tr>';
+                    
+					// Pour chaque temps on va afficher la valeur
+                    for ($beat_line = 0 ; $beat_line < (int)NB_BEATS ; $beat_line++) {
+                        $tab_display = $tab_display .  '<td><input name="note-'.$ligne.'-'.$string.'-'.$current_beat.'" id="note-'.$ligne.'-'.$string.'-'.$current_beat.'" value="' . $tab_content[$string][$current_beat] . '" type="text" maxlength="3" size="2" /></td>';
+						$current_beat = $current_beat + 1;
+                    }
+                    
+                    $tab_display = $tab_display . '</tr>';
+                }
+                
+                $tab_display = $tab_display . '</table>';
+    	        $tab_display = $tab_display . '</div>';
+            }
+			
+			$this->view->tab_display = $tab_display;  
+        	
+        	
+        } else {
+        	$this->view->has_tab	= false;
+        	$this->view->message = 'Tablature introuvable';
+        }
         
-        $this->view->tab = $tab;
+        
     }
 
 }
