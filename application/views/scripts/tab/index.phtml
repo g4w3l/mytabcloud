@@ -1,6 +1,11 @@
 <?php 
-    if($this->logged) {
-        echo "Ici, la liste des tablatures de " . $this->username . ".";
+    if($this->user()) {
+        echo "Ici, la liste des tablatures de " . $this->user() . ".<br>";
+        
+        foreach($this->tabs as $tab) {
+            echo "Tablature : " . $tab->getArtist() . "<br>";
+        }
+        
     } else {
         echo "Veuillez vous connecter";
     }

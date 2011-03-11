@@ -48,8 +48,8 @@ class UserController extends Zend_Controller_Action
 		$form    = new Application_Form_UserSignin();
 		
 		// Par défaut l'utilisateur n'est pas loggé
-		$this->view->logged = false;
-		$this->view->signupURL = $this->view->url(array('controller' => 'user', 'action' => 'signup'), 'default', true);
+		$this->view->signupURL    = $this->view->url(array('controller' => 'user', 'action' => 'signup'), 'default', true);
+		$this->view->signoutURL   = $this->view->url(array('controller' => 'user', 'action' => 'signout'), 'default', true);
 		
 		// Si le formulaire de login a été posté
 		if($this->getRequest()->isPost() && $request->getParam('formname') == 'signin') {
@@ -86,12 +86,7 @@ class UserController extends Zend_Controller_Action
 		} 
 		
 		$logged = Zend_Auth::getInstance();
-		if($logged->hasIdentity()) {
-			$ident = $logged->getIdentity();
-			$this->view->logged = true;	
-			$this->view->username = $this->view->escape($ident->usr_name);
-			$this->view->signoutURL = $this->view->url(array('controller' => 'user', 'action' => 'signout'), 'default', true);
-		} else {
+		if(!$logged->hasIdentity()) {
 			$this->view->form = $form;
 		}
     }

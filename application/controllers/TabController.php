@@ -16,12 +16,14 @@ class TabController extends Zend_Controller_Action
      */         
     public function indexAction()
     {
-        // action body
+        // Action
+        $mapper  = new Application_Model_TabMapper();
+        
+        // Si l'utilisateur est loggé on récupère ses tablatures
         if($this->_auth->hasIdentity()) {
-            $this->view->logged = true;
-            $this->view->username = $this->view->escape($this->_auth->getIdentity()->usr_name);
-        } else {
-            $this->view->logged = false;
+            // Récupération des tablatures
+            $tabs    = $mapper->findByUser($this->_auth->getIdentity()->usr_id);
+            $this->view->tabs = $tabs;        
         }
     }
     
@@ -31,10 +33,7 @@ class TabController extends Zend_Controller_Action
     public function createAction() 
     {     
         // action body
-        if($this->_auth->hasIdentity()) {
-            $this->view->logged = true;
-            $this->view->username = $this->view->escape($this->_auth->getIdentity()->usr_name);
-            
+        if($this->_auth->hasIdentity()) {            
             $request = $this->getRequest();
              
              // Si le formulaire de cr�ation a �t� envoy�
@@ -42,14 +41,14 @@ class TabController extends Zend_Controller_Action
              
                 $this->view->display_form = false; 
              
-                // On cr�e l'objet Tab
+                // On crée l'objet Tab
                 $tab            = new Application_Model_Tab();
                 $tab_content    = array();
                 
                 $tab_artist     = $request->getParam('artist');
                 $tab_title      = $request->getParam('title');      
                 
-                // On va r�cup�rer les valeurs de chaque note
+                // On va récupérer les valeurs de chaque note
                 foreach($request->getParams() as $key => $value) {
                     // On r�cup�re la note � laquelle cela correspond
                     $arr_key = explode("-", $key); // ["note", ligne, corde, temps]
@@ -111,8 +110,6 @@ class TabController extends Zend_Controller_Action
                    
                 $this->view->tab_display = $tab_display;  
              }
-        } else {
-            $this->view->logged = false;
         }
     }
     

@@ -52,7 +52,7 @@ class Application_Model_TabMapper
 		
 		return true;
 	}
-	
+		
 	public function delete($id)
     {
         $result = $this->getDbTable()->delete($id);
@@ -60,6 +60,22 @@ class Application_Model_TabMapper
 	
 	public function fetchAll() {
 		$resultSet = $this->getDbTable()->fetchAll();
+        $entries   = array();
+        foreach ($resultSet as $row) {
+            $entry = new Application_Model_Tab();
+            $entry->setId($row->tab_id)
+				->setArtist($row->tab_artist)
+    			->setTitle($row->tab_title)
+    			->setNbStrings($row->tab_nb_strings)
+    			->setContent($row->tab_content)
+    			->setUser($row->tab_user);
+            $entries[] = $entry;
+        }
+        return $entries;
+	}
+	
+	public function findByUser($user_id) {
+	    $resultSet = $this->getDbTable()->fetchAll("tab_user = '" . $user_id . "'");
         $entries   = array();
         foreach ($resultSet as $row) {
             $entry = new Application_Model_Tab();

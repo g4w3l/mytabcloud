@@ -1,1 +1,8 @@
-Test
+<?php  
+    if($this->user()) {
+        echo "Connecté : " . $this->user(); 
+    } else {
+        echo "Non connecté";
+    }
+            
+?>

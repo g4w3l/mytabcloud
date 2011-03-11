@@ -14,6 +14,11 @@ set_include_path(implode(PATH_SEPARATOR, array(
     get_include_path(),
 )));
 
+// On ajoute l'espace de noms MyTabCloud
+require_once 'Zend/Loader/AutoLoader.php';
+$autoloader = Zend_Loader_Autoloader::getInstance();
+$autoloader->registerNamespace('MyTabCloud_');
+
 /** Zend_Application */
 require_once 'Zend/Application.php';
 
@@ -24,3 +29,11 @@ $application = new Zend_Application(
 );
 $application->bootstrap()
             ->run();
+            
+$acl_ini = APPLICATION_PATH . '/configs/acl.ini' ;  
+$acl     = new MyTabCloud_Acl_Manager($acl_ini) ; 
+
+// $auth est une référence vers Zend_Auth (getInstance())  
+// $acl a été défini dans le chapitre précédent
+$front = Zend_Controller_Front::getInstance();  
+$front->registerPlugin(new MyTabCloud_Plugin_Auth($acl)) ;            
