@@ -30,3 +30,25 @@ CREATE TABLE mtc_tab
 WITH (
   OIDS=FALSE
 );
+
+
+CREATE TABLE mtc_note
+(
+  note_id serial NOT NULL,
+  note_string integer NOT NULL,
+  note_fret integer NOT NULL,
+  note_beat integer,
+  note_tab integer,
+  CONSTRAINT pk_note PRIMARY KEY (note_id),
+  CONSTRAINT fk_note_tab FOREIGN KEY (note_tab)
+      REFERENCES mtc_tab (tab_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+
+CREATE INDEX index_tab_note
+  ON mtc_note
+  USING btree
+  (note_tab);
