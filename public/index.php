@@ -27,13 +27,20 @@ $application = new Zend_Application(
     APPLICATION_ENV,
     APPLICATION_PATH . '/configs/application.ini'
 );
-$application->bootstrap()
-            ->run();
-            
+
 $acl_ini = APPLICATION_PATH . '/configs/acl.ini' ;  
 $acl     = new MyTabCloud_Acl_Manager($acl_ini) ; 
 
-// $auth est une référence vers Zend_Auth (getInstance())  
-// $acl a été défini dans le chapitre précédent
+// $auth est une rï¿½fï¿½rence vers Zend_Auth (getInstance())  
+// $acl a ï¿½tï¿½ dï¿½fini dans le chapitre prï¿½cï¿½dent
 $front = Zend_Controller_Front::getInstance();  
-$front->registerPlugin(new MyTabCloud_Plugin_Auth($acl)) ;            
+//$front->registerPlugin(new MyTabCloud_Plugin_Auth($acl)) ;  
+
+// RÃ©glage du timezone
+date_default_timezone_set('Europe/Paris');
+
+
+$application->bootstrap()
+            ->run();
+            
+     

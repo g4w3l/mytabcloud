@@ -52,3 +52,21 @@ CREATE INDEX index_tab_note
   ON mtc_note
   USING btree
   (note_tab);
+  
+-- Table: mtc_action
+
+CREATE TABLE mtc_action
+(
+  act_id serial NOT NULL,
+  act_user integer,
+  act_action character varying(20),
+  act_type character varying(20),
+  act_resource integer,
+  act_timestamp timestamp with time zone,
+  CONSTRAINT pk_action PRIMARY KEY (act_id)
+)
+WITH (
+  OIDS=FALSE
+);
+
+
