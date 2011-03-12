@@ -75,7 +75,7 @@ class Application_Model_NoteMapper
 	    $resultSet = $this->getDbTable()->fetchAll("note_tab = '" . $tab_id . "'");
         $entries   = array();
         foreach ($resultSet as $row) {
-            $entry = new Application_Model_Tab();
+            $entry = new Application_Model_Note();
             $entry->setId($row->note_id)
 				->setString($row->note_string)
 				->setFret($row->note_fret)
@@ -85,6 +85,15 @@ class Application_Model_NoteMapper
             $entries[] = $entry;
         }
         return $entries;
+	}
+	
+	public function getLastBeat($tab_id) {
+		$select = $this->getDbTable()->select()
+				->from(array('n' => $this->getDbTable()->getName()), array('MAX(note_beat) AS note_beat'))
+				->where('note_tab = ?', $tab_id);
+		
+		$maxbeat = $this->getDbTable()->fetchRow($select);
+		return $maxbeat['note_beat'];
 	}
 
 }

@@ -9,6 +9,7 @@ class Application_Model_Tab
     protected $_nbStrings;
     protected $_content;
     protected $_user;
+	protected $_lastBeat;
     
     // Mapper
 	protected $_mapper;
@@ -24,7 +25,7 @@ class Application_Model_Tab
     }
  
  	/**
-	 * Setter générique
+	 * Setter gï¿½nï¿½rique
 	 */
     public function __set($name, $value)
     {
@@ -36,7 +37,7 @@ class Application_Model_Tab
     }
  
  	/**
-	 * Getter générique
+	 * Getter gï¿½nï¿½rique
 	 */
     public function __get($name)
     {
@@ -48,7 +49,7 @@ class Application_Model_Tab
     }    
     
     /**
-	 * Initialisation à partir d'un tableau de données
+	 * Initialisation ï¿½ partir d'un tableau de donnï¿½es
 	 */
 	public function setOptions(array $options)
     {
@@ -93,11 +94,32 @@ class Application_Model_Tab
 		return $this;
 	}
 	
+	public function getContentAsAnArray() {
+		$contentArray = array();		
+		$count = (int)($this->getLastBeat()+NB_BEATS-($this->getLastBeat()%NB_BEATS));
+		for ($string = 0 ; $string < $count ; $string++) {
+			for($beat = 0 ; $beat < ((int)$this->getLastBeat())+NB_BEATS-($this->getLastBeat()%NB_BEATS) ; $beat++) {
+				$contentArray[$string][$beat] = "";
+			}
+		}
+		
+		foreach($this->getContent() as $note) {
+			$contentArray[$note->getString()][$note->getBeat()] = $note->getFret();
+		}
+		
+		return $contentArray;
+	}
+	
 	public function getUser() { return $this->_user; }
 	public function setUser($user) {
 		$this->_user = (int)$user;
 		return $this;
 	}
 
+	public function getLastBeat() { return $this->_lastBeat; }
+	public function setLastBeat($lastBeat) {
+		$this->_lastBeat = $lastBeat;
+		return $this;
+	}
 }
 

@@ -11,6 +11,10 @@ class Application_Model_DbTable_Note extends Zend_Db_Table_Abstract
 			'refColumns'	=> 'tab_id'
 		)
 	);
+	
+	public function getName() {
+		return $this->_name;
+	}
 
 
 }

@@ -17,20 +17,26 @@ class Application_Model_TabMapper
     }
     
     public function save(Application_Model_Tab $tab) {
+    	$mapper  = new Application_Model_NoteMapper();
 		// Objet à sauvegarder
 		// champ de table -> attribut de l'objet
 		$data = array(
 			'tab_artist' => $tab->getArtist(),
 			'tab_title' => $tab->getTitle(),
 			'tab_nb_strings' => $tab->getNbStrings(),
-			'tab_content' => $tab->getContent(),
 			'tab_user' => $tab->getUser()			
 		);
 		
 		// Vérification s'il s'agit d'un update ou d'un insert
 		if (null === ($id = $tab->getId())) {
             unset($data['tab_id']);
-            $this->getDbTable()->insert($data);
+            $tab_id = $this->getDbTable()->insert($data);
+			
+			foreach($tab->getContent() as $note) {
+				$note->setTab($tab_id);
+				$mapper->save($note);
+			}
+			
         } else {
             $this->getDbTable()->update($data, array('tab_id = ?' => $id));
         }
@@ -43,11 +49,20 @@ class Application_Model_TabMapper
 		
 		// On met le résultat de la requ�te dans un objet Application_Model_Tab
         $row = $result->current();
+		
+		// Initialisation de l'objet qui va nous permettre de récupérer les notes de la tablature
+		$noteMap = new Application_Model_NoteMapper();
+		
+		// Récupération du maximum
+		$lastBeat = $noteMap->getLastBeat($id);
+		if($lastBeat == "") { $lastBeat = 0; }
+				
         $tab->setId($row->tab_id)
 			->setArtist($row->tab_artist)
 			->setTitle($row->tab_title)
 			->setNbStrings($row->tab_nb_strings)
-			->setContent($row->tab_content)
+			->setContent($noteMap->findByTab($id))
+			->setLastBeat($lastBeat)
 			->setUser($row->tab_user);
 		
 		return true;
