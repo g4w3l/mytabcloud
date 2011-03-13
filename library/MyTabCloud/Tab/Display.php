@@ -20,7 +20,7 @@ class MyTabCloud_Tab_Display {
                 $tab_display = $tab_display . '<tr>';
                 
                 for ($beat = 0 ; $beat < NB_BEATS ; $beat++) {
-                    $tab_display = $tab_display .  '<td><input name="note-'.$ligne.'-'.$string.'-'.$beat.'" id="note-'.$ligne.'-'.$string.'-'.$beat.'" type="text" maxlength="3" size="2" /></td>';
+                    $tab_display = $tab_display .  '<td><input name="note-'.$ligne.'-'.$string.'-'.$beat.'" id="note-'.$ligne.'-'.$string.'-'.$beat.'" type="text" maxlength="3" style="width:'.BEAT_WIDTH.';" /></td>';
                 }
                 
                 $tab_display = $tab_display . '</tr>';

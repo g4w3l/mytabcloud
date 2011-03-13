@@ -47,6 +47,9 @@ class UserController extends Zend_Controller_Action
 		$request = $this->getRequest();
 		$form    = new Application_Form_UserSignin();
 		
+		$req_controller = $request->getParam('req_controller');
+		$req_action 	= $request->getParam('req_action');
+		
 		// Par défaut l'utilisateur n'est pas loggé
 		$this->view->signupURL    = $this->view->url(array('controller' => 'user', 'action' => 'signup'), 'default', true);
 		$this->view->signoutURL   = $this->view->url(array('controller' => 'user', 'action' => 'signout'), 'default', true);
@@ -77,7 +80,11 @@ class UserController extends Zend_Controller_Action
 					Zend_Session::regenerateId();
 					
 					// Redirection vers la page d'accueil
-					$this->_helper->_redirector('index', 'index');					
+					if ($req_controller != "")  {
+						$this->_helper->_redirector($req_action,$req_controller);
+					} else {
+						$this->_helper->_redirector('index', 'index');						
+					}					
 				} else {
 					// Message affiché si l'authentification a échoué
 					$this->view->message = '<div class="error">Incorrect login or password</div>';

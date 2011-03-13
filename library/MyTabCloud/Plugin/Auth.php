@@ -90,8 +90,11 @@ class MyTabCloud_Plugin_Auth extends Zend_Controller_Plugin_Abstract	{
 			}
 		}
 
+		$request->setParam('req_controller', $request->getControllerName());
+		$request->setParam('req_action', $request->getActionName());
 		$request->setModuleName($module) ;
 		$request->setControllerName($controller) ;
 		$request->setActionName($action) ;
+		
 	}
 }
