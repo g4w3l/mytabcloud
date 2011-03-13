@@ -2,7 +2,7 @@
 /**
  * Plugin d'authentification
  * 
- * Largement inspiré de :
+ * Largement inspirï¿½ de :
  * http://julien-pauli.developpez.com/tutoriels/zend-framework/atelier/auth-http/?page=modele-MVC
 **/
 
@@ -18,14 +18,14 @@ class MyTabCloud_Plugin_Auth extends Zend_Controller_Plugin_Abstract	{
 	private $_acl;
 	
 	/**
-	 * Chemin de redirection lors de l'échec d'authentification
+	 * Chemin de redirection lors de l'ï¿½chec d'authentification
 	 */
 	const FAIL_AUTH_MODULE     = 'default';
-	const FAIL_AUTH_ACTION     = 'index';
-	const FAIL_AUTH_CONTROLLER = 'account';
+	const FAIL_AUTH_ACTION     = 'signin';
+	const FAIL_AUTH_CONTROLLER = 'user';
 	
 	/**
-	 * Chemin de redirection lors de l'échec de contrôle des privilèges
+	 * Chemin de redirection lors de l'ï¿½chec de contrï¿½le des privilï¿½ges
 	 */
 	const FAIL_ACL_MODULE     = 'default';
 	const FAIL_ACL_ACTION     = 'privileges';
@@ -40,15 +40,15 @@ class MyTabCloud_Plugin_Auth extends Zend_Controller_Plugin_Abstract	{
 	}
 	
 	/**
-	 * Vérifie les autorisations
-	 * Utilise _request et _response hérités et injectés par le FC
+	 * Vï¿½rifie les autorisations
+	 * Utilise _request et _response hï¿½ritï¿½s et injectï¿½s par le FC
 	 */
 	public function preDispatch(Zend_Controller_Request_Abstract $request)	{
 		// is the user authenticated
 		if ($this->_auth->hasIdentity()) {
 		  // yes ! we get his role
-		  $user = $this->_auth->getStorage()->read() ;
-		  $role = $user['role'] ;
+		  $user = $this->_auth->getIdentity();
+		  $role = $user->usr_role;
 		} else {
 		  // no = guest user
 		  $role = 'guest';
@@ -73,17 +73,17 @@ class MyTabCloud_Plugin_Auth extends Zend_Controller_Plugin_Abstract	{
 		  $resource = null;
 		}
 		
-		// contrôle si l'utilisateur est autorisé
+		// contrï¿½le si l'utilisateur est autorisï¿½
 		if (!$this->_acl->isAllowed($role, $resource, $action)) {
-			// l'utilisateur n'est pas autorisé à accéder à cette ressource
+			// l'utilisateur n'est pas autorisï¿½ ï¿½ accï¿½der ï¿½ cette ressource
 			// on va le rediriger
 			if (!$this->_auth->hasIdentity()) {
-				// il n'est pas identifié -> module de login
+				// il n'est pas identifiï¿½ -> module de login
 				$module = self::FAIL_AUTH_MODULE ;
 				$controller = self::FAIL_AUTH_CONTROLLER ;
 				$action = self::FAIL_AUTH_ACTION ;
 			} else {
-				// il est identifié -> error de privilèges
+				// il est identifiï¿½ -> error de privilï¿½ges
 				$module = self::FAIL_ACL_MODULE ;
 				$controller = self::FAIL_ACL_CONTROLLER ;
 				$action = self::FAIL_ACL_ACTION ;

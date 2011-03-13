@@ -120,5 +120,32 @@ class TabController extends Zend_Controller_Action
         
         
     }
+	
+	/**
+     * Action "display" : Affiche une tablature
+     */   
+    public function editAction() {
+        // Récupération du paramètre ID
+        $tab_id = $this->_getParam("id");
+                
+        // Mapper pour récupérer l'entrée                
+        $mapper  = new Application_Model_TabMapper();
+        $tab     = new Application_Model_Tab();
+        
+        if($mapper->find($tab_id, $tab)) {
+        	$this->view->has_tab	= true;
+        	$this->view->artist 	= $tab->getArtist();
+        	$this->view->title 		= $tab->getTitle();
+        	
+			$this->view->tab_display = MyTabCloud_Tab_Display::displayTabForm($tab, true);  
+        	
+        	
+        } else {
+        	$this->view->has_tab	= false;
+        	$this->view->message = 'Tablature introuvable';
+        }
+        
+        
+    }
 
 }

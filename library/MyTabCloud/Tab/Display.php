@@ -33,15 +33,20 @@ class MyTabCloud_Tab_Display {
 		return $tab_display;
 	}
 
-	public static function displayTabForm($tab) {
+	public static function displayTabForm($tab, $page = false) {
 		$tab_content 			= $tab->getContentAsAnArray();
     	$tab_display 			= "";
 		$beat_line 				= 0;
 		$beat_begin_line		= 0;
 		$current_beat			= 0;
-						
+
+		if (!$page) {
+			$countlines = count($tab_content[0])/(int)NB_BEATS;
+		} else {
+			$countlines = NB_LINES;
+		}					
 		// On va afficher la tablature
-		for ($ligne = 0 ; $ligne < count($tab_content[0])/(int)NB_BEATS ; $ligne++) {
+		for ($ligne = 0 ; $ligne <  $countlines ; $ligne++) {
 			// Pour chaque nouvelle ligne, on retient le premier beat
             $beat_begin_line = $current_beat;
 			
@@ -57,7 +62,12 @@ class MyTabCloud_Tab_Display {
                 
 				// Pour chaque temps on va afficher la valeur
                 for ($beat_line = 0 ; $beat_line < (int)NB_BEATS ; $beat_line++) {
-                    $tab_display = $tab_display .  '<td><input name="note-'.$ligne.'-'.$string.'-'.$current_beat.'" id="note-'.$ligne.'-'.$string.'-'.$current_beat.'" value="' . $tab_content[$string][$current_beat] . '" type="text" maxlength="3" size="2" /></td>';
+                	if($current_beat > count($tab_content[1])-1) {	
+                		$notevalue = "";
+					} else {
+						$notevalue = $tab_content[$string][$current_beat];
+					}
+                    $tab_display = $tab_display .  '<td><input name="note-'.$ligne.'-'.$string.'-'.$current_beat.'" id="note-'.$ligne.'-'.$string.'-'.$current_beat.'" value="' . $notevalue . '" type="text" maxlength="3" size="2" /></td>';
 					$current_beat = $current_beat + 1;
                 }
                 

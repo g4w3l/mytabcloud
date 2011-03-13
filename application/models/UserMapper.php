@@ -24,7 +24,8 @@ class Application_Model_UserMapper
 			'usr_mail' => $user->getMail(),
 			'usr_password' => md5($user->getPassword()),
 			'usr_name' => $user->getName(),
-			'usr_created' => date('Y-m-d H:i:s')			
+			'usr_created' => date('Y-m-d H:i:s'),
+			'usr_role' => $user->getRole()			
 		);
 		
 		// Vérification s'il s'agit d'un update ou d'un insert
@@ -48,7 +49,8 @@ class Application_Model_UserMapper
 			 ->setPassword($row->usr_password)
 			 ->setName($row->usr_name)
 			 ->setCreated($row->usr_created)
-			 ->setMail($row->usr_mail);
+			 ->setMail($row->usr_mail)
+			 ->setRole($row->usr_role);
 	}
 	
 	public function delete($id)
@@ -66,7 +68,8 @@ class Application_Model_UserMapper
 				 ->setPassword($row->usr_password)
 				 ->setName($row->usr_name)
 				 ->setCreated($row->usr_created)
-				 ->setMail($row->usr_mail);
+				 ->setMail($row->usr_mail)
+				 ->setRole($row->usr_role);
             $entries[] = $entry;
         }
         return $entries;

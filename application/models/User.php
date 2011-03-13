@@ -9,6 +9,7 @@ class Application_Model_User
 	protected $_password;
 	protected $_name;
 	protected $_created;
+	protected $_role;
 	
 	// Mapper
 	protected $_mapper;
@@ -99,5 +100,10 @@ class Application_Model_User
 		return $this;
 	}
 	
+	public function getRole() { return $this->_role; }
+	public function setRole($role) {
+		$this->_role = $role;
+		return $this;
+	}
 }
 
