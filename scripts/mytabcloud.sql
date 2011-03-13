@@ -8,6 +8,7 @@ CREATE TABLE mtc_user
   usr_password character varying(32) NOT NULL,
   usr_mail character varying(100),
   usr_created timestamp with time zone,
+  usr_role character varying(50),
   CONSTRAINT pk_user PRIMARY KEY (usr_id),
   CONSTRAINT unique_usr_login UNIQUE (usr_login)
 )

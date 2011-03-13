@@ -49,7 +49,11 @@ class Application_Form_UserSignup extends Zend_Form
 			  ->addFilter('StringTrim')
 			  ->addValidator('NotEmpty');
 			  
+		$role = new Zend_Form_Element_Hidden('role');
+		$role->setValue('member');
+			  
 		$this->addElement($formname)
+			 ->addElement($role)
 			 ->addElement($login)
 			 ->addElement($password)	
 			 ->addElement($password_confirm)
