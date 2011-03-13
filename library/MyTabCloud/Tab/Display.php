@@ -33,7 +33,7 @@ class MyTabCloud_Tab_Display {
 		return $tab_display;
 	}
 
-	public static function displayTabForm($tab, $page = false) {
+	public static function displayTabForm($tab, $page = false, $readonly = true) {
 		$tab_content 			= $tab->getContentAsAnArray();
     	$tab_display 			= "";
 		$beat_line 				= 0;
@@ -62,12 +62,22 @@ class MyTabCloud_Tab_Display {
                 
 				// Pour chaque temps on va afficher la valeur
                 for ($beat_line = 0 ; $beat_line < (int)NB_BEATS ; $beat_line++) {
+                		
+					// Si on a dépassé le beat maximal de la tablature, on va afficher un beat vide
                 	if($current_beat > count($tab_content[1])-1) {	
                 		$notevalue = "";
 					} else {
 						$notevalue = $tab_content[$string][$current_beat];
 					}
-                    $tab_display = $tab_display .  '<td><input name="note-'.$ligne.'-'.$string.'-'.$current_beat.'" id="note-'.$ligne.'-'.$string.'-'.$current_beat.'" value="' . $notevalue . '" type="text" maxlength="3" size="2" /></td>';
+					
+					// Si on est en lecture seule
+					if($readonly) {
+						$tab_display = $tab_display .  '<td><input name="note-'.$ligne.'-'.$string.'-'.$current_beat.'" id="note-'.$ligne.'-'.$string.'-'.$current_beat.'" value="' . $notevalue . '" type="text" maxlength="3" style="width:'.BEAT_WIDTH.';" readonly /></td>';
+                    } else {
+                    	$tab_display = $tab_display .  '<td><input name="note-'.$ligne.'-'.$string.'-'.$current_beat.'" id="note-'.$ligne.'-'.$string.'-'.$current_beat.'" value="' . $notevalue . '" type="text" maxlength="3" style="width:'.BEAT_WIDTH.';" /></td>';                    	
+                    } 
+					
+					// On passe au beat suivant
 					$current_beat = $current_beat + 1;
                 }
                 
