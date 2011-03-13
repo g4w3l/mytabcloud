@@ -13,7 +13,11 @@
         
         <!--[if lte IE 8]>
         <link rel="stylesheet" href="/mytabcloud/public/css/blueprint/ie.css" type="text/css" media="screen, projection" />
-        <![endif]-->       
+        <![endif]-->
+        
+        <?php $this->headScript()->appendFile('/mytabcloud/public/js/jquery.min.js'); ?>
+        <?php $this->javascriptHelper(); ?>
+        <?=$this->headScript()?>
         
                 
     </head>
