@@ -137,7 +137,7 @@ class TabController extends Zend_Controller_Action
         	$this->view->artist 	= $tab->getArtist();
         	$this->view->title 		= $tab->getTitle();
         	
-			$this->view->tab_display = MyTabCloud_Tab_Display::displayTabForm($tab, true);  
+			$this->view->tab_display = MyTabCloud_Tab_Display::displayTabForm($tab, true, false);  
         	
         	
         } else {

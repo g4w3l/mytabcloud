@@ -1,6 +1,10 @@
 <?php
 	if($this->has_tab) {
-		echo $this->tab_display;
+?>	
+	<center><h2><?php echo $this->artist; ?></h2>
+	<h3><?php echo $this->title; ?></h3></center>		
+	<?php echo $this->tab_display;?>
+<?php		
 	} else {
 		echo $this->message;
 	}
