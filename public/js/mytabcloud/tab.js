@@ -1,9 +1,15 @@
 /**
  * @author Gawel
  */
- 
+
+/**
+ * Fonction qui va associer les actions des appuis sur les flèches pour se
+ * déplacer dans la tablature
+ */
 function bindKeyEvents() {
+	// On keydown : on change d'input
 	$(document).bind('keydown', function(event) {
+		// Si on est sur un objet qui a un attribut "name"
         if(event.target.getAttribute('name')) {
             // Si on est sur une note
             if(event.target.getAttribute('name').substring(0,4) == "note") {
@@ -41,6 +47,8 @@ function bindKeyEvents() {
         }
     });
     
+    $('input[name^="note"]').bind('focus', function() {this.select();})
+    
     // Hack pour sélectionner l'input même sur les flèches gauche/droite
     $(document).bind('keyup', function(event) {
     	 if(event.target.getAttribute('name')) {
@@ -51,16 +59,8 @@ function bindKeyEvents() {
                     case 37:
                         event.target.select();
                         break;
-                    // Up
-                    case 38:
-                        event.target.select();
-                        break;
                     // Right
                     case 39:
-                        event.target.select();
-                        break;
-                    // Down
-                    case 40:
                         event.target.select();
                         break;
                     default:
