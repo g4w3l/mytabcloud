@@ -20,7 +20,7 @@ class MyTabCloud_Tab_Display {
                 $tab_display = $tab_display . '<tr>';
                 
                 for ($beat = 0 ; $beat < NB_BEATS ; $beat++) {
-                    $tab_display = $tab_display .  '<td><input name="note-'.$ligne.'-'.$string.'-'.$beat.'" id="note-'.$ligne.'-'.$string.'-'.$beat.'" type="text" maxlength="3" style="width:'.BEAT_WIDTH.';" /></td>';
+                    $tab_display = $tab_display .  '<td><input name="note-'.$ligne.'-'.$string.'-'.$beat.'" id="note-'.$ligne.'-'.$string.'-'.$beat.'" type="text" maxlength="3" autocomplete="off" style="width:'.BEAT_WIDTH.';" /></td>';
                 }
                 
                 $tab_display = $tab_display . '</tr>';
@@ -74,7 +74,7 @@ class MyTabCloud_Tab_Display {
 					if($readonly) {
 						$tab_display = $tab_display .  '<td><input name="note-'.$ligne.'-'.$string.'-'.$current_beat.'" id="note-'.$ligne.'-'.$string.'-'.$current_beat.'" value="' . $notevalue . '" type="text" maxlength="3" style="width:'.BEAT_WIDTH.';" readonly /></td>';
                     } else {
-                    	$tab_display = $tab_display .  '<td><input name="note-'.$ligne.'-'.$string.'-'.$current_beat.'" id="note-'.$ligne.'-'.$string.'-'.$current_beat.'" value="' . $notevalue . '" type="text" maxlength="3" style="width:'.BEAT_WIDTH.';" /></td>';                    	
+                    	$tab_display = $tab_display .  '<td><input name="note-'.$ligne.'-'.$string.'-'.$current_beat.'" id="note-'.$ligne.'-'.$string.'-'.$current_beat.'" value="' . $notevalue . '" type="text" autocomplete="off" maxlength="3" style="width:'.BEAT_WIDTH.';" /></td>';                    	
                     } 
 					
 					// On passe au beat suivant
