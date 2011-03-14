@@ -74,6 +74,7 @@ class MyTabCloud_Plugin_Auth extends Zend_Controller_Plugin_Abstract	{
 		}
 		
 		// contr�le si l'utilisateur est autoris�
+		//echo "Role : " . $role . ", resource : " . $resource . ", action : " . $action;
 		if (!$this->_acl->isAllowed($role, $resource, $action)) {
 			// l'utilisateur n'est pas autoris� � acc�der � cette ressource
 			// on va le rediriger

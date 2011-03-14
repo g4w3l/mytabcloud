@@ -8,8 +8,11 @@ class Application_Model_Tab
     protected $_title;
     protected $_nbStrings;
     protected $_content;
+	protected $_capo;
+	protected $_tuning;
     protected $_user;
 	protected $_lastBeat;
+	protected $_created;
     
     // Mapper
 	protected $_mapper;
@@ -88,6 +91,18 @@ class Application_Model_Tab
 		return $this;
 	}
 	
+	public function getCapo() { return $this->_capo; }
+	public function setCapo($capo) {
+		$this->_capo = (int)$capo;
+		return $this;
+	}
+	
+	public function getTuning() { return $this->_tuning; }
+	public function setTuning($tuning) {
+		$this->_tuning = $tuning;
+		return $this;
+	}
+	
 	public function getContent() { return $this->_content; }
 	public function setContent($content) {
 		$this->_content = $content;
@@ -119,6 +134,12 @@ class Application_Model_Tab
 	public function getLastBeat() { return $this->_lastBeat; }
 	public function setLastBeat($lastBeat) {
 		$this->_lastBeat = $lastBeat;
+		return $this;
+	}
+	
+	public function getCreated() { return $this->_created; }
+	public function setCreated($created) {
+		$this->_created = $created;
 		return $this;
 	}
 }

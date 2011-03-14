@@ -2,7 +2,7 @@
 
 class MyTabCloud_Tab_Display {
 	
-	public static function emptyTabForm() {
+	public static function emptyTabForm($nbstrings = 6) {
 		// Déclaration des compteurs pour l'affichage
         $ligne      = 0;
         $beat       = 0;
@@ -16,7 +16,7 @@ class MyTabCloud_Tab_Display {
             $tab_display = $tab_display . '<div class="tab_line">';
 	        $tab_display = $tab_display . '<table class="tab" style="margin-left:20px;" border=0 cellspacing="0" cellpadding="0">';
             
-            for($string = 0 ; $string < 6 ; $string++) {
+            for($string = 0 ; $string < $nbstrings ; $string++) {
                 $tab_display = $tab_display . '<tr>';
                 
                 for ($beat = 0 ; $beat < NB_BEATS ; $beat++) {

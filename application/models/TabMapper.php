@@ -24,12 +24,16 @@ class Application_Model_TabMapper
 			'tab_artist' => $tab->getArtist(),
 			'tab_title' => $tab->getTitle(),
 			'tab_nb_strings' => $tab->getNbStrings(),
-			'tab_user' => $tab->getUser()			
+			'tab_capo' => $tab->getCapo(),
+			'tab_tuning' => $tab->getTuning(),
+			'tab_user' => $tab->getUser()					
 		);
 		
 		// Vérification s'il s'agit d'un update ou d'un insert
 		if (null === ($id = $tab->getId())) {
             unset($data['tab_id']);
+            $data['tab_created'] = date('Y-m-d H:i:s');
+			
             $tab_id = $this->getDbTable()->insert($data);
 			
 			foreach($tab->getContent() as $note) {
@@ -39,6 +43,7 @@ class Application_Model_TabMapper
 			
 			MyTabCloud_Action::logAction($tab->getUser(), 'create', 'tab', $tab_id);			
         } else {
+        	$data['tab_created'] = $tab->getCreated();
             $this->getDbTable()->update($data, array('tab_id = ?' => $id));
 			MyTabCloud_Action::logAction($tab->getUser(), 'update', 'tab', $id);
         }
@@ -63,9 +68,12 @@ class Application_Model_TabMapper
 			->setArtist($row->tab_artist)
 			->setTitle($row->tab_title)
 			->setNbStrings($row->tab_nb_strings)
+			->setCapo($row->tab_capo)
+			->setTuning($row->tab_tuning)
 			->setContent($noteMap->findByTab($id))
 			->setLastBeat($lastBeat)
-			->setUser($row->tab_user);
+			->setUser($row->tab_user)
+			->setCreated($row->tab_created);
 		
 		return true;
 	}
@@ -84,8 +92,11 @@ class Application_Model_TabMapper
 				->setArtist($row->tab_artist)
     			->setTitle($row->tab_title)
     			->setNbStrings($row->tab_nb_strings)
+				->setCapo($row->tab_capo)
+				->setTuning($row->tab_tuning)
     			->setContent($row->tab_content)
-    			->setUser($row->tab_user);
+    			->setUser($row->tab_user)
+				->setCreated($row->tab_created);
             $entries[] = $entry;
         }
         return $entries;
@@ -100,8 +111,11 @@ class Application_Model_TabMapper
 				->setArtist($row->tab_artist)
     			->setTitle($row->tab_title)
     			->setNbStrings($row->tab_nb_strings)
+				->setCapo($row->tab_capo)
+				->setTuning($row->tab_tuning)
     			->setContent($row->tab_content)
-    			->setUser($row->tab_user);
+    			->setUser($row->tab_user)
+				->setCreated($row->tab_created);
             $entries[] = $entry;
         }
         return $entries;

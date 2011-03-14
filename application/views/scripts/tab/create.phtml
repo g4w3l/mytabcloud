@@ -5,12 +5,17 @@
 ?>
         <form id="createtab" enctype="application/x-www-form-urlencoded" method="post" action="/mytabcloud/public/tab/create">
             <dl class="zend_form">
-                <dt id="formname-label">&#160;</dt>
-                <dd id="formname-element"><input type="hidden" name="formname" value="createtab" id="formname" /></dd>
+                <dd id="formname-element"><input type="hidden" name="formname" value="<?php echo $this->form_name; ?>" id="formname" /></dd>
                 <dt id="artist-label"><label for="artist" class="required">Artist</label></dt>                     
-                <dd id="artist-element"><input type="text" name="artist" id="artist" value="" /></dd>
+                <dd id="artist-element"><input type="text" name="artist" id="artist" value="<?php echo $this->params['artist']; ?>" /></dd>
                 <dt id="title-label"><label for="title" class="required">Title</label></dt>                     
-                <dd id="title-element"><input type="text" name="title" id="title" value="" /></dd>
+                <dd id="title-element"><input type="text" name="title" id="title" value="<?php echo $this->params['title']; ?>" /></dd>
+                <dt id="title-label"><label for="nb_strings" class="required">Number of strings</label></dt>                     
+                <dd id="title-element"><input type="text" name="nb_strings" id="nb_strings" value="<?php echo $this->params['nb_strings']; ?>" /></dd>
+                <dt id="title-label"><label for="capo" class="required">Capo</label></dt>                     
+                <dd id="title-element"><input type="text" name="capo" id="capo" value="<?php echo $this->params['capo']; ?>" /></dd>
+                <dt id="title-label"><label for="tuning" class="required">Tuning</label></dt>                     
+                <dd id="title-element"><input type="text" name="tuning" id="tuning" value="<?php echo $this->params['tuning']; ?>" /></dd>
             </dl>
             
             <?php echo $this->tab_display; ?>

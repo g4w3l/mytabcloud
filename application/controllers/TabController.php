@@ -33,20 +33,26 @@ class TabController extends Zend_Controller_Action
     public function createAction() 
     {     
         // action body
-        if($this->_auth->hasIdentity()) {            
+        if($this->_auth->hasIdentity()) {
+        	            
             $request = $this->getRequest();
+			
+			$params = array(
+				'artist' 		=> $request->getParam('artist'),
+				'title'			=> $request->getParam('title'),
+				'nb_strings'	=> $request->getParam('nb_strings'),
+				'capo'			=> $request->getParam('capo'),
+				'tuning'		=> $request->getParam('tuning'),
+			);
              
-             // Si le formulaire de cr�ation a �t� envoy�
-             if ($request->isPost() && $request->getParam('formname') == 'createtab') {
+            // Si le formulaire de cr�ation a �t� envoy�
+            if ($request->isPost() && $request->getParam('formname') == 'createtab') {
              
                 $this->view->display_form = false; 
              
                 // On crée l'objet Tab
                 $tab            = new Application_Model_Tab();
                 $tab_content    = array();
-                
-                $tab_artist     = $request->getParam('artist');
-                $tab_title      = $request->getParam('title');      
                 
                 // On va récupérer les valeurs de chaque note
                 foreach($request->getParams() as $key => $value) {
@@ -72,9 +78,11 @@ class TabController extends Zend_Controller_Action
                 }
                  
                 // On renseigne l'objet $tab qu'on va enregistrer           
-                $tab->setArtist($tab_artist)
-                    ->setTitle($tab_title)
-                    ->setNbStrings(6)
+                $tab->setArtist($params['artist'])
+                    ->setTitle($params['title'])
+                    ->setNbStrings($params['nb_strings'])
+					->setCapo($params['capo'])
+					->setTuning($params['tuning'])
                     ->setContent($tab_content)
                     ->setUser($this->_auth->getIdentity()->usr_id); 
                                     
@@ -87,9 +95,17 @@ class TabController extends Zend_Controller_Action
                 
              // Sinon on affiche le formulaire
              } else {
-             
-                $this->view->display_form = true;
-                $this->view->tab_display = MyTabCloud_Tab_Display::emptyTabForm();  
+             	// Si on a configuré la tablature on peut l'afficher
+			 	if ($request->isPost() && $request->getParam('formname') == 'configtab') {
+	                $this->view->display_form 	= true;
+					$this->view->form_name 		= 'createtab';
+					$this->view->params			= $params;
+	                $this->view->tab_display 	= MyTabCloud_Tab_Display::emptyTabForm($request->getParam('nb_strings'));
+				// Il faut d'abord configurer la tablature (nombre de cordes)
+				} else {
+					$this->view->form_name 		= 'configtab';
+					$this->view->display_form 	= true;
+				}  
              }
         }
     }

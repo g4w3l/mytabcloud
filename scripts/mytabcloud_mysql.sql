@@ -1,19 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.3.9
+-- version 3.3.8.1
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- Généré le : Lun 14 Mars 2011 à 09:28
--- Version du serveur: 5.5.8
--- Version de PHP: 5.3.5
+-- Généré le : Lun 14 Mars 2011 à 21:15
+-- Version du serveur: 5.1.53
+-- Version de PHP: 5.3.3
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
 
 --
 -- Base de données: `mytabcloud`
@@ -26,18 +20,14 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 
 CREATE TABLE IF NOT EXISTS `mtc_action` (
-  `act_id` int(11) NOT NULL,
+  `act_id` int(11) NOT NULL AUTO_INCREMENT,
   `act_user` int(11) NOT NULL,
   `act_action` varchar(20) NOT NULL,
   `act_type` varchar(20) NOT NULL,
   `act_resource` int(11) NOT NULL,
-  `act_timestamp` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Contenu de la table `mtc_action`
---
-
+  `act_timestamp` datetime NOT NULL,
+  PRIMARY KEY (`act_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -53,11 +43,7 @@ CREATE TABLE IF NOT EXISTS `mtc_note` (
   `note_tab` int(11) DEFAULT NULL,
   PRIMARY KEY (`note_id`),
   KEY `note_tab` (`note_tab`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Contenu de la table `mtc_note`
---
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 
 -- --------------------------------------------------------
@@ -74,12 +60,7 @@ CREATE TABLE IF NOT EXISTS `mtc_tab` (
   `tab_user` int(11) NOT NULL,
   `tab_created` datetime NOT NULL,
   PRIMARY KEY (`tab_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
-
---
--- Contenu de la table `mtc_tab`
---
-
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
 
 -- --------------------------------------------------------
 
@@ -99,9 +80,3 @@ CREATE TABLE IF NOT EXISTS `mtc_user` (
   UNIQUE KEY `usr_login` (`usr_login`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
---
--- Contenu de la table `mtc_user`
---
-
-INSERT INTO `mtc_user` (`usr_id`, `usr_login`, `usr_mail`, `usr_password`, `usr_name`, `usr_created`, `usr_role`) VALUES
-(7, 'gawel', 'gawel.net@gmail.com', '61b52106cccc0ec9c8c1681a8db0fbb8', 'Gawel', '2011-03-08 08:36:51', '');

@@ -47,7 +47,7 @@ function bindKeyEvents() {
         }
     });
     
-    $('input[name^="note"]').bind('focus', function() {this.select();})
+    // $('input[name^="note"]').bind('focus', function() {this.select();})
     
     // Hack pour sélectionner l'input même sur les flèches gauche/droite
     $(document).bind('keyup', function(event) {
@@ -55,12 +55,20 @@ function bindKeyEvents() {
             // Si on est sur une note
             if(event.target.getAttribute('name').substring(0,4) == "note") {
             	switch (event.keyCode) {
+            	    // Down
+                    case 40:
+                        event.target.select();
+                        break;
                 	// Left
                     case 37:
                         event.target.select();
                         break;
                     // Right
                     case 39:
+                        event.target.select();
+                        break;
+                    // Up
+                    case 38:
                         event.target.select();
                         break;
                     default:

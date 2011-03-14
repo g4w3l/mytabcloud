@@ -33,7 +33,7 @@ $acl     = new MyTabCloud_Acl_Manager($acl_ini) ;
 
 // $auth est une r�f�rence vers Zend_Auth (getInstance())  
 $front = Zend_Controller_Front::getInstance();  
-$front->registerPlugin(new MyTabCloud_Plugin_Auth($acl)) ;  
+//$front->registerPlugin(new MyTabCloud_Plugin_Auth($acl)) ;  
 
 // Réglage du timezone
 date_default_timezone_set('Europe/Paris');
