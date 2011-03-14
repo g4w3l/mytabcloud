@@ -14,9 +14,17 @@
                 <dd id="title-element"><input type="text" name="nb_strings" id="nb_strings" value="<?php echo $this->params['nb_strings']; ?>" /></dd>
                 <dt id="title-label"><label for="capo" class="required">Capo</label></dt>                     
                 <dd id="title-element"><input type="text" name="capo" id="capo" value="<?php echo $this->params['capo']; ?>" /></dd>
-                <dt id="title-label"><label for="tuning" class="required">Tuning</label></dt>                     
-                <dd id="title-element"><input type="text" name="tuning" id="tuning" value="<?php echo $this->params['tuning']; ?>" /></dd>
+                <!-- <dt id="title-label"><label for="tuning" class="required">Tuning</label></dt>                     
+                <dd id="title-element"><input type="text" name="tuning" id="tuning" value="<?php echo $this->params['tuning']; ?>" /></dd> -->
             </dl>
+            
+            <?php if($this->params['nb_strings'] != "") {?>
+            <div class="tuning">
+            	<?php for($str_tun = 0 ; $str_tun < $this->params['nb_strings'] ; $str_tun++) { 
+            		echo '<input type="text" name="tuning_string_'.$str_tun.'" value=""><br />';
+            	} ?>
+            </div>
+           	<?php } ?>
             
             <?php echo $this->tab_display; ?>
                 
