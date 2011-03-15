@@ -6,6 +6,11 @@
 -- Généré le : Lun 14 Mars 2011 à 21:15
 -- Version du serveur: 5.1.53
 -- Version de PHP: 5.3.3
+-- phpMyAdmin SQL Dump
+-- version 3.3.9
+-- http://www.phpmyadmin.net
+--
+
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -29,6 +34,7 @@ CREATE TABLE IF NOT EXISTS `mtc_action` (
   PRIMARY KEY (`act_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
+
 -- --------------------------------------------------------
 
 --
@@ -45,7 +51,6 @@ CREATE TABLE IF NOT EXISTS `mtc_note` (
   KEY `note_tab` (`note_tab`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
-
 -- --------------------------------------------------------
 
 --
@@ -57,10 +62,13 @@ CREATE TABLE IF NOT EXISTS `mtc_tab` (
   `tab_artist` varchar(100) DEFAULT NULL,
   `tab_title` varchar(100) DEFAULT NULL,
   `tab_nb_strings` int(11) NOT NULL DEFAULT '6',
+  `tab_capo` int(11) DEFAULT NULL,
+  `tab_tuning` varchar(32) DEFAULT NULL,
   `tab_user` int(11) NOT NULL,
   `tab_created` datetime NOT NULL,
   PRIMARY KEY (`tab_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+
 
 -- --------------------------------------------------------
 
@@ -79,4 +87,3 @@ CREATE TABLE IF NOT EXISTS `mtc_user` (
   PRIMARY KEY (`usr_id`),
   UNIQUE KEY `usr_login` (`usr_login`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
-

@@ -20,12 +20,20 @@ function bindKeyEvents() {
                     case 40:
                         if($("#" + arrNote[0] + '-' + arrNote[1] + '-' + (parseInt(arrNote[2])+1) + '-' + arrNote[3]).length > 0) {
                             $("#" + arrNote[0] + '-' + arrNote[1] + '-' + (parseInt(arrNote[2])+1) + '-' + arrNote[3])[0].focus(); 
+                        } else {
+                            if($("#" + arrNote[0] + '-' + (parseInt(arrNote[1])+1) + '-0-' + arrNote[3]).length > 0) {
+                                $("#" + arrNote[0] + '-' + (parseInt(arrNote[1])+1) + '-0-' + arrNote[3]).focus();
+                            }
                         }
                         break;
                     // Up
                     case 38:
                         if($("#" + arrNote[0] + '-' + arrNote[1] + '-' + (parseInt(arrNote[2])-1) + '-' + arrNote[3]).length > 0) {
                             $("#" + arrNote[0] + '-' + arrNote[1] + '-' + (parseInt(arrNote[2])-1) + '-' + arrNote[3])[0].focus(); 
+                        } else {
+                            if($("#" + arrNote[0] + '-' + (parseInt(arrNote[1])-1) + '-' + (parseInt($('#nb_strings')[0].value)-1) + '-' + arrNote[3]).length > 0) {
+                                $("#" + arrNote[0] + '-' + (parseInt(arrNote[1])-1) + '-' + (parseInt($('#nb_strings')[0].value)-1) + '-' + arrNote[3]).focus();
+                            }
                         }
                         break;
                     // Left
