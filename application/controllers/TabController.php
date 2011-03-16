@@ -95,17 +95,10 @@ class TabController extends Zend_Controller_Action
                 
              // Sinon on affiche le formulaire
              } else {
-             	// Si on a configuré la tablature on peut l'afficher
-			 	if ($request->isPost() && $request->getParam('formname') == 'configtab') {
-	                $this->view->display_form 	= true;
-					$this->view->form_name 		= 'createtab';
-					$this->view->params			= $params;
-	                $this->view->tab_display 	= MyTabCloud_Tab_Display::emptyTabForm($request->getParam('nb_strings'));
-				// Il faut d'abord configurer la tablature (nombre de cordes)
-				} else {
-					$this->view->form_name 		= 'configtab';
-					$this->view->display_form 	= true;
-				}  
+                $this->view->display_form 	= true;
+				$this->view->form_name 		= 'createtab';
+				//$this->view->params			= $params;
+                $this->view->tab_display 	= MyTabCloud_Tab_Display::emptyTabForm(DEFAULT_STRINGS);
              }
         }
     }

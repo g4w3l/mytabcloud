@@ -14,7 +14,7 @@ class MyTabCloud_Tab_Display {
         //for ($ligne = 0 ; $ligne < NB_LINES ; $ligne++) {
         
             $tab_display = $tab_display . '<div class="tab_line">';
-	        $tab_display = $tab_display . '<table class="tab" cellspacing="0">';
+	        $tab_display = $tab_display . '<table class="tab" id="tab_line_'.$ligne.'" cellspacing="0">';
             
             for($string = 0 ; $string < $nbstrings ; $string++) {
                 $tab_display = $tab_display . '<tr>';

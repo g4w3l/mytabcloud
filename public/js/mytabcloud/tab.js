@@ -2,6 +2,9 @@
  * @author Gawel
  */
 
+function fctUp(id) { $(id)[0].value = (parseInt($(id)[0].value))+1; $(id).change(); }
+function fctDown(id) {$(id)[0].value = (parseInt($(id)[0].value))-1; $(id).change(); }
+
 /**
  * Fonction qui va associer les actions des appuis sur les flèches pour se
  * déplacer dans la tablature
@@ -98,7 +101,8 @@ function addTabLine() {
     var nbLine = $(".tab_line").length; // On récupère le nombre de lignes existantes
     
     var newDiv      = $('<div>').addClass('tab_line').attr({'style' : 'display:none;'});
-    var newTable    = $('<table>').addClass('tab').attr({'cellspacing' : '0'});
+    var newTable    = $('<table>').addClass('tab').attr({'cellspacing' : '0',
+    														'id':'tab_line_' + nbLine});
                 
     // Pour chaque corde on va créer une ligne                
     for(var string = 0 ; string < nbStrings ; string++) {
@@ -135,13 +139,41 @@ function setNbStrings(nbStrings) {
         //alert(dispLines[curLine].children());
         var dispTable = dispLines[curLine].childNodes.item(0);
         //alert(dispTable.childNodes.length);
-        while(dispTable.childNodes.length > nbStrings) {
-            deletedString = dispTable.lastChild;
-            dispTable.removeChild(deletedString);
-        }
-    } 
+        if(dispTable.childNodes.length > nbStrings) {
+	        while(dispTable.childNodes.length > nbStrings) {
+	            deletedString = dispTable.lastChild;
+	            dispTable.removeChild(deletedString);
+	        }
+		} else {
+			// Pour chaque ligne manquante
+			for(var string = dispTable.childNodes.length ; string < nbStrings ; string++) {
+				// On va créer une nouvelle ligne
+				var newTR = $('<tr>');
+        
+		        // Pour chaque temps on crée une cellule et un input dedans 
+		        for(var beat = 0 ; beat < NB_BEATS ; beat++) {
+		            newTD       = $('<td>');   
+		            // Création de l'input avec les attributs associés
+		            newInput    = $('<input>').attr({
+		                                    name: 'note-' + curLine + '-' + string + '-' + beat,
+		                                    id: 'note-' + curLine + '-' + string + '-' + beat,
+		                                    value: '',
+		                                    type: 'text',
+		                                    maxlength: '3'});
+		                                                        
+		            newTD.append(newInput);
+		            newTR.append(newTD);
+		        }
+		        
+		        $('#tab_line_'+curLine).append(newTR);	
+			}
+		}
+    }
 }
+
+
 
 window.onload = (function(){
 	bindKeyEvents();
+	$('#nb_strings').change(function() { setNbStrings($("#nb_strings")[0].value); });
 });

@@ -4,9 +4,15 @@
         if($this->display_form) {
 ?>
         <map name='nb_strings_map'>                        
-           <area shape='rect' coords='0,11,20,22' href="" />                        
-           <area shape='rect' coords='0,0,20,10' href="" />                        
+           <area shape='rect' coords='0,11,20,22' href="javascript:fctDown('#nb_strings');" />                        
+           <area shape='rect' coords='0,0,20,10' href="javascript:fctUp('#nb_strings');" />                        
         </map>
+        
+        <map name='capo_map'>                        
+           <area shape='rect' coords='0,11,20,22' href="javascript:fctDown('#capo');" />                        
+           <area shape='rect' coords='0,0,20,10' href="javascript:fctUp('#capo');" />                        
+        </map>
+        
         <form id="createtab" enctype="application/x-www-form-urlencoded" method="post" action="/mytabcloud/public/tab/create">
         <div class="container">
             <div class="span-9 colborder">
@@ -32,40 +38,33 @@
                     <td><label for="nb_strings" class="required">Strings</label></td>                     
                     <td>
                         <input type="text" name="nb_strings" id="nb_strings" size="5" value="<?php echo (($this->params['nb_strings'] != "") ? $this->params['nb_strings'] : 6); ?>" />
-                        <img src='/mytabcloud/public/images/plusmoins.gif' width='14' height='19' style="vertical-align:middle;" hspace='0' border='0' usemap='#nb_strings_map'></img>
+                        <img src='/mytabcloud/public/images/updown.png' width='14' height='19' style="vertical-align:middle;" usemap='#nb_strings_map'></img>
                     </td>
                 </tr>
                 <tr>
                     <td><label for="capo" class="required">Capo</label></td>                     
                     <td>
                         <input type="text" name="capo" id="capo" size="5" value="<?php echo (($this->params['capo'] != "") ? $this->params['capo'] : 0); ?>" />
-                        <img src='/mytabcloud/public/images/plusmoins.gif' width='14' height='19' style="vertical-align:middle;" hspace='0' border='0' usemap='#nb_strings_map'></img>
+                        <img src='/mytabcloud/public/images/updown.png' width='14' height='19' style="vertical-align:middle;" usemap='#capo_map'></img>
                     </td>
                 </tr>
                </table>   
             </div>
          </div>   
+                       	
             
-            <?php if($this->params['nb_strings'] != "") {?>
-            <div class="tuning">
-            	<?php for($str_tun = 0 ; $str_tun < $this->params['nb_strings'] ; $str_tun++) { 
-            		//echo '<input type="text" name="tuning_string_'.$str_tun.'" value=""><br />';
-            	} ?>
-            </div>
-           	
+        <div id="tab_display">
+        <?php echo $this->tab_display; ?>
+        </div>
+        
+        <p class="add_line"><a href="javascript:addTabLine();">Add Line</a></p>
+        <p class="add_line"><a href="javascript:setNbStrings(10);">Remove Line</a></p>
             
-            <div id="tab_display">
-            <?php echo $this->tab_display; ?>
-            </div>
-            
-            <p class="add_line"><a href="javascript:addTabLine();">Add Line</a></p>
-            <p class="add_line"><a href="javascript:setNbStrings(4);">Remove Line</a></p>
-            <?php } ?>
                 
-            <dl class="zend_form">
-                <dt id="submit-label">&#160;</dt><dd id="submit-element">
-                <input type="submit" name="submit" id="submit" value="Save" /></dd>
-            </dl>
+        <dl class="zend_form">
+            <dt id="submit-label">&#160;</dt><dd id="submit-element">
+            <input type="submit" name="submit" id="submit" value="Save" /></dd>
+        </dl>
         </form>
 <?php
         } else {
