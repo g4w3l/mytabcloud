@@ -113,6 +113,7 @@ function addTabLine() {
                                     id: 'note-' + nbLine + '-' + string + '-' + beat,
                                     value: '',
                                     type: 'text',
+                                    autocomplete: 'off',
                                     maxlength: '3'});
                                                         
             newTD.append(newInput);
