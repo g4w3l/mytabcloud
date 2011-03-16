@@ -113,7 +113,6 @@ function addTabLine() {
                                     id: 'note-' + nbLine + '-' + string + '-' + beat,
                                     value: '',
                                     type: 'text',
-                                    autocomplete: 'off',
                                     maxlength: '3'});
                                                         
             newTD.append(newInput);
@@ -126,6 +125,21 @@ function addTabLine() {
     // On ajoute la ligne de tablature au div
     $('#tab_display').append(newDiv);
     newDiv.show('slow');
+}
+
+function setNbStrings(nbStrings) {
+    var dispLines = $("table.tab");
+        
+    //alert(dispLines.length);
+    for(var curLine = 0 ; curLine < dispLines.length ; curLine++) {
+        //alert(dispLines[curLine].children());
+        var dispTable = dispLines[curLine].childNodes.item(0);
+        //alert(dispTable.childNodes.length);
+        while(dispTable.childNodes.length > nbStrings) {
+            deletedString = dispTable.lastChild;
+            dispTable.removeChild(deletedString);
+        }
+    } 
 }
 
 window.onload = (function(){
