@@ -11,16 +11,16 @@ class MyTabCloud_Tab_Display {
         
         $tab_display = "";   
         
-        for ($ligne = 0 ; $ligne < NB_LINES ; $ligne++) {
+        //for ($ligne = 0 ; $ligne < NB_LINES ; $ligne++) {
         
             $tab_display = $tab_display . '<div class="tab_line">';
-	        $tab_display = $tab_display . '<table class="tab" style="margin-left:20px;" border=0 cellspacing="0" cellpadding="0">';
+	        $tab_display = $tab_display . '<table class="tab" cellspacing="0">';
             
             for($string = 0 ; $string < $nbstrings ; $string++) {
                 $tab_display = $tab_display . '<tr>';
                 
                 for ($beat = 0 ; $beat < NB_BEATS ; $beat++) {
-                    $tab_display = $tab_display .  '<td><input name="note-'.$ligne.'-'.$string.'-'.$beat.'" id="note-'.$ligne.'-'.$string.'-'.$beat.'" type="text" maxlength="3" autocomplete="off" style="width:'.BEAT_WIDTH.';" /></td>';
+                    $tab_display = $tab_display .  '<td><input name="note-'.$ligne.'-'.$string.'-'.$beat.'" id="note-'.$ligne.'-'.$string.'-'.$beat.'" type="text" maxlength="3" autocomplete="off" /></td>';
                 }
                 
                 $tab_display = $tab_display . '</tr>';
@@ -28,7 +28,7 @@ class MyTabCloud_Tab_Display {
             
             $tab_display = $tab_display . '</table>';
 	        $tab_display = $tab_display . '</div>';
-        }
+        //}
 		
 		return $tab_display;
 	}
@@ -45,14 +45,14 @@ class MyTabCloud_Tab_Display {
 		} else {
 			$countlines = NB_LINES;
 		}					
-		// On va afficher la tablature
+		// On va afficher la tablature    
 		for ($ligne = 0 ; $ligne <  $countlines ; $ligne++) {
 			// Pour chaque nouvelle ligne, on retient le premier beat
             $beat_begin_line = $current_beat;
 			
 			// On dessine une nouvelle ligne de tablature
             $tab_display = $tab_display . '<div class="tab_line">';
-	        $tab_display = $tab_display . '<table class="tab" style="margin-left:20px;" border=0 cellspacing="0" cellpadding="0">';
+	        $tab_display = $tab_display . '<table class="tab" cellspacing="0">';
             
 			// On va afficher chaque corde
             for($string = 0 ; $string < $tab->getNbStrings() ; $string++) {
@@ -72,9 +72,9 @@ class MyTabCloud_Tab_Display {
 					
 					// Si on est en lecture seule
 					if($readonly) {
-						$tab_display = $tab_display .  '<td><input name="note-'.$ligne.'-'.$string.'-'.$current_beat.'" id="note-'.$ligne.'-'.$string.'-'.$current_beat.'" value="' . $notevalue . '" type="text" maxlength="3" style="width:'.BEAT_WIDTH.';" readonly /></td>';
+						$tab_display = $tab_display .  '<td><input name="note-'.$ligne.'-'.$string.'-'.$current_beat.'" id="note-'.$ligne.'-'.$string.'-'.$current_beat.'" value="' . $notevalue . '" type="text" maxlength="3" readonly /></td>';
                     } else {
-                    	$tab_display = $tab_display .  '<td><input name="note-'.$ligne.'-'.$string.'-'.$current_beat.'" id="note-'.$ligne.'-'.$string.'-'.$current_beat.'" value="' . $notevalue . '" type="text" autocomplete="off" maxlength="3" style="width:'.BEAT_WIDTH.';" /></td>';                    	
+                    	$tab_display = $tab_display .  '<td><input name="note-'.$ligne.'-'.$string.'-'.$current_beat.'" id="note-'.$ligne.'-'.$string.'-'.$current_beat.'" value="' . $notevalue . '" type="text" autocomplete="off" maxlength="3" /></td>';                    	
                     } 
 					
 					// On passe au beat suivant
@@ -86,7 +86,7 @@ class MyTabCloud_Tab_Display {
             
             $tab_display = $tab_display . '</table>';
 	        $tab_display = $tab_display . '</div>';
-        }
+        }   
 
 		return $tab_display;
 		

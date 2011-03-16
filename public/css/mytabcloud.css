@@ -2,10 +2,12 @@
 	text-align: center;
 }
 
-.tab_line { width: 800px; height: 150px;}
-.tab_line table { width: auto; }
+.tab_line { width: 800px; height: auto;}
+.tab_line table { width: auto; margin-left:20px; }
 .tab_line td { background-color: transparent; padding: 0 0 0 0; margin: 0 0 0 0; background-image: url('/mytabcloud/public/images/tab_line.png'); background-repeat: repeat-x; background-position: center left; }
-.tab_line input { margin: 0 0 0 0; padding: 0 0 0 0; border: 0px; text-align:center; background: transparent; height:1.5em; width:2em; }
+.tab_line input { margin: 0 0 0 0; padding: 0 0 0 0; border: 0px; text-align:center; background: transparent; height:1.5em; width:1.7em; }
 
 .tuning { }
 .tuning input { }
+
+.add_line { text-align:right; width:100%; }

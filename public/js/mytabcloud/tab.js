@@ -54,9 +54,7 @@ function bindKeyEvents() {
             }
         }
     });
-    
-    // $('input[name^="note"]').bind('focus', function() {this.select();})
-    
+        
     // Hack pour sélectionner l'input même sur les flèches gauche/droite
     $(document).bind('keyup', function(event) {
     	 if(event.target.getAttribute('name')) {
@@ -85,6 +83,48 @@ function bindKeyEvents() {
             }
          }
     });
+}
+
+/**
+ * Fonction qui ajoute une nouvelle ligne de tablature
+ * vide 
+ */ 
+function addTabLine() {
+    //var nbBeats = 30; Le nombre de beats par ligne est valorisé par application.ini
+    // TODO : Passer le nombre de cordes en paramètres
+    var nbStrings = $("#nb_strings")[0].value;  // Le nombre de cordes est la valeur donnée par l'input
+    
+    
+    var nbLine = $(".tab_line").length; // On récupère le nombre de lignes existantes
+    
+    var newDiv      = $('<div>').addClass('tab_line').attr({'style' : 'display:none;'});
+    var newTable    = $('<table>').addClass('tab').attr({'cellspacing' : '0'});
+                
+    // Pour chaque corde on va créer une ligne                
+    for(var string = 0 ; string < nbStrings ; string++) {
+        var newTR = $('<tr>');
+        
+        // Pour chaque temps on crée une cellule et un input dedans 
+        for(var beat = 0 ; beat < NB_BEATS ; beat++) {
+            newTD       = $('<td>');   
+            // Création de l'input avec les attributs associés
+            newInput    = $('<input>').attr({
+                                    name: 'note-' + nbLine + '-' + string + '-' + beat,
+                                    id: 'note-' + nbLine + '-' + string + '-' + beat,
+                                    value: '',
+                                    type: 'text',
+                                    maxlength: '3'});
+                                                        
+            newTD.append(newInput);
+            newTR.append(newTD);
+        }
+        newTable.append(newTR);
+    }
+    newDiv.append(newTable);   
+     
+    // On ajoute la ligne de tablature au div
+    $('#tab_display').append(newDiv);
+    newDiv.show('slow');
 }
 
 window.onload = (function(){

@@ -45,15 +45,21 @@
                </table>   
             </div>
          </div>   
+            
             <?php if($this->params['nb_strings'] != "") {?>
             <div class="tuning">
             	<?php for($str_tun = 0 ; $str_tun < $this->params['nb_strings'] ; $str_tun++) { 
             		//echo '<input type="text" name="tuning_string_'.$str_tun.'" value=""><br />';
             	} ?>
             </div>
-           	<?php } ?>
+           	
             
+            <div id="tab_display">
             <?php echo $this->tab_display; ?>
+            </div>
+            
+            <p class="add_line"><a href="javascript:addTabLine();">Add Line</a></p>
+            <?php } ?>
                 
             <dl class="zend_form">
                 <dt id="submit-label">&#160;</dt><dd id="submit-element">
