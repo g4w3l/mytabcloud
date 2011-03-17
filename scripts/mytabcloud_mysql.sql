@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `mtc_tab` (
   `tab_title` varchar(100) DEFAULT NULL,
   `tab_nb_strings` int(11) NOT NULL DEFAULT '6',
   `tab_capo` int(11) DEFAULT NULL,
-  `tab_tuning` varchar(32) DEFAULT NULL,
+  `tab_tuning` varchar(100) DEFAULT NULL,
   `tab_user` int(11) NOT NULL,
   `tab_created` datetime NOT NULL,
   PRIMARY KEY (`tab_id`)
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `mtc_tab_presets` (
   `pst_name` varchar(50) NOT NULL,
   `pst_nb_strings` int(11) NOT NULL,
   `pst_capo` int(11) NOT NULL,
-  `pst_tuning` varchar(50) NOT NULL,
+  `pst_tuning` varchar(100) NOT NULL,
   PRIMARY KEY (`pst_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
