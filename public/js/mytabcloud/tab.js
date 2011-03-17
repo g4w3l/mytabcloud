@@ -2,7 +2,7 @@
  * @author Gawel
  */
  
-var notes = new Array('A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#');
+var notes = new Array('C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B');
 
 function fctUp(id, max) { if($(id)[0].value < max) { $(id)[0].value = (parseInt($(id)[0].value))+1; $(id).change(); } }
 function fctDown(id, min) { if($(id)[0].value > min) { $(id)[0].value = (parseInt($(id)[0].value))-1; $(id).change(); } }
@@ -218,8 +218,8 @@ function setNbStrings(nbStrings) {
 			newMap.append(newAreaDown);
 			
 			newDiv.append(newInput);
-			newDiv.append(newMap);
-			newDiv.append(newIMG);			
+			newDiv.append(newIMG);	
+			newDiv.append(newMap);		
 			
 			$('#td_tuning').append(newDiv);
 		}
