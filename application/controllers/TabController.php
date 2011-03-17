@@ -41,8 +41,7 @@ class TabController extends Zend_Controller_Action
 				'artist' 		=> $request->getParam('artist'),
 				'title'			=> $request->getParam('title'),
 				'nb_strings'	=> $request->getParam('nb_strings'),
-				'capo'			=> $request->getParam('capo'),
-				'tuning'		=> $request->getParam('tuning'),
+				'capo'			=> $request->getParam('capo')
 			);
              
             // Si le formulaire de cr�ation a �t� envoy�
@@ -76,13 +75,21 @@ class TabController extends Zend_Controller_Action
 						}                        
                     }
                 }
+				
+				/** Récupération de l'accordage pour la tablature **/
+				$tuning = "";
+				// Pour chaque corde on va récupérer la valeur d'accordage
+				for($tun_str = 0 ; $tun_str < $params['nb_strings'] ; $tun_str++) {
+					if($tun_str > 0) { $tuning = $tuning . "|"; }
+					$tuning = $tuning . $request->getParam('tuning_'.$tun_str);
+				}
                  
                 // On renseigne l'objet $tab qu'on va enregistrer           
                 $tab->setArtist($params['artist'])
                     ->setTitle($params['title'])
                     ->setNbStrings($params['nb_strings'])
 					->setCapo($params['capo'])
-					->setTuning($params['tuning'])
+					->setTuning($tuning)
                     ->setContent($tab_content)
                     ->setUser($this->_auth->getIdentity()->usr_id); 
                                     

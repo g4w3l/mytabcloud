@@ -18,6 +18,7 @@ class MyTabCloud_Tab_Display {
             
             for($string = 0 ; $string < $nbstrings ; $string++) {
                 $tab_display = $tab_display . '<tr>';
+                //$tab_display = $tab_display . '<td class="tab_tuning">E4</td>';
                 
                 for ($beat = 0 ; $beat < NB_BEATS ; $beat++) {
                     $tab_display = $tab_display .  '<td><input name="note-'.$ligne.'-'.$string.'-'.$beat.'" id="note-'.$ligne.'-'.$string.'-'.$beat.'" type="text" maxlength="3" autocomplete="off" /></td>';

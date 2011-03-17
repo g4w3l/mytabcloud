@@ -1,9 +1,11 @@
 /**
  * @author Gawel
  */
+ 
+var notes = new Array('A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#');
 
-function fctUp(id) { $(id)[0].value = (parseInt($(id)[0].value))+1; $(id).change(); }
-function fctDown(id) {$(id)[0].value = (parseInt($(id)[0].value))-1; $(id).change(); }
+function fctUp(id, max) { if($(id)[0].value < max) { $(id)[0].value = (parseInt($(id)[0].value))+1; $(id).change(); } }
+function fctDown(id, min) { if($(id)[0].value > min) { $(id)[0].value = (parseInt($(id)[0].value))-1; $(id).change(); } }
 
 /**
  * Fonction qui va associer les actions des appuis sur les flèches pour se
@@ -169,7 +171,92 @@ function setNbStrings(nbStrings) {
 			}
 		}
     }
+	
+	// TUNING
+	var arrayTuning = $('#td_tuning > div');	
+
+	if(arrayTuning.length > nbStrings) {
+		$('#td_tuning > div:gt('+(nbStrings-1)+')').remove();
+	} else {
+		for(var string = arrayTuning.length ; string < nbStrings ; string++) {
+			// On va créer une nouvelle ligne
+			// Nouveau DIV
+			newDiv		= $('<div>').attr({id:'tuning_div_' + string});
+			
+			// Nouvel Input
+			newInput    = $('<input>').attr({
+										name: 'tuning_' + string,
+										id: 'tuning_' + string,
+										value: 'E3',
+										type: 'text',
+										maxlength: '3',
+										size: '3'});
+			
+			// Nouvelle image
+			newIMG		= $('<img>').addClass('updownimg').attr({
+									src: '/mytabcloud/public/images/updown.png',
+									width: '14',
+									height: '19',
+									usemap: '#map_tuning_' + string,
+									});
+									
+			newMap		= $('<map>').attr({name:'map_tuning_' + string});
+			
+			newAreaUp	= $('<area>').attr({
+				shape:'rect',
+				coords:'0,0,20,10',
+				href:"javascript:fctTuneUp('#tuning_" + string + "');"
+			});
+			
+			newAreaDown	= $('<area>').attr({
+				shape:'rect',
+				coords:'0,11,20,22',
+				href:"javascript:fctTuneDown('#tuning_" + string + "');"
+			});
+			
+			newMap.append(newAreaUp);
+			newMap.append(newAreaDown);
+			
+			newDiv.append(newInput);
+			newDiv.append(newMap);
+			newDiv.append(newIMG);			
+			
+			$('#td_tuning').append(newDiv);
+		}
+	}
 }
+
+fctTuneUp = (function(id) {
+	var currentTune 	= $(id)[0].value;
+	var currentOct 		= currentTune.substring(currentTune.length-1);
+	var currentNote 	= currentTune.substring(0,currentTune.length-1);
+	
+	//alert(notes[jQuery.inArray(currentNote, notes)+1]);
+	if(jQuery.inArray(currentNote, notes) == notes.length-1) {
+		currentNote = notes[0];
+		currentOct = parseInt(currentOct)+1;
+	} else {
+		currentNote = notes[jQuery.inArray(currentNote, notes)+1];
+	}
+	
+	$(id)[0].value = currentNote + '' + currentOct;
+});
+
+fctTuneDown = (function(id) {
+	var currentTune 	= $(id)[0].value;
+	var currentOct 		= currentTune.substring(currentTune.length-1);
+	var currentNote 	= currentTune.substring(0,currentTune.length-1);
+	
+	//alert(notes[jQuery.inArray(currentNote, notes)+1]);
+	if(jQuery.inArray(currentNote, notes) == 0) {
+		currentNote = notes[notes.length-1];
+		currentOct = parseInt(currentOct)-1;
+	} else {
+		currentNote = notes[jQuery.inArray(currentNote, notes)-1];
+	}
+	
+	$(id)[0].value = currentNote + '' + currentOct;
+});
 
 
 
