@@ -3,7 +3,7 @@
         echo "Ici, la liste des tablatures de " . $this->user() . ".<br>";
         
         foreach($this->tabs as $tab) {
-            echo "Tablature : " . $tab->getArtist() . "<br>";
+            echo '<a href="' . $this->url(array('controller' => 'tab', 'action' => 'display', 'id' => $tab->getId()), 'default', true) . '">' . $tab->getArtist() . " - " . $tab->getTitle() . "</a><br>";
         }
         
     } else {

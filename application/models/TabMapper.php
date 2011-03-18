@@ -113,7 +113,6 @@ class Application_Model_TabMapper
     			->setNbStrings($row->tab_nb_strings)
 				->setCapo($row->tab_capo)
 				->setTuning($row->tab_tuning)
-    			->setContent($row->tab_content)
     			->setUser($row->tab_user)
 				->setCreated($row->tab_created);
             $entries[] = $entry;

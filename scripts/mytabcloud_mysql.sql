@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `mtc_tab` (
   PRIMARY KEY (`tab_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-CREATE TABLE IF NOT EXISTS `mtc_tab_presets` (
+CREATE TABLE IF NOT EXISTS `mtc_tab_preset` (
   `pst_id` int(11) NOT NULL AUTO_INCREMENT,
   `pst_name` varchar(50) NOT NULL,
   `pst_nb_strings` int(11) NOT NULL,
@@ -54,6 +54,11 @@ CREATE TABLE IF NOT EXISTS `mtc_tab_presets` (
   `pst_tuning` varchar(100) NOT NULL,
   PRIMARY KEY (`pst_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+INSERT INTO `mtc_tab_preset` (`pst_id`, `pst_name`, `pst_nb_strings`, `pst_capo`, `pst_tuning`) VALUES
+(1, 'Guitar Standard Tuning', 6, 0, 'E5|B4|G4|D4|A3|E3'),
+(2, 'Ukulele C Tuning', 4, 0, 'A3|E3|C3|G3'),
+(3, 'Bass Standard Tuning', 4, 0, 'G3|D3|A2|E2');
 
 CREATE TABLE IF NOT EXISTS `mtc_user` (
   `usr_id` int(11) NOT NULL AUTO_INCREMENT,

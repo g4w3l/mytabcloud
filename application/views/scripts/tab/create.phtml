@@ -34,7 +34,19 @@
             <div class="span-9 last">
             <h3>Tab configuration</h3>
             <table>
-                <tr>
+				<tr>
+					<td><label for="preset" class="required">Preset</label></td>
+					<td>
+						<select name="preset" id="preset">
+						<?php
+							foreach($this->presets as $preset) {
+								echo '<option value="' . $preset->getNbStrings() . ';' . $preset->getTuning() . '">' . $preset->getName() . '</option>';
+							}
+						?>
+						</select>
+					</td>
+				</tr>
+				<tr>
                     <td><label for="nb_strings" class="required">Strings</label></td>                     
                     <td>
                         <input type="text" name="nb_strings" id="nb_strings" size="5" value="<?php echo (($this->params['nb_strings'] != "") ? $this->params['nb_strings'] : DEFAULT_STRINGS); ?>" />

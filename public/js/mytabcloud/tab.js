@@ -57,6 +57,23 @@ function bindKeyEvents() {
                         break;
                 }
             }
+			
+			if(event.target.getAttribute('name').substring(0,7) == "tuning_") {
+				event.preventDefault(); // Les autres actions n'ont pas d'effet sur les champs Tuning
+				 switch (event.keyCode) {
+                	// Down
+                    case 40:
+						//alert(event.target.getAttribute('id'));
+                        fctTuneDown('#' + event.target.getAttribute('id'));
+                        break;
+                    // Up
+                    case 38:
+						fctTuneUp('#' + event.target.getAttribute('id'));
+                        break;
+					default:
+						break;
+				}
+			}
         }
     });
         
@@ -197,7 +214,7 @@ function setNbStrings(nbStrings) {
 									src: '/mytabcloud/public/images/updown.png',
 									width: '14',
 									height: '19',
-									usemap: '#map_tuning_' + string,
+									usemap: '#map_tuning_' + string
 									});
 									
 			newMap		= $('<map>').attr({name:'map_tuning_' + string});
@@ -205,13 +222,13 @@ function setNbStrings(nbStrings) {
 			newAreaUp	= $('<area>').attr({
 				shape:'rect',
 				coords:'0,0,20,10',
-				href:"javascript:fctTuneUp('#tuning_" + string + "');"
+				href:'javascript:fctTuneUp("#tuning_' + string + '");'
 			});
 			
 			newAreaDown	= $('<area>').attr({
 				shape:'rect',
 				coords:'0,11,20,22',
-				href:"javascript:fctTuneDown('#tuning_" + string + "');"
+				href:'javascript:fctTuneDown("#tuning_' + string + '");'
 			});
 			
 			newMap.append(newAreaUp);
@@ -224,9 +241,11 @@ function setNbStrings(nbStrings) {
 			$('#td_tuning').append(newDiv);
 		}
 	}
+	
+	$('#nb_strings')[0].value = nbStrings;
 }
 
-fctTuneUp = (function(id) {
+var fctTuneUp = function(id) {
 	var currentTune 	= $(id)[0].value;
 	var currentOct 		= currentTune.substring(currentTune.length-1);
 	var currentNote 	= currentTune.substring(0,currentTune.length-1);
@@ -240,9 +259,9 @@ fctTuneUp = (function(id) {
 	}
 	
 	$(id)[0].value = currentNote + '' + currentOct;
-});
+};
 
-fctTuneDown = (function(id) {
+var fctTuneDown = function(id) {
 	var currentTune 	= $(id)[0].value;
 	var currentOct 		= currentTune.substring(currentTune.length-1);
 	var currentNote 	= currentTune.substring(0,currentTune.length-1);
@@ -256,11 +275,26 @@ fctTuneDown = (function(id) {
 	}
 	
 	$(id)[0].value = currentNote + '' + currentOct;
-});
+};
 
+var fctSetTuning = function(arrayTuning) {
+	for (var numStr = 0 ; numStr < arrayTuning.length ; numStr++) {
+		$('#tuning_'+numStr)[0].value = arrayTuning[numStr];
+	}
+};
 
+var fctSetPreset = function(preset) {
+	var arrayPreset = preset.split(";");
+	var nbStrings = arrayPreset[0];
+	var arrayTuning = arrayPreset[1].split("|");
+	
+	setNbStrings(nbStrings);
+	fctSetTuning(arrayTuning);
+}
 
 window.onload = (function(){
 	bindKeyEvents();
 	$('#nb_strings').change(function() { setNbStrings($("#nb_strings")[0].value); });
+	$('#preset').change(function(event) { fctSetPreset(event.target.value); });
+	fctSetPreset($('#preset')[0].value);
 });

@@ -102,6 +102,10 @@ class TabController extends Zend_Controller_Action
                 
              // Sinon on affiche le formulaire
              } else {
+			 
+				$presets = new Application_Model_TabPresetMapper();
+				$this->view->presets = $presets->fetchAll();
+			 
                 $this->view->display_form 	= true;
 				$this->view->form_name 		= 'createtab';
 				//$this->view->params			= $params;
