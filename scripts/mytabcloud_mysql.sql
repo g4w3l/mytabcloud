@@ -25,14 +25,13 @@ CREATE TABLE IF NOT EXISTS `mtc_action` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `mtc_note` (
-  `note_id` int(11) NOT NULL AUTO_INCREMENT,
   `note_string` int(11) NOT NULL,
   `note_fret` int(11) NOT NULL,
-  `note_beat` int(11) DEFAULT NULL,
-  `note_tab` int(11) DEFAULT NULL,
-  PRIMARY KEY (`note_id`),
+  `note_beat` int(11) NOT NULL DEFAULT '0',
+  `note_tab` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`note_string`,`note_beat`,`note_tab`),
   KEY `note_tab` (`note_tab`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `mtc_tab` (
   `tab_id` int(11) NOT NULL AUTO_INCREMENT,

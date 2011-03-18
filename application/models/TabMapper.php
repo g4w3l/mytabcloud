@@ -43,7 +43,15 @@ class Application_Model_TabMapper
 			
 			MyTabCloud_Action::logAction($tab->getUser(), 'create', 'tab', $tab_id);			
         } else {
-        	$data['tab_created'] = $tab->getCreated();
+        	$mapper->emptyTab($id);
+			
+			foreach($tab->getContent() as $note) {
+				$note->setTab($id);
+				$mapper->save($note);
+			}
+			
+        	//$data['tab_created'] = $tab->getCreated();
+			
             $this->getDbTable()->update($data, array('tab_id = ?' => $id));
 			MyTabCloud_Action::logAction($tab->getUser(), 'update', 'tab', $id);
         }

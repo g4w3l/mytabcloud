@@ -27,33 +27,13 @@ class Application_Model_NoteMapper
 		);
 		
 		// Vérification s'il s'agit d'un update ou d'un insert
-		if (null === ($id = $note->getId())) {
-            unset($data['note_id']);
-            $this->getDbTable()->insert($data);
-        } else {
-            $this->getDbTable()->update($data, array('note_id = ?' => $id));
-        }
+		$this->getDbTable()->insert($data);
 	}
-	
-	public function find($id, Application_Model_Note $note) {
-		// Requ�te permettant de r�cup�rer une tablature par son ID
-		$result = $this->getDbTable()->find($id);
-        if (0 == count($result)) { return false; }
+
 		
-		// On met le résultat de la requ�te dans un objet Application_Model_Tab
-        $row = $result->current();
-        $note->setId($row->note_id)
-			->setString($row->note_string)
-			->setFret($row->note_fret)
-			->setBeat($row->note_beat)
-			->setTab($row->note_tab);
-		
-		return true;
-	}
-		
-	public function delete($id)
+	public function emptyTab($tab_id)
     {
-        $result = $this->getDbTable()->delete($id);
+        $result = $this->getDbTable()->delete("note_tab = '" . $tab_id . "'");
     }
 	
 	public function fetchAll() {
@@ -61,8 +41,7 @@ class Application_Model_NoteMapper
         $entries   = array();
         foreach ($resultSet as $row) {
             $entry = new Application_Model_Note();
-            $entry->setId($row->note_id)
-				->setString($row->note_string)
+            $entry->setString($row->note_string)
 				->setFret($row->note_fret)
 				->setBeat($row->note_beat)
 				->setTab($row->note_tab);
@@ -76,8 +55,7 @@ class Application_Model_NoteMapper
         $entries   = array();
         foreach ($resultSet as $row) {
             $entry = new Application_Model_Note();
-            $entry->setId($row->note_id)
-				->setString($row->note_string)
+            $entry->setString($row->note_string)
 				->setFret($row->note_fret)
 				->setBeat($row->note_beat)
 				->setTab($row->note_tab);

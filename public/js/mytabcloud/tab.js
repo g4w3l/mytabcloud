@@ -284,12 +284,14 @@ var fctSetTuning = function(arrayTuning) {
 };
 
 var fctSetPreset = function(preset) {
-	var arrayPreset = preset.split(";");
-	var nbStrings = arrayPreset[0];
-	var arrayTuning = arrayPreset[1].split("|");
-	
-	setNbStrings(nbStrings);
-	fctSetTuning(arrayTuning);
+	if(preset.length > 0) {
+		var arrayPreset = preset.split(";");
+		var nbStrings = arrayPreset[0];
+		var arrayTuning = arrayPreset[1].split("|");
+		
+		setNbStrings(nbStrings);
+		fctSetTuning(arrayTuning);
+	}
 }
 
 window.onload = (function(){

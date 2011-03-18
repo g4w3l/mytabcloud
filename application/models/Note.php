@@ -3,7 +3,6 @@
 class Application_Model_Note
 {
 	// Attributs
-    protected $_id;
 	protected $_string;
 	protected $_fret;
 	protected $_beat;
@@ -62,11 +61,6 @@ class Application_Model_Note
         return $this;
     }
 	
-	public function getId() { return $this->_id; }
-	public function setId($id) {
-		$this->_id = (int)$id;
-		return $this;
-	}
 	
 	public function getString() { return $this->_string; }
 	public function setString($string) {

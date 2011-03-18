@@ -73,9 +73,9 @@ class MyTabCloud_Tab_Display {
 					
 					// Si on est en lecture seule
 					if($readonly) {
-						$tab_display = $tab_display .  '<td><input name="note-'.$ligne.'-'.$string.'-'.$current_beat.'" id="note-'.$ligne.'-'.$string.'-'.$current_beat.'" value="' . $notevalue . '" type="text" maxlength="3" readonly /></td>';
+						$tab_display = $tab_display .  '<td><input name="note-'.$ligne.'-'.$string.'-'.$beat_line.'" id="note-'.$ligne.'-'.$string.'-'.$beat_line.'" value="' . $notevalue . '" type="text" maxlength="3" readonly /></td>';
                     } else {
-                    	$tab_display = $tab_display .  '<td><input name="note-'.$ligne.'-'.$string.'-'.$current_beat.'" id="note-'.$ligne.'-'.$string.'-'.$current_beat.'" value="' . $notevalue . '" type="text" autocomplete="off" maxlength="3" /></td>';                    	
+                    	$tab_display = $tab_display .  '<td><input name="note-'.$ligne.'-'.$string.'-'.$beat_line.'" id="note-'.$ligne.'-'.$string.'-'.$beat_line.'" value="' . $notevalue . '" type="text" autocomplete="off" maxlength="3" /></td>';                    	
                     } 
 					
 					// On passe au beat suivant
