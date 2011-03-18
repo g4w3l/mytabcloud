@@ -127,8 +127,8 @@ class TabController extends Zend_Controller_Action
         
         if($mapper->find($tab_id, $tab)) {
         	$this->view->has_tab	= true;
-        	$this->view->artist 	= $tab->getArtist();
-        	$this->view->title 		= $tab->getTitle();
+        	$this->view->tablature 	= $tab;
+        	//$this->view->title 		= $tab->getTitle();
         	
 			$this->view->tab_display = MyTabCloud_Tab_Display::displayTabForm($tab);  
         	
