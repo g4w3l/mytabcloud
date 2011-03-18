@@ -13,7 +13,7 @@
            <area shape='rect' coords='0,0,20,10' href="javascript:fctUp('#capo', 25);" />                        
         </map>
         
-        <form id="createtab" enctype="application/x-www-form-urlencoded" method="post" action="/mytabcloud/public/tab/create">
+        <form id="createtab" enctype="application/x-www-form-urlencoded" method="post" action="<?php echo $this->url(array('controller' => 'tab', 'action' => 'create'), 'default', true); ?>">
         <div class="container">
             <div class="span-9 colborder">
             <input type="hidden" name="formname" value="<?php echo $this->form_name; ?>" id="formname" />
