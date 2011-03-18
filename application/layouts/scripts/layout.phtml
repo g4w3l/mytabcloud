@@ -25,6 +25,7 @@
         <div class="container">
 		    <div class="span-24 last">
 		        <h1><a href="<?php $this->url(array('controller' => 'index', 'action' => 'index'), 'default', true); ?>">MyTabCloud : Online Tab Editor</a></h1>
+		        <?php echo $this->navigation()->menu(); ?>
 		    </div>
 		    <div class="span-18 colborder">
 		    	<?php echo $this->layout()->content ?>	

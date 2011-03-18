@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configdata>
+	<nav>
+		<home>
+			<label>Accueil</label>
+			<controller>index</controller>
+		</home>
+		<tab>
+			<label>Tablatures</label>
+			<controller>tab</controller>
+			<pages>
+				<create>
+					<label>Créer</label>
+					<controller>tab</controller>
+					<action>create</action>
+				</create>
+			</pages>
+		</tab>
+	</nav>
+</configdata>

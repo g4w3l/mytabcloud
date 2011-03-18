@@ -10,6 +10,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->doctype('XHTML1_STRICT');
     }
     
+	/**
+	 * @return Zend_Navigation
+	 */
+	protected function _initNavigation()    {
+	    $view = $this->bootstrap('layout')->getResource('layout')->getView();
+	    $config = new Zend_Config_Xml(APPLICATION_PATH . '/configs/navigation.xml', 'nav');
+	    $view->navigation(new Zend_Navigation($config));
+	}
+
     // Initialisation des constantes
     protected function setconstants($constants){
         foreach ($constants as $key=>$value){
