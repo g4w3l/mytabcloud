@@ -53,7 +53,7 @@ class MyTabCloud_Tab_Display {
 			
 			// On dessine une nouvelle ligne de tablature
             $tab_display = $tab_display . '<div class="tab_line">';
-	        $tab_display = $tab_display . '<table class="tab" cellspacing="0">';
+	        $tab_display = $tab_display . '<table class="tab" id="tab_line_'.$ligne.'" cellspacing="0">';
             
 			// On va afficher chaque corde
             for($string = 0 ; $string < $tab->getNbStrings() ; $string++) {
