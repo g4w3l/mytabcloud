@@ -18,9 +18,10 @@ resources.db.params.password = "password";
 
 ; Constantes servant à configurer l'application
 ; - Nombre de beats par ligne de tablature 
-constants.NB_BEATS = 20
+constants.NB_BEATS = 30
 ; - Nombre de lignes de tablature par page
-constants.NB_LINES = 5                    
+constants.NB_LINES = 5
+constants.DEFAULT_STRINGS = 6                    
 
 [staging : production]
 resources.view[] =
