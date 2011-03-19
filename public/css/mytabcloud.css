@@ -4,6 +4,9 @@
 
 #tab_display { margin-top:20px; }
 
+
+.tab_description { width: 250px; height:100px; }
+
 .tab_line { width: 800px; height: auto;}
 .tab_line table { width: auto; margin-left:20px; }
 .tab_line td { background-color: transparent; padding: 0 0 0 0; margin: 0 0 0 0; background-image: url('/mytabcloud/public/images/tab_line.png'); background-repeat: repeat-x; background-position: center left; }

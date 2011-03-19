@@ -40,6 +40,7 @@ class TabController extends Zend_Controller_Action
 			$params = array(
 				'artist' 		=> $request->getParam('artist'),
 				'title'			=> $request->getParam('title'),
+				'description'	=> $request->getParam('description'),
 				'nb_strings'	=> $request->getParam('nb_strings'),
 				'capo'			=> $request->getParam('capo')
 			);
@@ -90,6 +91,7 @@ class TabController extends Zend_Controller_Action
                     ->setNbStrings($params['nb_strings'])
 					->setCapo($params['capo'])
 					->setTuning($tuning)
+					->setDescription($params['description'])
                     ->setContent($tab_content)
                     ->setUser($this->_auth->getIdentity()->usr_id); 
                                     
@@ -169,6 +171,7 @@ class TabController extends Zend_Controller_Action
 						'artist' 		=> $request->getParam('artist'),
 						'title'			=> $request->getParam('title'),
 						'nb_strings'	=> $request->getParam('nb_strings'),
+						'description'	=> $request->getParam('description'),
 						'capo'			=> $request->getParam('capo')
 					);		             
 	             
@@ -216,6 +219,7 @@ class TabController extends Zend_Controller_Action
 	                    ->setNbStrings($params['nb_strings'])
 						->setCapo($params['capo'])
 						->setTuning($tuning)
+						->setDescription($params['description'])
 	                    ->setContent($tab_content)
 	                    ->setUser($this->_auth->getIdentity()->usr_id); 
 	                                    
@@ -235,7 +239,8 @@ class TabController extends Zend_Controller_Action
 						'title'			=> $tab->getTitle(),
 						'nb_strings'	=> $tab->getNbStrings(),
 						'capo'			=> $tab->getCapo(),
-						'tuning'		=> explode('|', $tab->getTuning())
+						'tuning'		=> explode('|', $tab->getTuning()),
+						'description'	=> $tab->getDescription()
 					);
 					
 					$this->view->has_tab	= true;

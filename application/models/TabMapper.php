@@ -26,6 +26,7 @@ class Application_Model_TabMapper
 			'tab_nb_strings' => $tab->getNbStrings(),
 			'tab_capo' => $tab->getCapo(),
 			'tab_tuning' => $tab->getTuning(),
+			'tab_desc'	=> $tab->getDescription(),
 			'tab_user' => $tab->getUser()					
 		);
 		
@@ -78,6 +79,7 @@ class Application_Model_TabMapper
 			->setNbStrings($row->tab_nb_strings)
 			->setCapo($row->tab_capo)
 			->setTuning($row->tab_tuning)
+			->setDescription($row->tab_desc)
 			->setContent($noteMap->findByTab($id))
 			->setLastBeat($lastBeat)
 			->setUser($row->tab_user)
@@ -102,6 +104,7 @@ class Application_Model_TabMapper
     			->setNbStrings($row->tab_nb_strings)
 				->setCapo($row->tab_capo)
 				->setTuning($row->tab_tuning)
+				->setDescription($row->tab_desc)
     			->setContent($row->tab_content)
     			->setUser($row->tab_user)
 				->setCreated($row->tab_created);
@@ -121,6 +124,7 @@ class Application_Model_TabMapper
     			->setNbStrings($row->tab_nb_strings)
 				->setCapo($row->tab_capo)
 				->setTuning($row->tab_tuning)
+				->setDescription($row->tab_desc)
     			->setUser($row->tab_user)
 				->setCreated($row->tab_created);
             $entries[] = $entry;

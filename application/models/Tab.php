@@ -10,6 +10,7 @@ class Application_Model_Tab
     protected $_content;
 	protected $_capo;
 	protected $_tuning;
+	protected $_description;
     protected $_user;
 	protected $_lastBeat;
 	protected $_created;
@@ -100,6 +101,12 @@ class Application_Model_Tab
 	public function getTuning() { return $this->_tuning; }
 	public function setTuning($tuning) {
 		$this->_tuning = $tuning;
+		return $this;
+	}
+	
+	public function getDescription() { return $this->_description; }
+	public function setDescription($description) {
+		$this->_description = $description;
 		return $this;
 	}
 	
