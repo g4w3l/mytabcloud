@@ -9,8 +9,8 @@
         <?php $this->headLink()->appendStylesheet('/mytabcloud/public/css/blueprint/screen.css', 'screen, projection') ?>
         <?php $this->headLink()->appendStylesheet('/mytabcloud/public/css/blueprint/print.css', 'print') ?>
         <?php $this->headLink()->appendStylesheet('/mytabcloud/public/css/mytabcloud.css') ?>
+        <?php $this->headLink()->appendStylesheet('http://fonts.googleapis.com/css?family=Arvo:regular,bold') ?>
         <?php echo $this->headLink(); ?>
-        
         <!--[if lte IE 8]>
         <link rel="stylesheet" href="/mytabcloud/public/css/blueprint/ie.css" type="text/css" media="screen, projection" />
         <![endif]-->
@@ -22,21 +22,39 @@
                 
     </head>
     <body>
-        <div class="container">
-		    <div class="span-24 last">
-		        <h1><a href="<?php $this->url(array('controller' => 'index', 'action' => 'index'), 'default', true); ?>">MyTabCloud : Online Tab Editor</a></h1>
-		        <?php echo $this->navigation()->menu(); ?>
-		    </div>
-		    <div class="span-18 colborder">
-		    	<?php echo $this->layout()->content ?>	
+    	<div class="general_container">
+	    	<div class="header_container">
+	        	<div class="container">
+				    <div class="span-24 last header">
+				        <h1><a href="<?php $this->url(array('controller' => 'index', 'action' => 'index'), 'default', true); ?>"><img src="/mytabcloud/public/images/tabber_logo.png" alt="Tabber, your online tab editor"></img></a></h1>
+				        <?php echo $this->navigation()->menu(); ?>
+				    </div>	
+				</div>
+	    	</div>
+	    	<div class="body_container">
+	        	<div class="container">
+				    <div class="span-18 colborder">
+				    	<?php echo $this->layout()->content ?>	
+					</div>
+					<div class="span-5 last">
+						<?php echo $this->action('signin', 'user'); ?>
+					</div>
+				</div>
 			</div>
-			<div class="span-5 last">
-				<?php echo $this->action('signin', 'user'); ?>
-			</div>
-			<div class="span-24 last footer">
-		        <img src="/mytabcloud/public/images/zend_powered.png" /><br />
-		        Except where otherwise noted, content on this site is licensed under a Creative Commons Attribution 3.0 License
-		    </div>
+		</div>
+		<div class="footer">
+			<div class="container">
+				<div class="span-8">
+			        <h3 style="font-family:'Arvo';color:#d3b397;">Tabber</h3>
+			    </div>
+			    <div class="span-8">
+			        <h3 style="font-family:'Arvo';color:#d3b397;">Aide</h3>
+			    </div>
+			    <div class="span-8 last">
+			        <h3 style="font-family:'Arvo';color:#d3b397;">Contact</h3>
+			    </div>
+			    
+			</div>	
 		</div>
         
        
