@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `mtc_tab` (
   `tab_nb_strings` int(11) NOT NULL DEFAULT '6',
   `tab_capo` int(11) DEFAULT NULL,
   `tab_tuning` varchar(100) DEFAULT NULL,
-  `tab_desc` text NOT NULL,
+  `tab_desc` text NULL,
   `tab_user` int(11) NOT NULL,
   `tab_created` datetime NOT NULL,
   PRIMARY KEY (`tab_id`)

@@ -8,6 +8,7 @@
         <!-- blueprintcss dependency -->
         <?php $this->headLink()->appendStylesheet('/mytabcloud/public/css/blueprint/screen.css', 'screen, projection') ?>
         <?php $this->headLink()->appendStylesheet('/mytabcloud/public/css/blueprint/print.css', 'print') ?>
+        <?php $this->headLink()->appendStylesheet('/mytabcloud/public/css/smoothness/jquery-ui-1.8.11.custom.css') ?>
         <?php $this->headLink()->appendStylesheet('/mytabcloud/public/css/mytabcloud.css') ?>
         <?php $this->headLink()->appendStylesheet('http://fonts.googleapis.com/css?family=Arvo:regular,bold') ?>
         <?php echo $this->headLink(); ?>
@@ -16,6 +17,7 @@
         <![endif]-->
         
         <?php $this->headScript()->appendFile('/mytabcloud/public/js/jquery.min.js'); ?>
+        <?php $this->headScript()->appendFile('/mytabcloud/public/js/jquery-ui-1.8.11.custom.min.js'); ?>
         <?php $this->javascriptHelper(); ?>
         <?php echo $this->headScript(); ?>
         
@@ -46,12 +48,17 @@
 			<div class="container">
 				<div class="span-8">
 			        <h3 style="font-family:'Arvo';color:#d3b397;">Tabber</h3>
+					<p>About</p>
+					<p>Terms of service</p>
 			    </div>
 			    <div class="span-8">
-			        <h3 style="font-family:'Arvo';color:#d3b397;">Aide</h3>
+			        <h3 style="font-family:'Arvo';color:#d3b397;">Help</h3>
+					<p>F.A.Q.</p>
 			    </div>
 			    <div class="span-8 last">
 			        <h3 style="font-family:'Arvo';color:#d3b397;">Contact</h3>
+					<p>Contact us</p>
+					<p>Follow us</p>
 			    </div>
 			    
 			</div>	

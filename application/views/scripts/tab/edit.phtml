@@ -18,75 +18,78 @@ if($this->has_tab) {
         
         <form id="createtab" enctype="application/x-www-form-urlencoded" method="post" action="<?php echo $this->url(array('controller' => 'tab', 'action' => 'edit', 'id' => $this->params['id']), 'default', true); ?>">
         <div class="container">
-            <div class="span-9 colborder">
-            <input type="hidden" name="formname" value="<?php echo $this->form_name; ?>" id="formname" />
-            <h3>Song information</h3>
-            <table>
-                <tr>
-                    <td><label for="artist" class="required">Artist</label></td>
-                    <td><input type="text" name="artist" id="artist" value="<?php echo $this->params['artist']; ?>" /></td>
-                </tr>                     
-                <tr>
-                    <td><label for="title" class="required">Title</label></td>                     
-                    <td><input type="text" name="title" id="title" value="<?php echo $this->params['title']; ?>" /></td>
-                </tr>
-                <tr>
-                    <td><label for="description" class="required">Description</label></td>                     
-                    <td><textarea name="description" id="description" class="tab_description"><?php echo $this->params['description']; ?></textarea></td>
-                </tr>
-            </table>
-                <!-- <dt id="title-label"><label for="tuning" class="required">Tuning</label></dt>                     
-                <dd id="title-element"><input type="text" name="tuning" id="tuning" value="<?php echo $this->params['tuning']; ?>" /></dd> -->
-            </div>
-            <div class="span-9 last">
-            <h3>Tab configuration</h3>
-            <table>
-				<tr>
-					<td><label for="preset" class="required">Preset</label></td>
-					<td>
-						<select name="preset" id="preset">
-							<option value="" selected="true"></option>
-						<?php
-							foreach($this->presets as $preset) {
-								echo '<option value="' . $preset->getNbStrings() . ';' . $preset->getTuning() . '">' . $preset->getName() . '</option>';
-							}
-						?>
-						</select>
-					</td>
-				</tr>
-				<tr>
-                    <td><label for="nb_strings" class="required">Strings</label></td>                     
-                    <td>
-                        <input type="text" name="nb_strings" id="nb_strings" size="5" value="<?php echo (($this->params['nb_strings'] != "") ? $this->params['nb_strings'] : DEFAULT_STRINGS); ?>" />
-                        <img src='/mytabcloud/public/images/updown.png' width='14' height='19' style="vertical-align:middle;" usemap='#nb_strings_map'></img>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label for="capo" class="required">Capo</label></td>                     
-                    <td>
-                        <input type="text" name="capo" id="capo" size="5" value="<?php echo (($this->params['capo'] != "") ? $this->params['capo'] : 0); ?>" />
-                        <img src='/mytabcloud/public/images/updown.png' width='14' height='19' style="vertical-align:middle;" usemap='#capo_map'></img>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label class="required">Tuning</label></td>                     
-                    <td id="td_tuning">
-					<?php
-						for($tun_str = 0 ; $tun_str < $this->params['nb_strings'] ; $tun_str++) {
-							echo '<div id="tuning_div_' . $tun_str . '">';
-							echo '<input type="text" name="tuning_' . $tun_str . '" id="tuning_' . $tun_str . '" size="3" value="'.$this->params['tuning'][$tun_str].'" />';
-							echo '<img src="/mytabcloud/public/images/updown.png" width="14" height="19" class="updownimg" usemap="#map_tuning_'.$tun_str.'"></img>';
-							echo '<map name="map_tuning_'.$tun_str.'">';
-							echo '	<area shape="rect" coords="0,11,20,22" href="javascript:fctTuneDown(\'#tuning_'.$tun_str.'\');" />';
-							echo '	<area shape="rect" coords="0,0,20,10" href="javascript:fctTuneUp(\'#tuning_'.$tun_str.'\');" />';                        
-							echo '</map>';
-							echo '</div>';
-						}
-					?>
-                    </td>
-                </tr>
-               </table>   
-            </div>
+            <div id="tab_pane" class="span-18">
+            	<ul>
+            		<li><a href="#tab-song">Song Information</a></li>
+            		<li><a href="#tab-config">Tab configuration</a></li>
+            	</ul>
+	            <div id="tab-song">
+		            <table>
+		                <tr>
+		                    <td><label for="artist" class="required">Artist</label></td>
+		                    <td><input type="text" name="artist" id="artist" value="<?php echo $this->params['artist']; ?>" /></td>
+		                </tr>                     
+		                <tr>
+		                    <td><label for="title" class="required">Title</label></td>                     
+		                    <td><input type="text" name="title" id="title" value="<?php echo $this->params['title']; ?>" /></td>
+		                </tr>
+		                <tr>
+		                    <td><label for="description" class="required">Description</label></td>                     
+		                    <td><textarea name="description" id="description" class="tab_description"><?php echo $this->params['description']; ?></textarea></td>
+		                </tr>
+		            </table>
+	                <!-- <dt id="title-label"><label for="tuning" class="required">Tuning</label></dt>                     
+	                <dd id="title-element"><input type="text" name="tuning" id="tuning" value="<?php echo $this->params['tuning']; ?>" /></dd> -->
+				</div>
+	            <div id="tab-config">
+		            <table>
+						<tr>
+							<td><label for="preset" class="required">Preset</label></td>
+							<td>
+								<select name="preset" id="preset">
+									<option value="" selected="true"></option>
+								<?php
+									foreach($this->presets as $preset) {
+										echo '<option value="' . $preset->getNbStrings() . ';' . $preset->getTuning() . '">' . $preset->getName() . '</option>';
+									}
+								?>
+								</select>
+							</td>
+						</tr>
+						<tr>
+		                    <td><label for="nb_strings" class="required">Strings</label></td>                     
+		                    <td>
+		                        <input type="text" name="nb_strings" id="nb_strings" size="5" value="<?php echo (($this->params['nb_strings'] != "") ? $this->params['nb_strings'] : DEFAULT_STRINGS); ?>" />
+		                        <img src='/mytabcloud/public/images/updown.png' width='14' height='19' style="vertical-align:middle;" usemap='#nb_strings_map'></img>
+		                    </td>
+		                </tr>
+		                <tr>
+		                    <td><label for="capo" class="required">Capo</label></td>                     
+		                    <td>
+		                        <input type="text" name="capo" id="capo" size="5" value="<?php echo (($this->params['capo'] != "") ? $this->params['capo'] : 0); ?>" />
+		                        <img src='/mytabcloud/public/images/updown.png' width='14' height='19' style="vertical-align:middle;" usemap='#capo_map'></img>
+		                    </td>
+		                </tr>
+		                <tr>
+		                    <td><label class="required">Tuning</label></td>                     
+		                    <td id="td_tuning">
+							<?php
+								for($tun_str = 0 ; $tun_str < $this->params['nb_strings'] ; $tun_str++) {
+									echo '<div id="tuning_div_' . $tun_str . '">';
+									echo '<input type="text" name="tuning_' . $tun_str . '" id="tuning_' . $tun_str . '" size="3" value="'.$this->params['tuning'][$tun_str].'" />';
+									echo '<img src="/mytabcloud/public/images/updown.png" width="14" height="19" class="updownimg" usemap="#map_tuning_'.$tun_str.'"></img>';
+									echo '<map name="map_tuning_'.$tun_str.'">';
+									echo '	<area shape="rect" coords="0,11,20,22" href="javascript:fctTuneDown(\'#tuning_'.$tun_str.'\');" />';
+									echo '	<area shape="rect" coords="0,0,20,10" href="javascript:fctTuneUp(\'#tuning_'.$tun_str.'\');" />';                        
+									echo '</map>';
+									echo '</div>';
+								}
+							?>
+		                    </td>
+		                </tr>
+	               </table>   
+	            </div>
+			</div>
          </div>   
                        	
             

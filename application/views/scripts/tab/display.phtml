@@ -1,6 +1,7 @@
 <?php
 	if($this->has_tab) {
 ?>	
+	<div id="tab_display">
 	<center><h2><?php echo $this->tablature->getArtist(); ?></h2>
 	<h3><?php echo $this->tablature->getTitle(); ?></h3></center>
 	
@@ -8,6 +9,7 @@
 	<?php if($this->tablature->getCapo() != 0) { echo "<p>Capo : " . $this->tablature->getCapo() . "</p>"; } ?>	
 	
 	<?php echo $this->tab_display;?>
+	</div>
 <?php		
 	} else {
 		echo $this->message;
