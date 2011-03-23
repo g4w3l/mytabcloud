@@ -27,11 +27,20 @@
     	<div class="general_container">
 	    	<div class="header_container">
 	        	<div class="container">
-				    <div class="span-24 last header">
-				        <h1><a href="<?php $this->url(array('controller' => 'index', 'action' => 'index'), 'default', true); ?>"><img src="/mytabcloud/public/images/tabber_logo.png" alt="Tabber, your online tab editor"></img></a></h1>
-				        <?php echo $this->navigation()->menu(); ?>
+				    <div class="span-12 header">
+				        <h1><a href="<?php $this->url(array('controller' => 'index', 'action' => 'index'), 'default', true); ?>"><img class="logo" src="/mytabcloud/public/images/tabber_logo.png" alt="Tabber, your online tab editor"></img></a></h1>
 				    </div>	
+				    <div class="span-12 header last">
+				    	<?php echo $this->action('signin', 'user'); ?>
+				    </div>
 				</div>
+	    	</div>
+	    	<div class="menu_container">
+	        	<div class="container">
+				    <div class="span-24 last">
+	    				<?php echo $this->navigation()->menu(); ?>
+	    			</div>
+	    		</div>
 	    	</div>
 	    	<div class="body_container">
 	        	<div class="container">
@@ -39,7 +48,7 @@
 				    	<?php echo $this->layout()->content ?>	
 					</div>
 					<div class="span-5 last">
-						<?php echo $this->action('signin', 'user'); ?>
+						Sidebar
 					</div>
 				</div>
 			</div>

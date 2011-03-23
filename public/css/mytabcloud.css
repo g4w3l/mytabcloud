@@ -3,7 +3,8 @@ body { background-color:#6c4b2e; }
 .general_container { background-color:#fdf9ed; padding-bottom:20px; }
 
 .header_container { height: 64px; background-image: url('/mytabcloud/public/images/header_bg.png'); background-position:top center; background-repeat:repeat-x; }
-.header { margin-top: 8px; }
+.header { margin-top: 8px; vertical-align: bottom; }
+.logo { vertical-align: bottom; }
 
 .footer { width:100%; margin-top:20px; }
 .footer_img { background-image: url('/mytabcloud/public/images/guitar_footer.png'); background-repeat: no-repeat;height:36px; width:380px; margin-left:200px; }
