@@ -14,9 +14,10 @@
         </map>
         
         <form id="createtab" enctype="application/x-www-form-urlencoded" method="post" action="<?php echo $this->url(array('controller' => 'tab', 'action' => 'create'), 'default', true); ?>">
-        <div class="container">
+        <div class="container center">
         	<?php echo $this->formHidden('formname', $this->form_name, null); ?>
-            <div id="tab_pane" class="span-18">
+        	
+            <div id="tab_pane" class="span-24">
             	<ul>
             		<li><a href="#tab-song">Song Information</a></li>
             		<li><a href="#tab-config">Tab configuration</a></li>
@@ -97,7 +98,13 @@
 					<div id="tab_display">
 						<?php echo $this->tab_display; ?>
 					</div>
-					<p class="add_line"><a href="javascript:addTabLine();">Add Line</a></p>
+					<!-- <p class="add_line"><a href="javascript:addTabLine();">Add Line</a></p> -->
+					<div class="button">
+						<div class="left_button"></div>
+						<div class="center_button">Add Line</div>
+						<div class="right_button">+</div>
+					</div>
+					
 				</div>
             </div>
          </div>   
