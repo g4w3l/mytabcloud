@@ -1,6 +1,6 @@
 <?php
 
-class Application_Model_TabPresetMapper
+class Application_Model_InstrumentMapper
 {
 	protected $_dbTable;
 		
@@ -12,26 +12,23 @@ class Application_Model_TabPresetMapper
 	}
  
     public function getDbTable() {
-        if (null === $this->_dbTable) { $this->setDbTable('Application_Model_DbTable_TabPreset'); }
+        if (null === $this->_dbTable) { $this->setDbTable('Application_Model_DbTable_Instrument'); }
         return $this->_dbTable;
     }
 	
-	public function save(Application_Model_TabPreset $preset) {
+	public function save(Application_Model_Instrument $preset) {
 		// TODO : Save
 	}
 	
-	public function find($id, Application_Model_TabPreset $preset) {
-		// RequÃªte permettant de rÃ©cupÃ©rer un utilisateur par son ID
+	public function find($id, Application_Model_Instrument $preset) {
+		// Requête permettant de récupérer un utilisateur par son ID
 		$result = $this->getDbTable()->find($id);
         if (0 == count($result)) { return; }
 		
-		// On met le rÃ©sultat de la requÃªte dans un objet Application_Model_User
+		// On met le résultat de la requête dans un objet Application_Model_User
         $row = $result->current();
-        $tab->setId($row->pst_id)
-			 ->setName($row->pst_name)
-			 ->setNbStrings($row->pst_nb_strings)
-			 ->setCapo($row->pst_capo)
-			 ->setTuning($row->pst_tuning);
+        $tab->setId($row->ins_id)
+			 ->setName($row->ins_name);
 	}
 	
 	public function delete($id)
@@ -44,30 +41,22 @@ class Application_Model_TabPresetMapper
        
 	   $entries   = array();
         foreach ($resultSet as $row) {
-            $entry = new Application_Model_TabPreset();
-            $entry->setId($row->pst_id)
-				 ->setName($row->pst_name)
-				 ->setNbStrings($row->pst_nb_strings)
-				 ->setCapo($row->pst_capo)
-				 ->setTuning($row->pst_tuning);
+            $entry = new Application_Model_Instrument();
+            $entry->setId($row->ins_id)
+				 ->setName($row->ins_name);
             $entries[] = $entry;
         }
         return $entries;
 	}
 	
 	/** Fonction qui donne un tableau valeur=>label **/
-	public function fetchAllForSelect($default = false) {
+	public function fetchAllForSelect() {
 		$resultSet = $this->getDbTable()->fetchAll();
        
-		$entries   = array();
-		
-		if($default) {
-			$entries[''] = '';
-		}
-		
+	   $entries   = array();
         foreach ($resultSet as $row) {
 			// Value => Label
-            $entries[$row->pst_nb_strings . ";". $row->pst_tuning] = $row->pst_name;
+            $entries[$row->ins_id] = $row->ins_name;
         }
         return $entries;
 	}

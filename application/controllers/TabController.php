@@ -41,8 +41,10 @@ class TabController extends Zend_Controller_Action
 				'artist' 		=> $request->getParam('artist'),
 				'title'			=> $request->getParam('title'),
 				'description'	=> $request->getParam('description'),
+				'instrument'	=> $request->getParam('instrument'),
 				'nb_strings'	=> $request->getParam('nb_strings'),
-				'capo'			=> $request->getParam('capo')
+				'capo'			=> $request->getParam('capo'),
+				'visibility'	=> $request->getParam('visibility')
 			);
              
             // Si le formulaire de cr�ation a �t� envoy�
@@ -92,8 +94,10 @@ class TabController extends Zend_Controller_Action
 					->setCapo($params['capo'])
 					->setTuning($tuning)
 					->setDescription($params['description'])
+					->setInstrument($params['instrument'])
                     ->setContent($tab_content)
-                    ->setUser($this->_auth->getIdentity()->usr_id); 
+                    ->setUser($this->_auth->getIdentity()->usr_id)
+					->setVisibility($params['visibility']); 
                                     
                 // On enregistre l'objet                                
                 $mapper  = new Application_Model_TabMapper();
@@ -106,7 +110,10 @@ class TabController extends Zend_Controller_Action
              } else {
 			 
 				$presets = new Application_Model_TabPresetMapper();
-				$this->view->presets = $presets->fetchAll();
+				$this->view->presets = $presets->fetchAllForSelect();
+				
+				$instruments = new Application_Model_InstrumentMapper();
+				$this->view->instruments = $instruments->fetchAllForSelect();
 			 
                 $this->view->display_form 	= true;
 				$this->view->form_name 		= 'createtab';
@@ -172,7 +179,9 @@ class TabController extends Zend_Controller_Action
 						'title'			=> $request->getParam('title'),
 						'nb_strings'	=> $request->getParam('nb_strings'),
 						'description'	=> $request->getParam('description'),
-						'capo'			=> $request->getParam('capo')
+						'instrument'	=> $request->getParam('instrument'),
+						'capo'			=> $request->getParam('capo'),
+						'visibility'	=> $request->getParam('visibility')
 					);		             
 	             
 	                $this->view->display_form = false; 
@@ -220,8 +229,10 @@ class TabController extends Zend_Controller_Action
 						->setCapo($params['capo'])
 						->setTuning($tuning)
 						->setDescription($params['description'])
+						->setInstrument($params['instruments'])
 	                    ->setContent($tab_content)
-	                    ->setUser($this->_auth->getIdentity()->usr_id); 
+	                    ->setUser($this->_auth->getIdentity()->usr_id)
+						->setVisibility($params['visibility']); 
 	                                    
 	                // On enregistre l'objet                                
 	                $mapper  = new Application_Model_TabMapper();
@@ -240,14 +251,19 @@ class TabController extends Zend_Controller_Action
 						'nb_strings'	=> $tab->getNbStrings(),
 						'capo'			=> $tab->getCapo(),
 						'tuning'		=> explode('|', $tab->getTuning()),
-						'description'	=> $tab->getDescription()
+						'description'	=> $tab->getDescription(),
+						'instrument'	=> $tab->getInstrument(),
+						'visibility'	=> $tab->getVisibility()
 					);
 					
 					$this->view->has_tab	= true;
 					$this->view->params		= $params;	
 				 
 					$presets = new Application_Model_TabPresetMapper();
-					$this->view->presets = $presets->fetchAll();
+					$this->view->presets = $presets->fetchAllForSelect(true);
+					
+					$instruments = new Application_Model_InstrumentMapper();
+					$this->view->instruments = $instruments->fetchAllForSelect();
 				 
 	                $this->view->display_form 	= true;
 					$this->view->form_name 		= 'edittab';

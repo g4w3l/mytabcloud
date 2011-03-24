@@ -16,6 +16,10 @@
 		echo "<a href=".$this->signupURL.">New user ? Sign up !</a>";
 	// Sinon on affiche son nom et le lien pour se déconnecter
 	} else {
-		echo "Welcome, " . $this->user() . "<br />";
-		echo "<a href=".$this->signoutURL.">Logout</a>";
+		echo "<table><tr><td>";
+			echo "Welcome, " . $this->user() . "<br />";
+			echo "<a href=".$this->signoutURL.">Logout</a>";
+		echo '</td><td width="' . GRAVATAR_SIZE . '">';
+			echo $this->gravatarHelper();
+		echo "</td></tr></table>";		
 	}

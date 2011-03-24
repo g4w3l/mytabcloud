@@ -14,6 +14,8 @@
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
 CREATE TABLE IF NOT EXISTS `mtc_action` (
   `act_id` int(11) NOT NULL AUTO_INCREMENT,
   `act_user` int(11) NOT NULL,
@@ -22,16 +24,23 @@ CREATE TABLE IF NOT EXISTS `mtc_action` (
   `act_resource` int(11) NOT NULL,
   `act_timestamp` datetime NOT NULL,
   PRIMARY KEY (`act_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+CREATE TABLE IF NOT EXISTS `mtc_instrument` (
+  `ins_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ins_name` varchar(50) NOT NULL,
+  PRIMARY KEY (`ins_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 CREATE TABLE IF NOT EXISTS `mtc_note` (
+  `note_id` int(11) NOT NULL AUTO_INCREMENT,
   `note_string` int(11) NOT NULL,
   `note_fret` int(11) NOT NULL,
-  `note_beat` int(11) NOT NULL DEFAULT '0',
-  `note_tab` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`note_string`,`note_beat`,`note_tab`),
+  `note_beat` int(11) DEFAULT NULL,
+  `note_tab` int(11) DEFAULT NULL,
+  PRIMARY KEY (`note_id`),
   KEY `note_tab` (`note_tab`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=121 ;
 
 CREATE TABLE IF NOT EXISTS `mtc_tab` (
   `tab_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -39,26 +48,23 @@ CREATE TABLE IF NOT EXISTS `mtc_tab` (
   `tab_title` varchar(100) DEFAULT NULL,
   `tab_nb_strings` int(11) NOT NULL DEFAULT '6',
   `tab_capo` int(11) DEFAULT NULL,
-  `tab_tuning` varchar(100) DEFAULT NULL,
-  `tab_desc` text NULL,
+  `tab_tuning` varchar(32) DEFAULT NULL,
+  `tab_desc` text,
+  `tab_instrument` int(11) DEFAULT NULL,
   `tab_user` int(11) NOT NULL,
+  `tab_visibility` varchar(50) DEFAULT NULL,
   `tab_created` datetime NOT NULL,
   PRIMARY KEY (`tab_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
 
 CREATE TABLE IF NOT EXISTS `mtc_tab_preset` (
   `pst_id` int(11) NOT NULL AUTO_INCREMENT,
   `pst_name` varchar(50) NOT NULL,
   `pst_nb_strings` int(11) NOT NULL,
   `pst_capo` int(11) NOT NULL,
-  `pst_tuning` varchar(100) NOT NULL,
+  `pst_tuning` varchar(50) NOT NULL,
   PRIMARY KEY (`pst_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
-INSERT INTO `mtc_tab_preset` (`pst_id`, `pst_name`, `pst_nb_strings`, `pst_capo`, `pst_tuning`) VALUES
-(1, 'Guitar Standard Tuning', 6, 0, 'E5|B4|G4|D4|A3|E3'),
-(2, 'Ukulele C Tuning', 4, 0, 'A3|E3|C3|G3'),
-(3, 'Bass Standard Tuning', 4, 0, 'G3|D3|A2|E2');
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 CREATE TABLE IF NOT EXISTS `mtc_user` (
   `usr_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -70,5 +76,18 @@ CREATE TABLE IF NOT EXISTS `mtc_user` (
   `usr_role` varchar(50) NOT NULL,
   PRIMARY KEY (`usr_id`),
   UNIQUE KEY `usr_login` (`usr_login`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+
+INSERT INTO `mtc_tab_preset` (`pst_id`, `pst_name`, `pst_nb_strings`, `pst_capo`, `pst_tuning`) VALUES
+(1, 'Guitar Standard Tuning', 6, 0, 'E5|B4|G4|D4|A3|E3'),
+(2, 'Ukulele C Tuning', 4, 0, 'A3|E3|C3|G3'),
+(3, 'Bass Standard Tuning', 4, 0, 'G3|D3|A2|E2');
+
+INSERT INTO `mtc_instrument` (`ins_id`, `ins_name`) VALUES
+(1, 'Guitar'),
+(2, 'Ukulele'),
+(3, 'Bass');
+
+
 

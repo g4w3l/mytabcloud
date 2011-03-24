@@ -6,18 +6,18 @@
         
         
         <!-- blueprintcss dependency -->
-        <?php $this->headLink()->appendStylesheet('/mytabcloud/public/css/blueprint/screen.css', 'screen, projection') ?>
-        <?php $this->headLink()->appendStylesheet('/mytabcloud/public/css/blueprint/print.css', 'print') ?>
-        <?php $this->headLink()->appendStylesheet('/mytabcloud/public/css/smoothness/jquery-ui-1.8.11.custom.css') ?>
-        <?php $this->headLink()->appendStylesheet('/mytabcloud/public/css/mytabcloud.css') ?>
+        <?php $this->headLink()->appendStylesheet($this->baseUrl() . '/css/blueprint/screen.css', 'screen, projection') ?>
+        <?php $this->headLink()->appendStylesheet($this->baseUrl() . '/css/blueprint/print.css', 'print') ?>
+        <?php $this->headLink()->appendStylesheet($this->baseUrl() . '/css/smoothness/jquery-ui-1.8.11.custom.css') ?>
+        <?php $this->headLink()->appendStylesheet($this->baseUrl() . '/css/mytabcloud.css') ?>
         <?php $this->headLink()->appendStylesheet('http://fonts.googleapis.com/css?family=Arvo:regular,bold') ?>
         <?php echo $this->headLink(); ?>
         <!--[if lte IE 8]>
         <link rel="stylesheet" href="/mytabcloud/public/css/blueprint/ie.css" type="text/css" media="screen, projection" />
         <![endif]-->
         
-        <?php $this->headScript()->appendFile('/mytabcloud/public/js/jquery.min.js'); ?>
-        <?php $this->headScript()->appendFile('/mytabcloud/public/js/jquery-ui-1.8.11.custom.min.js'); ?>
+        <?php $this->headScript()->appendFile($this->baseUrl() . '/js/jquery.min.js'); ?>
+        <?php $this->headScript()->appendFile($this->baseUrl() . '/js/jquery-ui-1.8.11.custom.min.js'); ?>
         <?php $this->javascriptHelper(); ?>
         <?php echo $this->headScript(); ?>
         
@@ -27,10 +27,10 @@
     	<div class="general_container">
 	    	<div class="header_container">
 	        	<div class="container">
-				    <div class="span-12 header">
-				        <h1><a href="<?php $this->url(array('controller' => 'index', 'action' => 'index'), 'default', true); ?>"><img class="logo" src="/mytabcloud/public/images/tabber_logo.png" alt="Tabber, your online tab editor"></img></a></h1>
+				    <div class="span-12 header_logo">
+				        <h1><a href="<?php echo $this->url(array('controller' => 'index', 'action' => 'index'), 'default', true); ?>"><img class="logo" src="/mytabcloud/public/images/tabber_logo.png" alt="Tabber, your online tab editor"></img></a></h1>
 				    </div>	
-				    <div class="span-12 header last">
+				    <div class="span-12 header_login last">
 				    	<?php echo $this->action('signin', 'user'); ?>
 				    </div>
 				</div>

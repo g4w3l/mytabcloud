@@ -1,14 +1,16 @@
 <?php
 	if($this->has_tab) {
 ?>	
-	<div id="tab_display">
-	<center><h2><?php echo $this->tablature->getArtist(); ?></h2>
-	<h3><?php echo $this->tablature->getTitle(); ?></h3></center>
-	
-	<?php echo "<p>" . $this->tablature->getDescription() . "</p>"; ?>
-	<?php if($this->tablature->getCapo() != 0) { echo "<p>Capo : " . $this->tablature->getCapo() . "</p>"; } ?>	
-	
-	<?php echo $this->tab_display;?>
+	<div class="tab_page">
+		<div id="tab_display">
+		<center><h2><?php echo $this->tablature->getArtist(); ?></h2>
+		<h3><?php echo $this->tablature->getTitle(); ?></h3></center>
+		
+		<?php echo "<p>" . $this->tablature->getDescription() . "</p>"; ?>
+		<?php if($this->tablature->getCapo() != 0) { echo "<p>Capo : " . $this->tablature->getCapo() . "</p>"; } ?>	
+		
+		<?php echo $this->tab_display;?>
+		</div>
 	</div>
 <?php		
 	} else {

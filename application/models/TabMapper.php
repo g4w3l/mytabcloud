@@ -27,7 +27,9 @@ class Application_Model_TabMapper
 			'tab_capo' => $tab->getCapo(),
 			'tab_tuning' => $tab->getTuning(),
 			'tab_desc'	=> $tab->getDescription(),
-			'tab_user' => $tab->getUser()					
+			'tab_instrument'	=> $tab->getInstrument(),
+			'tab_user' => $tab->getUser(),
+			'tab_visibility' => $tab->getVisibility()
 		);
 		
 		// Vérification s'il s'agit d'un update ou d'un insert
@@ -80,9 +82,11 @@ class Application_Model_TabMapper
 			->setCapo($row->tab_capo)
 			->setTuning($row->tab_tuning)
 			->setDescription($row->tab_desc)
+			->setInstrument($row->tab_instrument)
 			->setContent($noteMap->findByTab($id))
 			->setLastBeat($lastBeat)
 			->setUser($row->tab_user)
+			->setVisibility($row->tab_visibility)
 			->setCreated($row->tab_created);
 		
 		return true;
@@ -105,8 +109,10 @@ class Application_Model_TabMapper
 				->setCapo($row->tab_capo)
 				->setTuning($row->tab_tuning)
 				->setDescription($row->tab_desc)
+				->setInstrument($row->tab_instrument)
     			->setContent($row->tab_content)
     			->setUser($row->tab_user)
+				->setVisibility($row->tab_visibility)
 				->setCreated($row->tab_created);
             $entries[] = $entry;
         }
@@ -125,7 +131,9 @@ class Application_Model_TabMapper
 				->setCapo($row->tab_capo)
 				->setTuning($row->tab_tuning)
 				->setDescription($row->tab_desc)
+				->setInstrument($row->tab_instrument)
     			->setUser($row->tab_user)
+				->setVisibility($row->tab_visibility)
 				->setCreated($row->tab_created);
             $entries[] = $entry;
         }

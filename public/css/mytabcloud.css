@@ -3,20 +3,24 @@ body { background-color:#6c4b2e; }
 .general_container { background-color:#fdf9ed; padding-bottom:20px; }
 
 .header_container { height: 64px; background-image: url('/mytabcloud/public/images/header_bg.png'); background-position:top center; background-repeat:repeat-x; }
-.header { margin-top: 8px; vertical-align: bottom; }
+.header_logo { margin-top: 8px; vertical-align: bottom; }
+.header_login, .header_login td { margin-top: 8px; text-align: right; }
 .logo { vertical-align: bottom; }
 
-.footer { width:100%; margin-top:20px; }
-.footer_img { background-image: url('/mytabcloud/public/images/guitar_footer.png'); background-repeat: no-repeat;height:36px; width:380px; margin-left:200px; }
+.footer { width:100%; padding-top:20px; background: url('/mytabcloud/public/images/footer_shadow.png') repeat-x top center; }
+/* .footer_img { background-image: url('/mytabcloud/public/images/guitar_footer.png'); background-repeat: no-repeat;height:36px; width:380px; margin-left:200px; } */
 
-#tab_display { padding-top:20px;padding-bottom:20px; margin-top:20px; margin-bottom:10px;  
--moz-box-shadow: 2px 2px 5px #999;
--webkit-box-shadow: 2px 2px 5px #999;
-box-shadow: 2px 2px 5px #999;
-border:#ddd solid 1px; 
-background-color:#ffffff;}
+#tab_display { padding-top:20px;padding-bottom:20px; margin-top:20px; margin-bottom:10px; }
 
 #tab_display p { margin-left: 10px; }
+
+.tab_page { 
+	-moz-box-shadow: 2px 2px 5px #999;
+	-webkit-box-shadow: 2px 2px 5px #999;
+	box-shadow: 2px 2px 5px #999;
+	border:#ddd solid 1px; 
+	background-color:#ffffff;
+}
 
 .tab_description { width: 250px; height:100px; }
 

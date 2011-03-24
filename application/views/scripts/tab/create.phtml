@@ -20,20 +20,21 @@
             	<ul>
             		<li><a href="#tab-song">Song Information</a></li>
             		<li><a href="#tab-config">Tab configuration</a></li>
+					<li><a href="#tab-content">Tab content</a></li>
             	</ul>
 	            <div id="tab-song">
 		            <table>
 		                <tr>
-		                    <td><label for="artist" class="required">Artist</label></td>
-		                    <td><input type="text" name="artist" id="artist" value="<?php echo $this->params['artist']; ?>" /></td>
+		                    <td><?php echo $this->formLabel('artist', 'Artist', array('class' => 'required')); ?></td>
+		                    <td><?php echo $this->formText('artist', '', null); ?></td>
 		                </tr>                     
 		                <tr>
-		                    <td><label for="title" class="required">Title</label></td>                     
-		                    <td><input type="text" name="title" id="title" value="<?php echo $this->params['title']; ?>" /></td>
+		                    <td><?php echo $this->formLabel('title', 'Title', array('class' => 'required')); ?></td>                     
+		                    <td><?php echo $this->formText('title', '', null); ?></td>
 		                </tr>
 		                <tr>
-		                    <td><label for="description" class="required">Description</label></td>                     
-		                    <td><textarea name="description" id="description" class="tab_description"><?php echo $this->params['description']; ?></textarea></td>
+		                    <td><?php echo $this->formLabel('description', 'Description', array('class' => 'required')); ?></td>                     
+		                    <td><?php echo $this->formTextarea('description', '', array('class' => 'tab_description')); ?></td>
 		                </tr>
 		            </table>
 	                <!-- <dt id="title-label"><label for="tuning" class="required">Tuning</label></dt>                     
@@ -42,39 +43,45 @@
             	<div id="tab-config">
 		            <table>
 						<tr>
-							<td><label for="preset" class="required">Preset</label></td>
+							<td><?php echo $this->formLabel('preset', 'Preset', array('class' => 'required')); ?></td>
 							<td>
-								<select name="preset" id="preset">
-								<?php
-									foreach($this->presets as $preset) {
-										echo '<option value="' . $preset->getNbStrings() . ';' . $preset->getTuning() . '">' . $preset->getName() . '</option>';
-									}
-								?>
+								<?php echo $this->formSelect('preset', '1', null, $this->presets); ?>
+							</td>
+							<td><?php echo $this->formLabel('visibility', 'Visibility', array('class' => 'required')); ?></td>
+							<td>
+								<select name="visibility" id="visibility">
+									<option value="public">Public</option>
+									<option value="private">Private</option>
 								</select>
 							</td>
 						</tr>
 						<tr>
-		                    <td><label for="nb_strings" class="required">Strings</label></td>                     
+		                    <td><?php echo $this->formLabel('nb_strings', 'Strings', array('class' => 'required')); ?></td>                     
 		                    <td>
-		                        <input type="text" name="nb_strings" id="nb_strings" size="5" value="<?php echo (($this->params['nb_strings'] != "") ? $this->params['nb_strings'] : DEFAULT_STRINGS); ?>" />
-		                        <img src='/mytabcloud/public/images/updown.png' width='14' height='19' style="vertical-align:middle;" usemap='#nb_strings_map'></img>
+								<?php echo $this->formText('nb_strings', DEFAULT_STRINGS, array('size' => '5')); ?>
+		                        <img src='<?php echo $this->baseUrl(); ?>/images/updown.png' width='14' height='19' style="vertical-align:middle;" usemap='#nb_strings_map'></img>
+		                    </td>
+							
+							<td><?php echo $this->formLabel('instrument', 'Instrument', array('class' => 'required')); ?></td>
+							<td>
+								<?php echo $this->formSelect('instrument', '1', null, $this->instruments); ?>
+							</td>
+		                </tr>
+		                <tr>
+		                    <td><?php echo $this->formLabel('capo', 'Capo', array('class' => 'required')); ?></td>                     
+		                    <td>
+								<?php echo $this->formText('capo', 0, array('size' => '5')); ?>
+		                        <img src='<?php echo $this->baseUrl(); ?>/images/updown.png' width='14' height='19' style="vertical-align:middle;" usemap='#capo_map'></img>
 		                    </td>
 		                </tr>
 		                <tr>
-		                    <td><label for="capo" class="required">Capo</label></td>                     
-		                    <td>
-		                        <input type="text" name="capo" id="capo" size="5" value="<?php echo (($this->params['capo'] != "") ? $this->params['capo'] : 0); ?>" />
-		                        <img src='/mytabcloud/public/images/updown.png' width='14' height='19' style="vertical-align:middle;" usemap='#capo_map'></img>
-		                    </td>
-		                </tr>
-		                <tr>
-		                    <td><label class="required">Tuning</label></td>                     
+		                    <td><?php echo $this->formLabel('tuning', 'Tuning', array('class' => 'required')); ?></td>                     
 		                    <td id="td_tuning">
 							<?php
 								for($tun_str = 0 ; $tun_str < DEFAULT_STRINGS ; $tun_str++) {
 									echo '<div id="tuning_div_' . $tun_str . '">';
-									echo '<input type="text" name="tuning_' . $tun_str . '" id="tuning_' . $tun_str . '" size="3" value="E4" />';
-									echo '<img src="/mytabcloud/public/images/updown.png" width="14" height="19" class="updownimg" usemap="#map_tuning_'.$tun_str.'"></img>';
+									echo $this->formText('tuning_' . $tun_str, 'E4', array('size' => '3'));
+									echo '<img src="' . $this->baseUrl() .'/images/updown.png" width="14" height="19" class="updownimg" usemap="#map_tuning_'.$tun_str.'"></img>';
 									echo '<map name="map_tuning_'.$tun_str.'">';
 									echo '	<area shape="rect" coords="0,11,20,22" href="javascript:fctTuneDown(\'#tuning_'.$tun_str.'\');" />';
 									echo '	<area shape="rect" coords="0,0,20,10" href="javascript:fctTuneUp(\'#tuning_'.$tun_str.'\');" />';                        
@@ -86,20 +93,18 @@
 		                </tr>
 	               </table>  
 				</div>
+				<div id="tab-content">
+					<div id="tab_display">
+						<?php echo $this->tab_display; ?>
+					</div>
+					<p class="add_line"><a href="javascript:addTabLine();">Add Line</a></p>
+				</div>
             </div>
          </div>   
-                       	
-            
-        <div id="tab_display">
-        <?php echo $this->tab_display; ?>
-        </div>
         
-        <p class="add_line"><a href="javascript:addTabLine();">Add Line</a></p>
-            
                 
         <dl class="zend_form">
-            <dt id="submit-label">&#160;</dt><dd id="submit-element">
-            <input type="submit" name="submit" id="submit" value="Save" /></dd>
+			<?php echo $this->formSubmit('submit', 'Save', null); ?>
         </dl>
         </form>
 <?php
