@@ -3,19 +3,19 @@
     if($this->user()) {
         if($this->display_form) {
 ?>
-        <map name='nb_strings_map'>                        
-           <area shape='rect' coords='0,11,20,22' href="javascript:fctDown('#nb_strings', 1);" />                        
-           <area shape='rect' coords='0,0,20,10' href="javascript:fctUp('#nb_strings', 10);" />                        
+        <map name='nb_strings_map' id="nb_strings_map">                        
+           <area shape='rect' coords='0,11,20,22' href="javascript:fctDown('#nb_strings', 1);" alt="Down" />                        
+           <area shape='rect' coords='0,0,20,10' href="javascript:fctUp('#nb_strings', 10);" alt="Up" />                        
         </map>
         
-        <map name='capo_map'>                        
-           <area shape='rect' coords='0,11,20,22' href="javascript:fctDown('#capo', 0);" />                        
-           <area shape='rect' coords='0,0,20,10' href="javascript:fctUp('#capo', 25);" />                        
+        <map name='capo_map' id="capo_map">                        
+           <area shape='rect' coords='0,11,20,22' href="javascript:fctDown('#capo', 0);" alt="Down" />                        
+           <area shape='rect' coords='0,0,20,10' href="javascript:fctUp('#capo', 25);" alt="Up" />                        
         </map>
         
         <form id="createtab" enctype="application/x-www-form-urlencoded" method="post" action="<?php echo $this->url(array('controller' => 'tab', 'action' => 'create'), 'default', true); ?>">
-        <input type="hidden" name="formname" value="<?php echo $this->form_name; ?>" id="formname" />
         <div class="container">
+        	<?php echo $this->formHidden('formname', $this->form_name, null); ?>
             <div id="tab_pane" class="span-18">
             	<ul>
             		<li><a href="#tab-song">Song Information</a></li>
@@ -59,7 +59,7 @@
 		                    <td><?php echo $this->formLabel('nb_strings', 'Strings', array('class' => 'required')); ?></td>                     
 		                    <td>
 								<?php echo $this->formText('nb_strings', DEFAULT_STRINGS, array('size' => '5')); ?>
-		                        <img src='<?php echo $this->baseUrl(); ?>/images/updown.png' width='14' height='19' style="vertical-align:middle;" usemap='#nb_strings_map'></img>
+		                        <img src="<?php echo $this->baseUrl(); ?>/images/updown.png" width="14" height="19" style="vertical-align:middle;" usemap="#nb_strings_map" alt="Up Down"></img>
 		                    </td>
 							
 							<td><?php echo $this->formLabel('instrument', 'Instrument', array('class' => 'required')); ?></td>
@@ -71,20 +71,20 @@
 		                    <td><?php echo $this->formLabel('capo', 'Capo', array('class' => 'required')); ?></td>                     
 		                    <td>
 								<?php echo $this->formText('capo', 0, array('size' => '5')); ?>
-		                        <img src='<?php echo $this->baseUrl(); ?>/images/updown.png' width='14' height='19' style="vertical-align:middle;" usemap='#capo_map'></img>
+		                        <img src="<?php echo $this->baseUrl(); ?>/images/updown.png" width="14" height="19" style="vertical-align:middle;" usemap="#capo_map" alt="Up Down"></img>
 		                    </td>
 		                </tr>
 		                <tr>
-		                    <td><?php echo $this->formLabel('tuning', 'Tuning', array('class' => 'required')); ?></td>                     
+		                    <td><?php echo $this->formLabel(null, 'Tuning', array('class' => 'required')); ?></td>                     
 		                    <td id="td_tuning">
 							<?php
 								for($tun_str = 0 ; $tun_str < DEFAULT_STRINGS ; $tun_str++) {
 									echo '<div id="tuning_div_' . $tun_str . '">';
 									echo $this->formText('tuning_' . $tun_str, 'E4', array('size' => '3'));
-									echo '<img src="' . $this->baseUrl() .'/images/updown.png" width="14" height="19" class="updownimg" usemap="#map_tuning_'.$tun_str.'"></img>';
-									echo '<map name="map_tuning_'.$tun_str.'">';
-									echo '	<area shape="rect" coords="0,11,20,22" href="javascript:fctTuneDown(\'#tuning_'.$tun_str.'\');" />';
-									echo '	<area shape="rect" coords="0,0,20,10" href="javascript:fctTuneUp(\'#tuning_'.$tun_str.'\');" />';                        
+									echo '<img src="' . $this->baseUrl() .'/images/updown.png" width="14" height="19" class="updownimg" usemap="#map_tuning_'.$tun_str.'" alt="Up Down"></img>';
+									echo '<map name="map_tuning_'.$tun_str.'" id="map_tuning_'.$tun_str.'">';
+									echo '	<area shape="rect" coords="0,11,20,22" href="javascript:fctTuneDown(\'#tuning_'.$tun_str.'\');" alt="Down" />';
+									echo '	<area shape="rect" coords="0,0,20,10" href="javascript:fctTuneUp(\'#tuning_'.$tun_str.'\');" alt="Up" />';                        
 									echo '</map>';
 									echo '</div>';
 								}

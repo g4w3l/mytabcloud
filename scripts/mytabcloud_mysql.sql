@@ -24,23 +24,24 @@ CREATE TABLE IF NOT EXISTS `mtc_action` (
   `act_resource` int(11) NOT NULL,
   `act_timestamp` datetime NOT NULL,
   PRIMARY KEY (`act_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `mtc_instrument` (
   `ins_id` int(11) NOT NULL AUTO_INCREMENT,
   `ins_name` varchar(50) NOT NULL,
   PRIMARY KEY (`ins_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `mtc_note` (
-  `note_id` int(11) NOT NULL AUTO_INCREMENT,
   `note_string` int(11) NOT NULL,
   `note_fret` int(11) NOT NULL,
-  `note_beat` int(11) DEFAULT NULL,
-  `note_tab` int(11) DEFAULT NULL,
-  PRIMARY KEY (`note_id`),
-  KEY `note_tab` (`note_tab`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=121 ;
+  `note_beat` int(11) NOT NULL DEFAULT '0',
+  `note_tab` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`note_string`,`note_beat`,`note_tab`),
+  KEY `note_tab` (`note_tab`),
+  KEY `fk_note_tab` (`note_tab`),
+  CONSTRAINT `fk_note_tab` FOREIGN KEY (`note_tab`) REFERENCES `mtc_tab` (`tab_id`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `mtc_tab` (
   `tab_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -55,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `mtc_tab` (
   `tab_visibility` varchar(50) DEFAULT NULL,
   `tab_created` datetime NOT NULL,
   PRIMARY KEY (`tab_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `mtc_tab_preset` (
   `pst_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -64,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `mtc_tab_preset` (
   `pst_capo` int(11) NOT NULL,
   `pst_tuning` varchar(50) NOT NULL,
   PRIMARY KEY (`pst_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `mtc_user` (
   `usr_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -76,8 +77,26 @@ CREATE TABLE IF NOT EXISTS `mtc_user` (
   `usr_role` varchar(50) NOT NULL,
   PRIMARY KEY (`usr_id`),
   UNIQUE KEY `usr_login` (`usr_login`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+CREATE TABLE IF NOT EXISTS `mtc_friendship` (
+  `fri_user_1` int(11) NOT NULL,
+  `fri_user_2` int(11) NOT NULL,
+  PRIMARY KEY (`fri_user_2`,`fri_user_1`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE IF NOT EXISTS `mtc_group` (
+  `gpe_id` INT NOT NULL AUTO_INCREMENT ,
+  `gpe_name` VARCHAR(45) NULL ,
+  PRIMARY KEY (`gpe_id`) ,
+  UNIQUE INDEX `gpe_name_UNIQUE` (`gpe_name` ASC)
+);
+
+CREATE TABLE IF NOT EXISTS `mtc_user_group` (
+  `mug_user` INT NOT NULL ,
+  `mug_group` INT NOT NULL ,
+  PRIMARY KEY (`mug_user`, `mug_group`)
+);
 
 INSERT INTO `mtc_tab_preset` (`pst_id`, `pst_name`, `pst_nb_strings`, `pst_capo`, `pst_tuning`) VALUES
 (1, 'Guitar Standard Tuning', 6, 0, 'E5|B4|G4|D4|A3|E3'),

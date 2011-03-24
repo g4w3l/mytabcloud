@@ -222,13 +222,15 @@ function setNbStrings(nbStrings) {
 			newAreaUp	= $('<area>').attr({
 				shape:'rect',
 				coords:'0,0,20,10',
-				href:'javascript:fctTuneUp("#tuning_' + string + '");'
+				href:'javascript:fctTuneUp("#tuning_' + string + '");',
+				alt:'Up'
 			});
 			
 			newAreaDown	= $('<area>').attr({
 				shape:'rect',
 				coords:'0,11,20,22',
-				href:'javascript:fctTuneDown("#tuning_' + string + '");'
+				href:'javascript:fctTuneDown("#tuning_' + string + '");',
+				alt:'Down'
 			});
 			
 			newMap.append(newAreaUp);

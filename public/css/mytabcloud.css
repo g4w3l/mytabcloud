@@ -5,6 +5,7 @@ body { background-color:#6c4b2e; }
 .header_container { height: 64px; background-image: url('/mytabcloud/public/images/header_bg.png'); background-position:top center; background-repeat:repeat-x; }
 .header_logo { margin-top: 8px; vertical-align: bottom; }
 .header_login, .header_login td { margin-top: 8px; text-align: right; }
+.gravatar { width:40px; }
 .logo { vertical-align: bottom; }
 
 .footer { width:100%; padding-top:20px; background: url('/mytabcloud/public/images/footer_shadow.png') repeat-x top center; }

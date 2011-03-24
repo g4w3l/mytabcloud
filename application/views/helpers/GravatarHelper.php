@@ -12,14 +12,14 @@ class Zend_View_Helper_GravatarHelper
 		
 		$auth = Zend_Auth::getInstance();
 		if($auth->hasIdentity()) {
-			// Récupère l'identité de l'utilisateur
+			// Rï¿½cupï¿½re l'identitï¿½ de l'utilisateur
 			$user        = $auth->getIdentity();
 			$username    = $this->_view->escape($user->usr_login);
 		
 			$url = 'http://www.gravatar.com/avatar/';
 			$url .= md5( strtolower( trim( $user->usr_mail ) ) );
-			$url .= "?s=" . GRAVATAR_SIZE . "&d=" . GRAVATAR_DEFAULT . "&r=" . GRATAVAR_RATING;			
-			$url = '<img src="' . $url . '" />';
+			$url .= "?s=" . GRAVATAR_SIZE . "&amp;d=" . GRAVATAR_DEFAULT . "&amp;r=" . GRATAVAR_RATING;			
+			$url = '<img src="' . $url . '" alt="Gravatar" />';
 			
 			return $url;
 		} else {
