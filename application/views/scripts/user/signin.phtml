@@ -2,16 +2,15 @@
 	// Si l'utilisateur n'est pas loggé, on affiche le formulaire de login
 	if(!$this->user()) {
 		$this->form->setAction($this->url());
-		echo $this->message;
+		echo $this->loginMessage;
 		//echo $this->form;
 		?>
 		<form id="signin" enctype="application/x-www-form-urlencoded" method="post" action="/mytabcloud/public/"><dl class="zend_form">
 		<input type="hidden" name="formname" value="signin" id="formname" />
-		<label for="login" class="required">Login</label>
-		<input type="text" name="login" id="login" value="" />
-		<label for="password" class="required">Password</label>
-		<input type="password" name="password" id="password" value="" />
-		<input type="submit" name="submit" id="submit" value="Sign in" /></form>
+		<input type="text" placeholder="Your login" name="login" id="login" value="" />
+		<input type="password" placeholder="Your password" name="password" id="password" value="" />
+		<a href="javascript:$('#signin').submit();" class="button"><span class="user icon"></span>Log in</a>
+		<br />
 		<?php				
 		echo "<a href=".$this->signupURL.">New user ? Sign up !</a>";
 	// Sinon on affiche son nom et le lien pour se déconnecter

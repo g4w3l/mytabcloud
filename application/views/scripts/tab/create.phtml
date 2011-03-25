@@ -14,7 +14,7 @@
         </map>
         
         <form id="createtab" enctype="application/x-www-form-urlencoded" method="post" action="<?php echo $this->url(array('controller' => 'tab', 'action' => 'create'), 'default', true); ?>">
-        <div class="container center">
+        <div class="container">
         	<?php echo $this->formHidden('formname', $this->form_name, null); ?>
         	
             <div id="tab_pane" class="span-24">
@@ -98,21 +98,18 @@
 					<div id="tab_display">
 						<?php echo $this->tab_display; ?>
 					</div>
-					<!-- <p class="add_line"><a href="javascript:addTabLine();">Add Line</a></p> -->
-					<div class="button">
-						<div class="left_button"></div>
-						<div class="center_button">Add Line</div>
-						<div class="right_button">+</div>
-					</div>
+					<p class="add_line"><a class="button" href="javascript:addTabLine();"><span class="plus icon"></span>Add Line</a></p>
+					
 					
 				</div>
             </div>
          </div>   
+		 
+		<div style="width:100%; text-align:center; margin-top:10px;">
+			<a href="javascript:$('#createtab').submit();" class="positive button" style="margin-right:5px;"><span class="icon check"></span>Save</a>
+		</div>
         
-                
-        <dl class="zend_form">
-			<?php echo $this->formSubmit('submit', 'Save', null); ?>
-        </dl>
+		
         </form>
 <?php
         } else {

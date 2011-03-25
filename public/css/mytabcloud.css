@@ -26,7 +26,7 @@ body { background-color:#6c4b2e; }
 .tab_description { width: 250px; height:100px; }
 
 .tab_line { height: auto; margin-bottom: 20px; }
-.tab_line table { width: auto; margin-left:10px; }
+.tab_line table { width: auto; margin-left:10px; margin-left: auto; margin-right: auto;}
 .tab_line td { background-color: transparent; padding: 0 0 0 0; margin: 0 0 0 0; background-image: url('/mytabcloud/public/images/tab_line.png'); background-repeat: repeat-x; background-position: center left; }
 .tab_line .tab_tuning { background-image:none; padding-right:3px; }
 .tab_line input { margin: 0 0 0 0; padding: 0 0 0 0; border: 0px; text-align:center; background: transparent; height:1.5em; width:1.7em; }
@@ -34,10 +34,15 @@ body { background-color:#6c4b2e; }
 .tuning { }
 .tuning input { }
 
-.add_line { text-align:right; width:100%; }
-
-.button .left_button { height:35px; width:16px; background-image: url('/mytabcloud/public/images/button_01.png'); background-position: 0 0; float: left; }
-.button .center_button { height:35px; width:100px; background-image: url('/mytabcloud/public/images/button_02.png'); background-position: 0 0; }
-.button .right_button { height:35px; width:61px; background-image: url('/mytabcloud/public/images/button_03.png'); background-position: 0 0; float: right; }
+.add_line { text-align:center; width:100%; }
 
 .updownimg { vertical-align:middle;}
+
+.profile_image { float:left; }
+.profile_content { margin-left: 150px; }
+.profile_line { height:30px; border-top:1px solid lightgrey; }
+.profile_line_title { float:left; }
+.profile_line_value { float:right; }
+.profile_clear { clear:both; }
+
+.button { margin-bottom: 5px;}

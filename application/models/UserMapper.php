@@ -51,6 +51,8 @@ class Application_Model_UserMapper
 			 ->setCreated($row->usr_created)
 			 ->setMail($row->usr_mail)
 			 ->setRole($row->usr_role);
+		
+		return true;
 	}
 	
 	public function delete($id)

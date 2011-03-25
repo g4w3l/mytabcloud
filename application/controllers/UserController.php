@@ -87,7 +87,7 @@ class UserController extends Zend_Controller_Action
 					}					
 				} else {
 					// Message affiché si l'authentification a échoué
-					$this->view->message = '<div class="error">Incorrect login or password</div>';
+					$this->view->loginMessage = '<div class="error">Incorrect login or password</div>';
 				}
 			}
 		} 
@@ -105,6 +105,28 @@ class UserController extends Zend_Controller_Action
 		Zend_Session::destroy();
 		$this->_helper->_redirector('index', 'index');
     }
+	
+	public function profileAction() {
+		// Récupération du paramètre ID
+        $user_id = $this->_getParam("id");
+		
+		// Si on a pas donné d'identifiant, on regarde son propre profil
+		if($this->_auth->hasIdentity()) {
+            if($user_id == "") $user_id = $this->_auth->getIdentity()->usr_id;    
+        }
+				
+		$mapper  = new Application_Model_UserMapper();
+        $user    = new Application_Model_User();
+		
+		if(!$mapper->find($user_id, $user)) {
+        	$this->view->has_user = false;
+        	$this->view->message  = 'Utilisateur introuvable';
+        } else {
+			$this->view->has_user = true;
+			$this->view->user = $user;
+		}
+		
+	}
 
 
 }

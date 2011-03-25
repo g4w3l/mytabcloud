@@ -8,7 +8,7 @@ class Zend_View_Helper_GravatarHelper
 		$this->_view = $view;
 	}
 	
-	function gravatarHelper() {     
+	function gravatarHelper($size = GRAVATAR_SIZE) {     
 		
 		$auth = Zend_Auth::getInstance();
 		if($auth->hasIdentity()) {
@@ -18,7 +18,7 @@ class Zend_View_Helper_GravatarHelper
 		
 			$url = 'http://www.gravatar.com/avatar/';
 			$url .= md5( strtolower( trim( $user->usr_mail ) ) );
-			$url .= "?s=" . GRAVATAR_SIZE . "&amp;d=" . GRAVATAR_DEFAULT . "&amp;r=" . GRATAVAR_RATING;			
+			$url .= "?s=" . $size . "&amp;d=" . GRAVATAR_DEFAULT . "&amp;r=" . GRATAVAR_RATING;			
 			$url = '<img src="' . $url . '" alt="Gravatar" />';
 			
 			return $url;

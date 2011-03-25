@@ -1,0 +1,30 @@
+<div class="container">
+	<div class="span-18 colborder">
+		<div class="profile_container">
+			<div class="profile_image"><?php echo $this->gravatarHelper(GRAVATAR_SIZE_PROFILE); ?></div>
+			<div class="profile_content">
+				<h2><?php echo $this->user->getName(); ?></h2>
+				<div class="profile_line last">
+					<div class="profile_line_title">Login :</div>
+					<div class="profile_line_value"><?php echo $this->user->getLogin(); ?></div>
+					<div class="profile_clear"></div>
+				</div>
+				<div class="profile_line last">
+					<div class="profile_line_title">E-Mail :</div>
+					<div class="profile_line_value"><?php echo $this->user->getMail(); ?></div>
+					<div class="profile_clear"></div>
+				</div>
+				<div class="profile_line last">
+					<div class="profile_line_title">Inscription date :</div>
+					<div class="profile_line_value"><?php echo $this->user->getCreated(); ?></div>
+					<div class="profile_clear"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="span-5 last">
+		<a href="#" class="button"><span class="icon pen"></span>Edit my profile</a>
+		<a href="#" class="button"><span class="icon user"></span>Add to friends</a>
+	</div>
+</div>
+	
