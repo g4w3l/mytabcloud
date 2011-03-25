@@ -16,5 +16,21 @@
 				</create>
 			</pages>
 		</tab>
+		<user>
+			<label>Utilisateur</label>
+			<controller>index</controller>
+			<pages>
+				<create>
+					<label>Créer</label>
+					<controller>user</controller>
+					<action>signup</action>
+				</create>
+				<profile>
+					<label>Profil</label>
+					<controller>user</controller>
+					<action>profile</action>
+				</profile>
+			</pages>
+		</user>
 	</nav>
 </configdata>

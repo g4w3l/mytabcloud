@@ -19,6 +19,7 @@
         
         <?php $this->headScript()->appendFile($this->baseUrl() . '/js/jquery.min.js'); ?>
         <?php $this->headScript()->appendFile($this->baseUrl() . '/js/jquery-ui-1.8.11.custom.min.js'); ?>
+        <?php $this->headScript()->appendFile($this->baseUrl() . '/js/jquery.placeheld.min.js'); ?>
         <?php $this->javascriptHelper(); ?>
         <?php echo $this->headScript(); ?>
         
@@ -70,7 +71,10 @@
 			    
 			</div>	
 		</div>
-        
+       
+       	<script type="text/javascript">
+       		$("input[placeholder]").placeHeld();
+       	</script> 
        
     </body>
 </html>

@@ -23,8 +23,11 @@
 		</div>
 	</div>
 	<div class="span-5 last">
+		<?php if ($this->selfProfile) { ?>
 		<a href="#" class="button"><span class="icon pen"></span>Edit my profile</a>
+		<?php } else { ?>
 		<a href="#" class="button"><span class="icon user"></span>Add to friends</a>
+		<?php } ?>
 	</div>
 </div>
 	
