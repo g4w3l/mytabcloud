@@ -82,6 +82,8 @@ CREATE TABLE IF NOT EXISTS `mtc_user` (
 CREATE TABLE IF NOT EXISTS `mtc_friendship` (
   `fri_user_1` int(11) NOT NULL,
   `fri_user_2` int(11) NOT NULL,
+  `fri_active` tinyint(1) NOT NULL,
+  `fri_ask_date` datetime NOT NULL,
   PRIMARY KEY (`fri_user_2`,`fri_user_1`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
