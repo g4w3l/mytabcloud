@@ -119,6 +119,7 @@ class UserController extends Zend_Controller_Action
             	$user_id = $this->_auth->getIdentity()->usr_id;
 				$this->view->selfProfile = true;
 			}    
+			$this->view->asker = $this->_auth->getIdentity()->usr_id;
         }
 		
 		if($user_id != "") {				
@@ -136,7 +137,40 @@ class UserController extends Zend_Controller_Action
 		}
 		
 	}
+	
+	public function editAction() {
 
+		// Si on a pas donné d'identifiant, on regarde son propre profil
+		if ($this->_auth->hasIdentity()) $user_id = $this->_auth->getIdentity()->usr_id;
+        		
+		if($user_id != "") {				
+			$mapper  = new Application_Model_UserMapper();
+	        $user    = new Application_Model_User();
+			
+			if(!$mapper->find($user_id, $user)) {
+	        	throw new Zend_Controller_Action_Exception('user - edit - utilisateur non trouvé', 404);
+	        } else {
+				$this->view->has_user = true;
+				$this->view->user = $user;
+			}
+		} else {
+	        throw new Zend_Controller_Action_Exception('user - edit - non connecté', 404);
+		}
+	}
+	
+	public function friendshipAction() {
+		$friend = $this->_getParam("friend");
+		
+		if($friend != "") {
+			if ($this->_auth->hasIdentity()) {
+				MyTabCloud_Friendship::askFriendship($this->_auth->getIdentity()->usr_id, $friend);
+			} else {
+				throw new Zend_Controller_Action_Exception('user - friendship - non connecté', 404);
+			}
+		} else {
+			throw new Zend_Controller_Action_Exception('user - friendship - friend non entré', 404);
+		}
+	}
 
 }
 

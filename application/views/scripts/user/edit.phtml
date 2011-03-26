@@ -1,0 +1,24 @@
+<div class="container">
+	<div class="span-18 colborder">
+		<div class="profile_container">
+			<div class="profile_image"><?php echo $this->gravatarHelper(GRAVATAR_SIZE_PROFILE); ?></div>
+			<div class="profile_content">
+				<h2><?php echo $this->user->getName(); ?></h2>
+				<div class="profile_line last">
+					<div class="profile_line_title">Login :</div>
+					<div class="profile_line_value"><?php echo $this->user->getLogin(); ?></div>
+					<div class="profile_clear"></div>
+				</div>
+				<div class="profile_line last">
+					<div class="profile_line_title">E-Mail :</div>
+					<div class="profile_line_value"><?php echo $this->formText('mail', $this->user->getMail(), null); ?></div>
+					<div class="profile_clear"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="span-5 last">
+		
+	</div>
+</div>
+	
