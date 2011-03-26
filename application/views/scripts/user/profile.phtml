@@ -6,7 +6,7 @@
 				<h2><?php echo $this->username; ?></h2>
 				<?php foreach($this->userArray as $key => $value) { ?>
 				<div class="profile_line last">
-					<div class="profile_line_title"><?php echo $key; ?></div>
+					<div class="profile_line_title"><?php echo $key; ?> :</div>
 					<div class="profile_line_value"><?php echo $value; ?></div>
 					<div class="profile_clear"></div>
 				</div>
@@ -18,7 +18,7 @@
 		<?php if ($this->selfProfile) { ?>
 		<a href="<?php echo $this->url(array('controller' => 'user', 'action' => 'edit'), 'default', true); ?>" class="button"><span class="icon pen"></span>Edit my profile</a>
 		<?php } else { ?>
-		<?php switch(MyTabCloud_Friendship::friendshipRequested($this->useridHelper(), $this->user->getId())) {
+		<?php switch(MyTabCloud_Friendship::friendshipRequested($this->useridHelper(), $this->userid)) {
 				case MyTabCloud_Friendship::NO_FRIENDSHIP:
 					echo '<a href="' . $this->url(array('controller' => 'user', 'action' => 'friendship', 'friend' => $this->user->getId()), 'default', true) . '" class="button"><span class="icon user"></span>Add to friends</a>';
 					break;
