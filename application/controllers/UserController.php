@@ -138,6 +138,7 @@ class UserController extends Zend_Controller_Action
 				
 				$userArray['Login'] = $user->getLogin();
 				$userArray['E-Mail'] = $user->getMail();
+				$userArray['Location'] = $user->getLocation();
 				$userArray['Member since'] = $user->getCreated();
 				
 				$this->view->userArray = $userArray;

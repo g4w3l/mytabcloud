@@ -8,6 +8,7 @@ class Application_Model_User
 	protected $_mail;
 	protected $_password;
 	protected $_name;
+	protected $_location;
 	protected $_created;
 	protected $_role;
 	
@@ -91,6 +92,12 @@ class Application_Model_User
 	public function getName() { return $this->_name; }
 	public function setName($name) {
 		$this->_name = (string)$name;
+		return $this;
+	}
+	
+	public function getLocation() { return $this->_location; }
+	public function setLocation($location) {
+		$this->_location = (string)$location;
 		return $this;
 	}
 	

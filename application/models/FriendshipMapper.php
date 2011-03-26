@@ -17,7 +17,7 @@ class Application_Model_FriendshipMapper
     }
     
     public function ask($user1, $user2) {
-		// Objet à sauvegarder
+		// Objet ï¿½ sauvegarder
 		// champ de table -> attribut de l'objet
 		$data = array(
 			'fri_user_1' => $user1,
@@ -26,7 +26,7 @@ class Application_Model_FriendshipMapper
 			'fri_ask_date' => date('Y-m-d H:i:s')
 		);
 		
-		// Vérification s'il s'agit d'un update ou d'un insert
+		// Vï¿½rification s'il s'agit d'un update ou d'un insert
 		$this->getDbTable()->insert($data);        
 	}
 	
@@ -40,7 +40,7 @@ class Application_Model_FriendshipMapper
 		$result = $stmt->fetchAll();
 				
 		if(count($result) > 0) {
-			if($result[0]->fri_active) {
+			if($result[0]['fri_active']) {
 				return MyTabCloud_Friendship::FRIENDSHIP;
 			} else {
 				return MyTabCloud_Friendship::PENDING_REQUEST;

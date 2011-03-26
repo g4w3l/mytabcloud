@@ -24,6 +24,7 @@ class Application_Model_UserMapper
 			'usr_mail' => $user->getMail(),
 			'usr_password' => md5($user->getPassword()),
 			'usr_name' => $user->getName(),
+			'usr_location' => $user->getLocation(),
 			'usr_created' => date('Y-m-d H:i:s'),
 			'usr_role' => $user->getRole()			
 		);
@@ -48,6 +49,7 @@ class Application_Model_UserMapper
 			 ->setLogin($row->usr_login)
 			 ->setPassword($row->usr_password)
 			 ->setName($row->usr_name)
+			 ->setLocation($row->usr_location)
 			 ->setCreated($row->usr_created)
 			 ->setMail($row->usr_mail)
 			 ->setRole($row->usr_role);
@@ -69,6 +71,7 @@ class Application_Model_UserMapper
 				 ->setLogin($row->usr_login)
 				 ->setPassword($row->usr_password)
 				 ->setName($row->usr_name)
+				 ->setLocation($row->usr_location)
 				 ->setCreated($row->usr_created)
 				 ->setMail($row->usr_mail)
 				 ->setRole($row->usr_role);

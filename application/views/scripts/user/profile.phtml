@@ -20,7 +20,7 @@
 		<?php } else { ?>
 		<?php switch(MyTabCloud_Friendship::friendshipRequested($this->useridHelper(), $this->userid)) {
 				case MyTabCloud_Friendship::NO_FRIENDSHIP:
-					echo '<a href="' . $this->url(array('controller' => 'user', 'action' => 'friendship', 'friend' => $this->user->getId()), 'default', true) . '" class="button"><span class="icon user"></span>Add to friends</a>';
+					echo '<a href="' . $this->url(array('controller' => 'user', 'action' => 'friendship', 'friend' => $this->userid), 'default', true) . '" class="button"><span class="icon user"></span>Add to friends</a>';
 					break;
 				case MyTabCloud_Friendship::PENDING_REQUEST:
 					echo '<a href="#" class="button"><span class="icon user"></span>Friend request pending</a>';
