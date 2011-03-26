@@ -17,7 +17,7 @@ class Application_Model_FriendshipMapper
     }
     
     public function ask($user1, $user2) {
-		// Objet � sauvegarder
+		// Objet à sauvegarder
 		// champ de table -> attribut de l'objet
 		$data = array(
 			'fri_user_1' => $user1,
@@ -26,11 +26,12 @@ class Application_Model_FriendshipMapper
 			'fri_ask_date' => date('Y-m-d H:i:s')
 		);
 		
-		// V�rification s'il s'agit d'un update ou d'un insert
+		// Vérification s'il s'agit d'un update ou d'un insert
 		$this->getDbTable()->insert($data);        
 	}
 	
 	public function fetchStatus($user1, $user2) {
+		// Recherche d'une amitié à partir de l'user 1 vers l'user 2
 		$select = $this->getDbTable()->select()
 				->from(array('n' => $this->getDbTable()->getName()), array('fri_active'))
 				->where('fri_user_1 = ?', $user1)
@@ -38,14 +39,19 @@ class Application_Model_FriendshipMapper
 		
 		$stmt = $select->query();
 		$result = $stmt->fetchAll();
-				
+		
+		// Si une amitié, activée ou non existe
 		if(count($result) > 0) {
+			// Si l'amitié est active alors ils sont amis
 			if($result[0]['fri_active']) {
 				return MyTabCloud_Friendship::FRIENDSHIP;
 			} else {
+				// Sinon une demande d'amitié est en cours de user 1 vers user 2
 				return MyTabCloud_Friendship::PENDING_REQUEST;
 			}
 		} else {
+			// Aucune amitié de user 1 vers user 2 existe, on vérifie si user 2 n'a
+			// pas effectué une demande d'amitié vers user 1
 			$select = $this->getDbTable()->select()
 				->from(array('n' => $this->getDbTable()->getName()), array('fri_active'))
 				->where('fri_user_1 = ?', $user2)
@@ -55,9 +61,11 @@ class Application_Model_FriendshipMapper
 			$stmt = $select->query();
 			$result = $stmt->fetchAll();
 			
+			// Si un enregistrement existe, c'est que user 2 a fait une demande d'amitié à user 1
 			if(count($result) > 0) {
 				return MyTabCloud_Friendship::FRIENDSHIP_REQUESTED;
 			} else {
+				// Sinon ils ne sont pas amis du tout
 				return MyTabCloud_Friendship::NO_FRIENDSHIP;
 			}
 		}
