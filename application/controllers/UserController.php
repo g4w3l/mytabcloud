@@ -118,8 +118,9 @@ class UserController extends Zend_Controller_Action
             if($user_id == "") {
             	$user_id = $this->_auth->getIdentity()->usr_id;
 				$this->view->selfProfile = true;
-			}    
-			$this->view->asker = $this->_auth->getIdentity()->usr_id;
+			} 
+			
+			//$this->view->asker = $this->_auth->getIdentity()->usr_id;
         }
 		
 		if($user_id != "") {				
@@ -130,7 +131,15 @@ class UserController extends Zend_Controller_Action
 	        	throw new Zend_Controller_Action_Exception('Document non trouvé', 404);
 	        } else {
 				$this->view->has_user = true;
-				$this->view->user = $user;
+				//$this->view->user = $user;
+				$this->view->username = $user->getName();
+				$this->view->usermail = $user->getMail();
+				
+				$userArray['Login'] = $user->getLogin();
+				$userArray['E-Mail'] = $user->getMail();
+				$userArray['Member since'] = $user->getCreated();
+				
+				$this->view->userArray = $userArray;
 			}
 		} else {
 	        throw new Zend_Controller_Action_Exception('Document non trouvé', 404);
@@ -163,7 +172,9 @@ class UserController extends Zend_Controller_Action
 		
 		if($friend != "") {
 			if ($this->_auth->hasIdentity()) {
-				MyTabCloud_Friendship::askFriendship($this->_auth->getIdentity()->usr_id, $friend);
+				if(MyTabCloud_Friendship::friendshipRequested($this->_auth->getIdentity()->usr_id, $friend) == MyTabCloud_Friendship::NO_FRIENDSHIP) {
+					MyTabCloud_Friendship::askFriendship($this->_auth->getIdentity()->usr_id, $friend);
+				}
 			} else {
 				throw new Zend_Controller_Action_Exception('user - friendship - non connecté', 404);
 			}

@@ -5,6 +5,7 @@ class MyTabCloud_Friendship
 	const NO_FRIENDSHIP = 0;
 	const PENDING_REQUEST = 1;
 	const FRIENDSHIP = 2;
+	const FRIENDSHIP_REQUESTED = 3;
 	
 	// Fonction qui va logger une action
 	public static function askFriendship($user1, $user2) {

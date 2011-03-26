@@ -46,7 +46,20 @@ class Application_Model_FriendshipMapper
 				return MyTabCloud_Friendship::PENDING_REQUEST;
 			}
 		} else {
-			return MyTabCloud_Friendship::NO_FRIENDSHIP;
+			$select = $this->getDbTable()->select()
+				->from(array('n' => $this->getDbTable()->getName()), array('fri_active'))
+				->where('fri_user_1 = ?', $user2)
+				->where('fri_user_2 = ?', $user1)
+				->where('fri_active = ?', false);
+		
+			$stmt = $select->query();
+			$result = $stmt->fetchAll();
+			
+			if(count($result) > 0) {
+				return MyTabCloud_Friendship::FRIENDSHIP_REQUESTED;
+			} else {
+				return MyTabCloud_Friendship::NO_FRIENDSHIP;
+			}
 		}
 		
 	}
