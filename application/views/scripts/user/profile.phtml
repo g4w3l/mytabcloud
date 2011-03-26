@@ -14,7 +14,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="span-5 last">
+	<div class="span-5 last" style="text-align: center;">
 		<?php if ($this->selfProfile) { ?>
 		<a href="<?php echo $this->url(array('controller' => 'user', 'action' => 'edit'), 'default', true); ?>" class="button"><span class="icon pen"></span>Edit my profile</a>
 		<?php } else { ?>
@@ -29,7 +29,10 @@
 					echo '<a href="#" class="button"><span class="icon user"></span>You\'re friends</a>';
 					break;
 				case MyTabCloud_Friendship::FRIENDSHIP_REQUESTED:
-					echo '<a href="#" class="button"><span class="icon user"></span>He wants to be friends</a>';
+					echo $this->username . ' wants to be your friend !';
+					echo '<a href="#" class="positive button"><span class="icon check"></span>Accept</a>';
+					echo '&nbsp;';
+					echo '<a href="#" class="negative button"><span class="icon cross"></span>Decline</a>';
 					break;
 				}
 		?>
