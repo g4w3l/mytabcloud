@@ -132,6 +132,7 @@ class UserController extends Zend_Controller_Action
 	        } else {
 				$this->view->has_user = true;
 				//$this->view->user = $user;
+				$this->view->userid = $user->getId();
 				$this->view->username = $user->getName();
 				$this->view->usermail = $user->getMail();
 				
