@@ -40,9 +40,10 @@ body { background-color:#6c4b2e; }
 
 .profile_image { float:left; }
 .profile_content { margin-left: 150px; }
-.profile_line { height:30px; border-top:1px solid lightgrey; }
+.profile_line { height:30px; border-top:1px solid #BBBBBB; }
 .profile_line_title { float:left; }
 .profile_line_value { float:right; }
 .profile_clear { clear:both; }
 
 .button { margin-bottom: 5px;}
+.hidden { display:none ; }
