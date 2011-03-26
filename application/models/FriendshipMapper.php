@@ -29,6 +29,27 @@ class Application_Model_FriendshipMapper
 		// Vérification s'il s'agit d'un update ou d'un insert
 		$this->getDbTable()->insert($data);        
 	}
+	
+	public function fetchStatus($user1, $user2) {
+		$select = $this->getDbTable()->select()
+				->from(array('n' => $this->getDbTable()->getName()), array('fri_active'))
+				->where('fri_user_1 = ?', $user1)
+				->where('fri_user_2 = ?', $user2);
+		
+		$stmt = $select->query();
+		$result = $stmt->fetchAll();
+				
+		if(count($result) > 0) {
+			if($result[0]->fri_active) {
+				return MyTabCloud_Friendship::FRIENDSHIP;
+			} else {
+				return MyTabCloud_Friendship::PENDING_REQUEST;
+			}
+		} else {
+			return MyTabCloud_Friendship::NO_FRIENDSHIP;
+		}
+		
+	}
 
 }
 

@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="span-18 colborder">
 		<div class="profile_container">
-			<div class="profile_image"><?php echo $this->gravatarHelper(GRAVATAR_SIZE_PROFILE); ?></div>
+			<div class="profile_image"><?php echo $this->gravatarHelper(GRAVATAR_SIZE_PROFILE, $this->user->getMail()); ?></div>
 			<div class="profile_content">
 				<h2><?php echo $this->user->getName(); ?></h2>
 				<div class="profile_line last">
@@ -26,7 +26,19 @@
 		<?php if ($this->selfProfile) { ?>
 		<a href="<?php echo $this->url(array('controller' => 'user', 'action' => 'edit'), 'default', true); ?>" class="button"><span class="icon pen"></span>Edit my profile</a>
 		<?php } else { ?>
-		<a href="<?php echo $this->url(array('controller' => 'user', 'action' => 'friendship', 'friend' => $this->user->getId()), 'default', true); ?>" class="button"><span class="icon user"></span>Add to friends</a>
+		<?php switch(MyTabCloud_Friendship::friendshipRequested($this->asker, $this->user->getId())) {
+				case MyTabCloud_Friendship::NO_FRIENDSHIP:
+					echo '<a href="' . $this->url(array('controller' => 'user', 'action' => 'friendship', 'friend' => $this->user->getId()), 'default', true) . '" class="button"><span class="icon user"></span>Add to friends</a>';
+					break;
+				case MyTabCloud_Friendship::PENDING_REQUEST:
+					echo '<a href="#" class="button"><span class="icon user"></span>Friend request pending</a>';
+					break;
+				case MyTabCloud_Friendship::FRIENDSHIP:
+					echo "friends";
+					break;
+				}
+		?>
+		
 		<?php } ?>
 	</div>
 </div>
