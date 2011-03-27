@@ -9,12 +9,18 @@ class UserController extends Zend_Controller_Action
     {
         /* Initialize action controller here */
         $this->_auth = Zend_Auth::getInstance();
+		
+		$ajaxContext = $this->_helper->getHelper('AjaxContext');
+        $ajaxContext->addActionContext('askfriendship', 'html')
+					->addActionContext('acceptfriend', 'html')
+					->addActionContext('declinefriend', 'html')
+                    ->initContext();
     }
 
     public function indexAction()
     {
         // action body
-		return $this->_helper->redirector('profile');
+		return $this->_forward('profile');
     }
 
     /**
@@ -169,13 +175,45 @@ class UserController extends Zend_Controller_Action
 		}
 	}
 	
-	public function friendshipAction() {
+	public function askfriendshipAction() {
 		$friend = $this->_getParam("friend");
 		
 		if($friend != "") {
 			if ($this->_auth->hasIdentity()) {
 				if(MyTabCloud_Friendship::friendshipRequested($this->_auth->getIdentity()->usr_id, $friend) == MyTabCloud_Friendship::NO_FRIENDSHIP) {
 					MyTabCloud_Friendship::askFriendship($this->_auth->getIdentity()->usr_id, $friend);
+				}
+			} else {
+				throw new Zend_Controller_Action_Exception('user - friendship - non connecté', 404);
+			}
+		} else {
+			throw new Zend_Controller_Action_Exception('user - friendship - friend non entré', 404);
+		}
+	}
+	
+	public function acceptfriendAction() {
+		$friend = $this->_getParam("friend");
+		
+		if($friend != "") {
+			if ($this->_auth->hasIdentity()) {
+				if(MyTabCloud_Friendship::friendshipRequested($this->_auth->getIdentity()->usr_id, $friend) == MyTabCloud_Friendship::FRIENDSHIP_REQUESTED) {
+					MyTabCloud_Friendship::acceptFriendship($this->_auth->getIdentity()->usr_id, $friend);
+				}
+			} else {
+				throw new Zend_Controller_Action_Exception('user - friendship - non connecté', 404);
+			}
+		} else {
+			throw new Zend_Controller_Action_Exception('user - friendship - friend non entré', 404);
+		}
+	}
+	
+	public function declinefriendAction() {
+		$friend = $this->_getParam("friend");
+		
+		if($friend != "") {
+			if ($this->_auth->hasIdentity()) {
+				if(MyTabCloud_Friendship::friendshipRequested($this->_auth->getIdentity()->usr_id, $friend) == MyTabCloud_Friendship::FRIENDSHIP_REQUESTED) {
+					MyTabCloud_Friendship::declineFriendship($this->_auth->getIdentity()->usr_id, $friend);
 				}
 			} else {
 				throw new Zend_Controller_Action_Exception('user - friendship - non connecté', 404);
