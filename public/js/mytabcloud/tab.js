@@ -300,7 +300,7 @@ window.onload = (function(){
 	bindKeyEvents();
 	$('#nb_strings').change(function() { setNbStrings($("#nb_strings")[0].value); });
 	$('#preset').change(function(event) { fctSetPreset(event.target.value); });
-	fctSetPreset($('#preset')[0].value);
+	if($('#preset').length > 0) { fctSetPreset($('#preset')[0].value); }
 	$(function() {
 		$("#tab_pane").tabs();
 	});
