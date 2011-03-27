@@ -22,5 +22,17 @@ class MyTabCloud_Friendship
 		$mapper = new Application_Model_FriendshipMapper();
 		return $mapper->fetchStatus($user1, $user2);
 	}
+	
+	// Fonction qui accepte la demande d'amitié de user2 vers user1
+	public static function acceptFriendship($user1, $user2) {
+		$mapper = new Application_Model_FriendshipMapper();
+		return $mapper->accept($user1, $user2);
+	}
+	
+	// Fonction qui refuse la demande d'amitié de user2 vers user1
+	public static function declineFriendship($user1, $user2) {
+		$mapper = new Application_Model_FriendshipMapper();
+		return $mapper->decline($user1, $user2);
+	}
 }
 	

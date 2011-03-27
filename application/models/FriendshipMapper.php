@@ -71,6 +71,35 @@ class Application_Model_FriendshipMapper
 		}
 		
 	}
+	
+	public function accept($user1, $user2) {		
+		// Si il existe une demande de user 2 vers user 1
+		if($this->fetchStatus($user1, $user2) == MyTabCloud_Friendship::FRIENDSHIP_REQUESTED) {
+						
+			// On met à jour la demande en l'activant
+			$this->getDbTable()->update(array('fri_active' => true), array('fri_user_1 = ?' => $user2, 'fri_user_2 = ?' => $user1));
+			
+			// On crée une amitié de user 1 vers user 2 active
+			// champ de table -> attribut de l'objet
+			$data = array(
+				'fri_user_1' => $user1,
+				'fri_user_2' => $user2,
+				'fri_active' => true,
+				'fri_ask_date' => date('Y-m-d H:i:s')
+			);
+			
+			$this->getDbTable()->insert($data); 
+		}
+	}
+	
+	public function decline($user1, $user2) {
+		// Si il existe une demande de user 2 vers user 1
+		if($this->fetchStatus($user1, $user2) == MyTabCloud_Friendship::FRIENDSHIP_REQUESTED) {
+						
+			// On met à jour la demande en l'activant
+			$this->getDbTable()->delete(array('fri_user_1 = ?' => $user2, 'fri_user_2 = ?' => $user1));
+		}
+	}
 
 }
 

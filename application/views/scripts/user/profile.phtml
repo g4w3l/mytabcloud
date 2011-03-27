@@ -32,9 +32,9 @@
 					break;
 				case MyTabCloud_Friendship::FRIENDSHIP_REQUESTED:
 					echo $this->username . ' wants to be your friend !';
-					echo '<a href="#" class="positive button"><span class="icon check"></span>Accept</a>';
+					echo '<a href="' . $this->url(array('controller' => 'user', 'action' => 'acceptfriend', 'friend' => $this->userid), 'default', true) . '" class="positive button"><span class="icon check"></span>Accept</a>';
 					echo '&nbsp;';
-					echo '<a href="#" class="negative button"><span class="icon cross"></span>Decline</a>';
+					echo '<a href="' . $this->url(array('controller' => 'user', 'action' => 'declinefriend', 'friend' => $this->userid), 'default', true) . '" class="negative button"><span class="icon cross"></span>Decline</a>';
 					break;
 				}
 		?>
