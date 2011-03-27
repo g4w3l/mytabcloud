@@ -183,15 +183,15 @@ class UserController extends Zend_Controller_Action
 			if ($this->_auth->hasIdentity()) {
 				if(MyTabCloud_Friendship::friendshipRequested($this->_auth->getIdentity()->usr_id, $friend) == MyTabCloud_Friendship::NO_FRIENDSHIP) {
 					MyTabCloud_Friendship::askFriendship($this->_auth->getIdentity()->usr_id, $friend);
-					$message = "Friendship request sent.";
+					$message = "Friendship request sent";
 				}
 			} else {
 				//throw new Zend_Controller_Action_Exception('user - friendship - non connecté', 404);
-				$message = "You must be logged in.";
+				$message = "An error has occured";
 			}
 		} else {
 			//throw new Zend_Controller_Action_Exception('user - friendship - friend non entré', 404);
-			$message = "You must provide a friend id.";
+			$message = "An error has occured";
 		}
 		
 		$this->view->message = $message;
@@ -205,13 +205,14 @@ class UserController extends Zend_Controller_Action
 			if ($this->_auth->hasIdentity()) {
 				if(MyTabCloud_Friendship::friendshipRequested($this->_auth->getIdentity()->usr_id, $friend) == MyTabCloud_Friendship::FRIENDSHIP_REQUESTED) {
 					MyTabCloud_Friendship::acceptFriendship($this->_auth->getIdentity()->usr_id, $friend);
+					$message = "You are now friends";
 				}
 			} else {
-				$message = "";
+				$message = "An error has occured";
 				//throw new Zend_Controller_Action_Exception('user - friendship - non connecté', 404);
 			}
 		} else {
-			$message = "";
+			$message = "An error has occured";
 			//throw new Zend_Controller_Action_Exception('user - friendship - friend non entré', 404);
 		}
 		
@@ -220,18 +221,24 @@ class UserController extends Zend_Controller_Action
 	
 	public function declinefriendAction() {
 		$friend = $this->_getParam("friend");
+		$message = "";
 		
 		if($friend != "") {
 			if ($this->_auth->hasIdentity()) {
 				if(MyTabCloud_Friendship::friendshipRequested($this->_auth->getIdentity()->usr_id, $friend) == MyTabCloud_Friendship::FRIENDSHIP_REQUESTED) {
 					MyTabCloud_Friendship::declineFriendship($this->_auth->getIdentity()->usr_id, $friend);
+					$message = "You declined the friend request";
 				}
 			} else {
-				throw new Zend_Controller_Action_Exception('user - friendship - non connecté', 404);
+				$message = "An error has occured";
+				//throw new Zend_Controller_Action_Exception('user - friendship - non connecté', 404);
 			}
 		} else {
-			throw new Zend_Controller_Action_Exception('user - friendship - friend non entré', 404);
+			$message = "An error has occured";
+			//throw new Zend_Controller_Action_Exception('user - friendship - friend non entré', 404);
 		}
+		
+		$this->view->message = $message;
 	}
 
 }

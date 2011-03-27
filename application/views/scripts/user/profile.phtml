@@ -14,7 +14,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="span-5 last" style="text-align: center;">
+	<div class="span-5 last" id="profileaction" style="text-align: center;">
 		<?php if ($this->selfProfile) { ?>
 		<a href="<?php echo $this->url(array('controller' => 'user', 'action' => 'edit'), 'default', true); ?>" class="button"><span class="icon pen"></span>Edit my profile</a>
 		<?php } else { ?>
@@ -22,7 +22,7 @@
 			// On vérifie le statut de l'amitié entre l'utilisateur connecté et l'utilisateur dont on affiche le profil 
 			switch(MyTabCloud_Friendship::friendshipRequested($this->useridHelper(), $this->userid)) {
 				case MyTabCloud_Friendship::NO_FRIENDSHIP:
-					echo '<a href="' . $this->url(array('controller' => 'user', 'action' => 'askfriendship', 'friend' => $this->userid), 'default', true) . '" class="button"><span class="icon user"></span>Add to friends</a>';
+					echo '<a href="#" onclick="javascript:ask();" class="button"><span class="icon user"></span>Add to friends</a>';
 					break;
 				case MyTabCloud_Friendship::PENDING_REQUEST:
 					echo '<a href="#" class="button"><span class="icon user"></span>Friend request pending</a>';
@@ -32,14 +32,20 @@
 					break;
 				case MyTabCloud_Friendship::FRIENDSHIP_REQUESTED:
 					echo $this->username . ' wants to be your friend !';
-					echo '<a href="' . $this->url(array('controller' => 'user', 'action' => 'acceptfriend', 'friend' => $this->userid), 'default', true) . '" class="positive button"><span class="icon check"></span>Accept</a>';
+					echo '<a href="#" onclick="javascript:accept();" class="positive button"><span class="icon check"></span>Accept</a>';
 					echo '&nbsp;';
-					echo '<a href="' . $this->url(array('controller' => 'user', 'action' => 'declinefriend', 'friend' => $this->userid), 'default', true) . '" class="negative button"><span class="icon cross"></span>Decline</a>';
+					echo '<a href="#" onclick="javascript:decline();" class="negative button"><span class="icon cross"></span>Decline</a>';
 					break;
 				}
 		?>
 		
 		<?php } ?>
 	</div>
+	
+	<script type="text/javascript">
+		var accept = function() { $('#profileaction').load('<?php echo $this->url(array('controller' => 'user', 'action' => 'acceptfriend', 'friend' => $this->userid, 'format' => 'html'), 'default', true); ?>'); }
+		var decline = function() { $('#profileaction').load('<?php echo $this->url(array('controller' => 'user', 'action' => 'declinefriend', 'friend' => $this->userid, 'format' => 'html'), 'default', true); ?>'); }
+		var ask = function() { $('#profileaction').load('<?php echo $this->url(array('controller' => 'user', 'action' => 'askfriendship', 'friend' => $this->userid, 'format' => 'html'), 'default', true); ?>'); }
+	</script>
 </div>
 	
