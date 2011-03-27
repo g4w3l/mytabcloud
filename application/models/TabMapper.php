@@ -60,7 +60,7 @@ class Application_Model_TabMapper
         }
 	}
 	
-	public function find($id, Application_Model_Tab $tab, $viewer_id) {
+	public function find($id, Application_Model_Tab $tab, $viewer_id, $edit = false) {
 		$friend_table = new Application_Model_DbTable_Friendship();
 		$db = $this->getDbTable()->getAdapter();
 		
@@ -83,10 +83,18 @@ class Application_Model_TabMapper
 							->where('tab_visibility IN (?)', array(MyTabCloud_Constants::VISIBILITY_FRIENDS,MyTabCloud_Constants::VISIBILITY_PRIVATE));
 							
 		
-		$select = $db->select()
-					->union(array($select_public,$select_friends,$select_private))
-					->order('tab_id');
-				
+		$select_self	= $this->getDbTable()->select()
+							->where('tab_id = ?', $id)
+							->where('tab_user = ?', $viewer_id);
+		
+		if(!$edit) {
+			$select = $db->select()
+						->union(array($select_public,$select_friends,$select_private))
+						->order('tab_id');
+		} else {
+			$select = $select_self;
+		}			
+		
 		// Requête permettant de r�cup�rer une tablature par son ID
 		$stmt = $db->query($select);
 		$result = $stmt->fetchAll();	

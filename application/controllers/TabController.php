@@ -167,8 +167,15 @@ class TabController extends Zend_Controller_Action
         // Mapper pour récupérer l'entrée                
         $mapper  = new Application_Model_TabMapper();
         $tab     = new Application_Model_Tab();
+		
+		// On récupère l'identifiant du visualisateur, 0 si il n'est pas loggé
+		if($this->_auth->hasIdentity()) {
+			$viewer_id = $this->_auth->getIdentity()->usr_id;
+		} else {
+			$viewer_id = 0;
+		}
         
-        if(!$mapper->find($tab_id, $tab)) {
+        if(!$mapper->find($tab_id, $tab, $viewer_id, true)) {
         	$this->view->has_tab	= false;
         	$this->view->message = 'Tablature introuvable';
         } else {       	
@@ -178,7 +185,7 @@ class TabController extends Zend_Controller_Action
 	        	            
 	            $request = $this->getRequest();
 				
-	            // Si le formulaire de cr�ation a �t� envoy�
+	            // Si le formulaire de création a été envoyé
 	            if ($request->isPost() && $request->getParam('formname') == 'edittab') {
 	            	
 					$params = array(
@@ -236,7 +243,7 @@ class TabController extends Zend_Controller_Action
 						->setCapo($params['capo'])
 						->setTuning($tuning)
 						->setDescription($params['description'])
-						->setInstrument($params['instruments'])
+						->setInstrument($params['instrument'])
 	                    ->setContent($tab_content)
 	                    ->setUser($this->_auth->getIdentity()->usr_id)
 						->setVisibility($params['visibility']); 
