@@ -18,6 +18,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	    $config = new Zend_Config_Xml(APPLICATION_PATH . '/configs/navigation.xml', 'nav');
 	    $view->navigation(new Zend_Navigation($config));
 	}
+	
+	
 
     // Initialisation des constantes
     protected function setconstants($constants){

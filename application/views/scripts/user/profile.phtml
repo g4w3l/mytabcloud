@@ -41,6 +41,11 @@
 		
 		<?php } ?>
 	</div>
+	<div class="span-24 last">
+		<?php foreach($this->tabs as $tab) {
+            echo '<a href="' . $this->url(array('controller' => 'tab', 'action' => 'display', 'id' => $tab->getId()), 'default', true) . '">' . $tab->getArtist() . " - " . $tab->getTitle() . "</a><br>";
+        } ?>
+	</div>
 	
 	<script type="text/javascript">
 		var accept = function() { $('#profileaction').load('<?php echo $this->url(array('controller' => 'user', 'action' => 'acceptfriend', 'friend' => $this->userid, 'format' => 'html'), 'default', true); ?>'); }

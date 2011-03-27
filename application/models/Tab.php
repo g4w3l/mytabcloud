@@ -16,7 +16,7 @@ class Application_Model_Tab
 	protected $_visibility;
 	protected $_lastBeat;
 	protected $_created;
-    
+	    
     // Mapper
 	protected $_mapper;
     

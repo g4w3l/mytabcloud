@@ -22,7 +22,7 @@ class TabController extends Zend_Controller_Action
         // Si l'utilisateur est loggé on récupère ses tablatures
         if($this->_auth->hasIdentity()) {
             // Récupération des tablatures
-            $tabs    = $mapper->findByUser($this->_auth->getIdentity()->usr_id);
+            $tabs    = $mapper->findByUser($this->_auth->getIdentity()->usr_id, $this->_auth->getIdentity()->usr_id);
             $this->view->tabs = $tabs;        
         }
     }
@@ -129,12 +129,19 @@ class TabController extends Zend_Controller_Action
     public function displayAction() {
         // Récupération du paramètre ID
         $tab_id = $this->_getParam("id");
+		
+		// On récupère l'identifiant du visualisateur, 0 si il n'est pas loggé
+		if($this->_auth->hasIdentity()) {
+			$viewer_id = $this->_auth->getIdentity()->usr_id;
+		} else {
+			$viewer_id = 0;
+		}
                 
         // Mapper pour récupérer l'entrée                
         $mapper  = new Application_Model_TabMapper();
         $tab     = new Application_Model_Tab();
         
-        if($mapper->find($tab_id, $tab)) {
+        if($mapper->find($tab_id, $tab, $viewer_id)) {
         	$this->view->has_tab	= true;
         	$this->view->tablature 	= $tab;
         	//$this->view->title 		= $tab->getTitle();

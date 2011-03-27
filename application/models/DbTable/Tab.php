@@ -4,6 +4,7 @@ class Application_Model_DbTable_Tab extends Zend_Db_Table_Abstract
 {
 
     protected $_name = 'mtc_tab';
+	
 	protected $_referenceMap	= array(
 		'User' => array(
 			'columns' 		=> 'tab_user',
@@ -11,6 +12,10 @@ class Application_Model_DbTable_Tab extends Zend_Db_Table_Abstract
 			'refColumns'	=> 'usr_id'
 		)
 	);
+	
+	public function getName() {
+		return $this->_name;
+	}
 
 }
 

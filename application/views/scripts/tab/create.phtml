@@ -51,8 +51,9 @@
 							<td><?php echo $this->formLabel('visibility', 'Visibility', array('class' => 'required')); ?></td>
 							<td>
 								<select name="visibility" id="visibility">
-									<option value="public">Public</option>
-									<option value="private">Private</option>
+									<option value="<?php echo MyTabCloud_Constants::VISIBILITY_PUBLIC; ?>">Public</option>
+									<option value="<?php echo MyTabCloud_Constants::VISIBILITY_FRIENDS; ?>">Friends</option>
+									<option value="<?php echo MyTabCloud_Constants::VISIBILITY_PRIVATE; ?>">Private</option>
 								</select>
 							</td>
 						</tr>

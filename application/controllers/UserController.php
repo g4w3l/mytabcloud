@@ -132,7 +132,7 @@ class UserController extends Zend_Controller_Action
 		if($user_id != "") {				
 			$mapper  = new Application_Model_UserMapper();
 	        $user    = new Application_Model_User();
-			
+						
 			if(!$mapper->find($user_id, $user)) {
 	        	throw new Zend_Controller_Action_Exception('Document non trouvé', 404);
 	        } else {
@@ -148,6 +148,13 @@ class UserController extends Zend_Controller_Action
 				$userArray['Member since'] = $user->getCreated();
 				
 				$this->view->userArray = $userArray;
+				
+				// On va récupérer les tablatures visibles
+				$tabmapper  = new Application_Model_TabMapper();
+				
+				// Récupération des tablatures
+				$tabs    = $tabmapper->findByUser($user_id, $this->_auth->getIdentity()->usr_id);
+				$this->view->tabs = $tabs;        
 			}
 		} else {
 	        throw new Zend_Controller_Action_Exception('Document non trouvé', 404);
