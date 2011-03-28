@@ -12,6 +12,10 @@ class Application_Model_User
 	protected $_created;
 	protected $_role;
 	
+	// Champ qui ne sera rempli qu'au besoin via la méthode
+	// retrieveFriends()
+	protected $_friends;
+	
 	// Mapper
 	protected $_mapper;
 	
@@ -110,6 +114,12 @@ class Application_Model_User
 	public function getRole() { return $this->_role; }
 	public function setRole($role) {
 		$this->_role = $role;
+		return $this;
+	}
+	
+	public function getFriends() { return $this->_friends; }
+	public function setFriends($friends) {
+		$this->_friends = $friends;
 		return $this;
 	}
 }

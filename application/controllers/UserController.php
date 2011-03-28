@@ -12,6 +12,7 @@ class UserController extends Zend_Controller_Action
 		
 		$ajaxContext = $this->_helper->getHelper('AjaxContext');
         $ajaxContext->addActionContext('askfriendship', 'html')
+					->addActionContext('removefriendship', 'html')
 					->addActionContext('acceptfriend', 'html')
 					->addActionContext('declinefriend', 'html')
                     ->initContext();
@@ -136,11 +137,10 @@ class UserController extends Zend_Controller_Action
 			if(!$mapper->find($user_id, $user)) {
 	        	throw new Zend_Controller_Action_Exception('Document non trouvé', 404);
 	        } else {
+				
+				$this->view->friendcount = $mapper->retrieveFriends($user);				
 				$this->view->has_user = true;
-				//$this->view->user = $user;
-				$this->view->userid = $user->getId();
-				$this->view->username = $user->getName();
-				$this->view->usermail = $user->getMail();
+				$this->view->userobj = $user;
 				
 				$userArray['Login'] = $user->getLogin();
 				$userArray['E-Mail'] = $user->getMail();
@@ -199,6 +199,28 @@ class UserController extends Zend_Controller_Action
 		} else {
 			//throw new Zend_Controller_Action_Exception('user - friendship - friend non entré', 404);
 			$message = "An error has occured";
+		}
+		
+		$this->view->message = $message;
+	}
+	
+	public function removefriendshipAction() {
+		$friend = $this->_getParam("friend");
+		$message = "";
+		
+		if($friend != "") {
+			if ($this->_auth->hasIdentity()) {
+				if(MyTabCloud_Friendship::friendshipRequested($this->_auth->getIdentity()->usr_id, $friend) == MyTabCloud_Friendship::FRIENDSHIP) {
+					MyTabCloud_Friendship::removeFriendship($this->_auth->getIdentity()->usr_id, $friend);
+					$message = "You are not friends anymore";
+				}
+			} else {
+				$message = "An error has occured";
+				//throw new Zend_Controller_Action_Exception('user - friendship - non connecté', 404);
+			}
+		} else {
+			$message = "An error has occured";
+			//throw new Zend_Controller_Action_Exception('user - friendship - friend non entré', 404);
 		}
 		
 		$this->view->message = $message;

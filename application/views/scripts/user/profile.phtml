@@ -1,9 +1,12 @@
+<?php
+	$friendship_status = MyTabCloud_Friendship::friendshipRequested($this->useridHelper(), $this->userobj->getId());
+?>
 <div class="container">
 	<div class="span-18 colborder">
 		<div class="profile_container">
-			<div class="profile_image"><?php echo $this->gravatarHelper(GRAVATAR_SIZE_PROFILE, $this->usermail); ?></div>
+			<div class="profile_image"><?php echo $this->gravatarHelper(GRAVATAR_SIZE_PROFILE, $this->userobj->getMail()); ?></div>
 			<div class="profile_content">
-				<h2><?php echo $this->username; ?></h2>
+				<h2><?php echo $this->userobj->getName(); ?></h2>
 				<?php foreach($this->userArray as $key => $value) { ?>
 				<div class="profile_line last">
 					<div class="profile_line_title"><?php echo $key; ?> :</div>
@@ -20,7 +23,7 @@
 		<?php } else { ?>
 		<?php
 			// On vérifie le statut de l'amitié entre l'utilisateur connecté et l'utilisateur dont on affiche le profil 
-			switch(MyTabCloud_Friendship::friendshipRequested($this->useridHelper(), $this->userid)) {
+			switch($friendship_status) {
 				case MyTabCloud_Friendship::NO_FRIENDSHIP:
 					echo '<a href="#" onclick="javascript:ask();" class="button"><span class="icon user"></span>Add to friends</a>';
 					break;
@@ -28,7 +31,7 @@
 					echo '<a href="#" class="button"><span class="icon user"></span>Friend request pending</a>';
 					break;
 				case MyTabCloud_Friendship::FRIENDSHIP:
-					echo '<a href="#" class="button"><span class="icon user"></span>You\'re friends</a>';
+					echo '<a href="#" onclick="javascript:remove();" class="button negative" id="already_friends"><span class="icon user"></span><span id="already_friends_text">You\'re friends</span></a>';
 					break;
 				case MyTabCloud_Friendship::FRIENDSHIP_REQUESTED:
 					echo $this->username . ' wants to be your friend !';
@@ -38,19 +41,44 @@
 					break;
 				}
 		?>
-		
 		<?php } ?>
+		<br />
+		<br />
+		<h3>Friends</h3>
+		<?php
+			//echo print_r($this->userobj->getFriends());
+			foreach($this->userobj->getFriends() as $friend) {
+				echo '<a href="' . $this->url(array('controller' => 'user', 'action' => 'profile', 'id' => $friend['id']), 'default', true) . '">' . $this->gravatarHelper(GRAVATAR_SIZE, $friend['mail'], $friend['name']) . '</a>&nbsp;';
+			}
+		?>
 	</div>
 	<div class="span-24 last">
+		<h3>Tabs</h3>
 		<?php foreach($this->tabs as $tab) {
             echo '<a href="' . $this->url(array('controller' => 'tab', 'action' => 'display', 'id' => $tab->getId()), 'default', true) . '">' . $tab->getArtist() . " - " . $tab->getTitle() . "</a><br>";
         } ?>
 	</div>
 	
 	<script type="text/javascript">
-		var accept = function() { $('#profileaction').load('<?php echo $this->url(array('controller' => 'user', 'action' => 'acceptfriend', 'friend' => $this->userid, 'format' => 'html'), 'default', true); ?>'); }
-		var decline = function() { $('#profileaction').load('<?php echo $this->url(array('controller' => 'user', 'action' => 'declinefriend', 'friend' => $this->userid, 'format' => 'html'), 'default', true); ?>'); }
-		var ask = function() { $('#profileaction').load('<?php echo $this->url(array('controller' => 'user', 'action' => 'askfriendship', 'friend' => $this->userid, 'format' => 'html'), 'default', true); ?>'); }
+	<?php switch($friendship_status) {
+			case MyTabCloud_Friendship::NO_FRIENDSHIP: ?>
+		var ask = function() { $('#profileaction').load('<?php echo $this->url(array('controller' => 'user', 'action' => 'askfriendship', 'friend' => $this->userobj->getId(), 'format' => 'html'), 'default', true); ?>'); }
+	<?php 		break; ?>
+	<?php 	case MyTabCloud_Friendship::PENDING_REQUEST: ?>
+	<?php 		break; ?>	
+	<?php	case MyTabCloud_Friendship::FRIENDSHIP: ?>
+		var remove = function() { $('#profileaction').load('<?php echo $this->url(array('controller' => 'user', 'action' => 'removefriendship', 'friend' => $this->userobj->getId(), 'format' => 'html'), 'default', true); ?>'); }
+		if($('#already_friends')) {
+			$('#already_friends').bind('mouseenter', function() {$('#already_friends_text').html("Remove friendship");});
+			$('#already_friends').bind('mouseleave', function() {$('#already_friends_text').html("You're friends");});
+		}
+	<?php 		break; ?>
+	<?php 	case MyTabCloud_Friendship::FRIENDSHIP_REQUESTED: ?>
+		var accept = function() { $('#profileaction').load('<?php echo $this->url(array('controller' => 'user', 'action' => 'acceptfriend', 'friend' => $this->userobj->getId(), 'format' => 'html'), 'default', true); ?>'); }
+		var decline = function() { $('#profileaction').load('<?php echo $this->url(array('controller' => 'user', 'action' => 'declinefriend', 'friend' => $this->userobj->getId(), 'format' => 'html'), 'default', true); ?>'); }
+	<?php 		break; ?>
+	<?php } ?>
+						
 	</script>
 </div>
 	

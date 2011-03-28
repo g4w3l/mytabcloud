@@ -79,5 +79,34 @@ class Application_Model_UserMapper
         }
         return $entries;
 	}
+	
+	public function retrieveFriends(Application_Model_User $user) {
+		// Adapter pour les jointures
+		$db = $this->getDbTable()->getAdapter();
+		$friend_table 			= new Application_Model_DbTable_Friendship();
+		
+		$select = $db->select()
+					->from($this->getDbTable()->getName(), array('usr_id', 'usr_name', 'usr_mail'))
+					->join($friend_table->getName(), 'fri_user_2 = usr_id', array())
+					->where('fri_user_1 = ?', $user->getId())
+					->where('fri_active = ?', true);
+		
+		// Requête permettant de r�cup�rer une tablature par son ID
+		$stmt = $db->query($select);
+		$resultSet = $stmt->fetchAll();
+		
+		$entries   = array();
+		
+		foreach ($resultSet as $row) {
+            $entry = array();
+			$entry['id'] 	= $row['usr_id'];
+            $entry['name'] 	= $row['usr_name'];
+			$entry['mail'] 	= $row['usr_mail'];
+            $entries[] 		= $entry;
+        }
+				
+		$user->setFriends($entries);		
+        return count($resultSet);
+	}
 }
 

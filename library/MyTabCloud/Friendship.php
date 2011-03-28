@@ -17,6 +17,12 @@ class MyTabCloud_Friendship
 		$mapper->ask($user1, $user2);
 	}
 	
+	// Fonction qui va créer une demande d'amitié de user 1 vers user 2
+	public static function removeFriendship($user1, $user2) {
+		$mapper = new Application_Model_FriendshipMapper();
+		$mapper->remove($user1, $user2);
+	}
+	
 	// Fonction qui retourne le statut d'amitié entre user 1 et user 2
 	public static function friendshipRequested($user1, $user2) {
 		$mapper = new Application_Model_FriendshipMapper();

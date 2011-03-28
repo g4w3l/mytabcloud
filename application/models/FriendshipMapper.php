@@ -30,6 +30,16 @@ class Application_Model_FriendshipMapper
 		$this->getDbTable()->insert($data);        
 	}
 	
+	public function remove($user1, $user2) {
+		$where1[] = $this->getDbTable()->getAdapter()->quoteInto('fri_user_1 = ?', $user1);
+		$where1[] = $this->getDbTable()->getAdapter()->quoteInto('fri_user_2 = ?', $user2);		
+		$this->getDbTable()->delete($where1);
+		
+		$where2[] = $this->getDbTable()->getAdapter()->quoteInto('fri_user_1 = ?', $user2);
+		$where2[] = $this->getDbTable()->getAdapter()->quoteInto('fri_user_2 = ?', $user1);							
+		$this->getDbTable()->delete($where2);
+	}
+	
 	public function fetchStatus($user1, $user2) {
 		// Recherche d'une amitié à partir de l'user 1 vers l'user 2
 		$select = $this->getDbTable()->select()
