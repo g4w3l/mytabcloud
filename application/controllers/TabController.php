@@ -147,6 +147,10 @@ class TabController extends Zend_Controller_Action
         	//$this->view->title 		= $tab->getTitle();
         	
 			$this->view->tab_display = MyTabCloud_Tab_Display::displayTabForm($tab);  
+			
+			// Si l'utilisateur est le créateur de la tablature, il peut l'éditer
+			if($viewer_id == $tab->getUser()) { $this->view->canEdit = true; } 
+			else { $this->view->canEdit = false; }
         	
         	
         } else {

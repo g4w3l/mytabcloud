@@ -61,29 +61,44 @@ class Application_Model_TabMapper
 	}
 	
 	public function find($id, Application_Model_Tab $tab, $viewer_id, $edit = false) {
-		$friend_table = new Application_Model_DbTable_Friendship();
+		// Adapter pour les jointures
 		$db = $this->getDbTable()->getAdapter();
 		
-		$select_public = $this->getDbTable()->select()
+		$friend_table 			= new Application_Model_DbTable_Friendship();
+		$user_table				= new Application_Model_DbTable_User();
+		$instrument_table		= new Application_Model_DbTable_Instrument();
+		
+		$select_public = $db->select()
+							->from($this->getDbTable()->getName())
+							->join($user_table->getName(), 'tab_user = usr_id', array('usr_name'))
+							->join($instrument_table->getName(), 'tab_instrument = ins_id', array('ins_name'))
 							->where('tab_id = ?', $id)
 							->where('tab_visibility = ?', MyTabCloud_Constants::VISIBILITY_PUBLIC);
 		
 		$select_friends = $db->select()
 							->from($this->getDbTable()->getName())
 							->join($friend_table->getName(), 'fri_user_1 = tab_user', array())
+							->join($user_table->getName(), 'tab_user = usr_id', array('usr_name'))
+							->join($instrument_table->getName(), 'tab_instrument = ins_id', array('ins_name'))
 							->where('tab_id = ?', $id)
 							->where('fri_user_2 = ?', $viewer_id)
 							->where('fri_active = ?', true)
 							->where('tab_visibility = ?', MyTabCloud_Constants::VISIBILITY_FRIENDS);
 		
 		
-		$select_private = $this->getDbTable()->select()
+		$select_private = $db->select()
+							->from($this->getDbTable()->getName())
+							->join($user_table->getName(), 'tab_user = usr_id', array('usr_name'))
+							->join($instrument_table->getName(), 'tab_instrument = ins_id', array('ins_name'))
 							->where('tab_id = ?', $id)
 							->where('tab_user = ?', $viewer_id)
 							->where('tab_visibility IN (?)', array(MyTabCloud_Constants::VISIBILITY_FRIENDS,MyTabCloud_Constants::VISIBILITY_PRIVATE));
 							
 		
-		$select_self	= $this->getDbTable()->select()
+		$select_self	= $db->select()
+							->from($this->getDbTable()->getName())
+							->join($user_table->getName(), 'tab_user = usr_id', array('usr_name'))
+							->join($instrument_table->getName(), 'tab_instrument = ins_id', array('ins_name'))
 							->where('tab_id = ?', $id)
 							->where('tab_user = ?', $viewer_id);
 		
@@ -118,9 +133,11 @@ class Application_Model_TabMapper
 			->setTuning($row['tab_tuning'])
 			->setDescription($row['tab_desc'])
 			->setInstrument($row['tab_instrument'])
+			->setInstrumentName($row['ins_name'])
 			->setContent($noteMap->findByTab($id))
 			->setLastBeat($lastBeat)
 			->setUser($row['tab_user'])
+			->setUserName($row['usr_name'])
 			->setVisibility($row['tab_visibility'])
 			->setCreated($row['tab_created']);
 		

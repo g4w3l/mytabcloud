@@ -12,7 +12,9 @@ class Application_Model_Tab
 	protected $_tuning;
 	protected $_description;
 	protected $_instrument;
+	protected $_instrumentname;
     protected $_user;
+	protected $_username;
 	protected $_visibility;
 	protected $_lastBeat;
 	protected $_created;
@@ -118,6 +120,12 @@ class Application_Model_Tab
 		return $this;
 	}
 	
+	public function getInstrumentName() { return $this->_instrumentname; }
+	public function setInstrumentName($instrumentname) {
+		$this->_instrumentname = $instrumentname;
+		return $this;
+	}
+	
 	public function getContent() { return $this->_content; }
 	public function setContent($content) {
 		$this->_content = $content;
@@ -143,6 +151,12 @@ class Application_Model_Tab
 	public function getUser() { return $this->_user; }
 	public function setUser($user) {
 		$this->_user = (int)$user;
+		return $this;
+	}
+	
+	public function getUserName() { return $this->_username; }
+	public function setUserName($username) {
+		$this->_username = $username;
 		return $this;
 	}
 	

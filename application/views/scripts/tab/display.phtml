@@ -1,17 +1,32 @@
 <?php
 	if($this->has_tab) {
 ?>	
-	<div class="tab_page">
-		<div id="tab_display">
-		<center><h2><?php echo $this->tablature->getArtist(); ?></h2>
-		<h3><?php echo $this->tablature->getTitle(); ?></h3></center>
-		
-		<?php echo "<p>" . $this->tablature->getDescription() . "</p>"; ?>
-		<?php if($this->tablature->getCapo() != 0) { echo "<p>Capo : " . $this->tablature->getCapo() . "</p>"; } ?>	
-		
-		<?php echo $this->tab_display;?>
+<div class="container">
+	<div class="span-18 colborder">
+		<div class="tab_page">
+			<div id="tab_display">
+			<center><h2><?php echo $this->tablature->getArtist(); ?></h2>
+			<h3><?php echo $this->tablature->getTitle(); ?></h3></center>
+			
+			<?php echo "<p>" . $this->tablature->getDescription() . "</p>"; ?>
+			<?php if($this->tablature->getCapo() != 0) { echo "<p>Capo : " . $this->tablature->getCapo() . "</p>"; } ?>	
+			
+			<?php echo $this->tab_display;?>
+			</div>
 		</div>
 	</div>
+	<div>
+		<ul class="tab_info">
+			<li>Author : <?php echo $this->tablature->getUserName(); ?></li>
+			<li>Created : <?php echo $this->tablature->getCreated(); ?></li>
+			<li>Visibility : <?php echo $this->tablature->getVisibility(); ?></li>
+			<li>Instrument : <?php echo $this->tablature->getInstrumentName(); ?></li>
+		</ul>
+		<?php if($this->canEdit) {
+			echo '<center><a href="' . $this->url(array('controller' => 'tab', 'action' => 'edit', 'id' => $this->tablature->getId()), 'default', true) . '" class="button"><span class="pen icon"></span>Edit this tab</a></center>';
+		} ?>
+	</div>
+</div>
 <?php		
 	} else {
 		echo $this->message;

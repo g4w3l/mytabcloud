@@ -73,6 +73,7 @@ CREATE TABLE IF NOT EXISTS `mtc_user` (
   `usr_mail` varchar(100) NOT NULL,
   `usr_password` varchar(32) DEFAULT NULL,
   `usr_name` varchar(50) DEFAULT NULL,
+  `usr_location` varchar(100) DEFAULT NULL,
   `usr_created` datetime DEFAULT NULL,
   `usr_role` varchar(50) NOT NULL,
   PRIMARY KEY (`usr_id`),
