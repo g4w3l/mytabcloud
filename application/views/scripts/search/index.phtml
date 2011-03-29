@@ -6,7 +6,7 @@
 								));
 	
 	echo $this->formHidden('formname', 'searchform', null);
-	echo $this->formText('q', '', array());
+	echo $this->formText('q', $this->q, array());
 	echo $this->formSubmit('searchsubmit', 'Search', array());
 ?>
 	</form>
@@ -14,16 +14,20 @@
 <?php if($this->results) { ?>
 <h3>Users</h3>
 <?php 
-	foreach($this->users as $usr) {
-		echo $usr->getName() . " (" . $usr->getLogin() . ")<br />";
+	if(sizeof($this->users)>0) {
+		foreach($this->users as $usr) {
+			echo '<a href="' . $this->url(array('controller' => 'user', 'action' => 'profile', 'id' => $usr->getId()), 'default', true) . '">' . $usr->getName() . "</a> (" . $usr->getLogin() . ")<br />";
+		}
 	} 
 ?>
 <br />
 <h3>Tabs</h3>
 <?php 
-	foreach($this->tabs as $tab) {
-		echo $tab->getTitle() . " (" . $tab->getArtist() . ")<br />";
-	} 
+	if(sizeof($this->tabs)>0) {
+		foreach($this->tabs as $tab) {
+			echo '<a href="' . $this->url(array('controller' => 'tab', 'action' => 'display', 'id' => $tab->getId()), 'default', true) . '">' . $tab->getTitle() . "</a> (" . $tab->getArtist() . ")<br />";
+		}	 
+	}
 ?>
 <br />
 <?php } ?>

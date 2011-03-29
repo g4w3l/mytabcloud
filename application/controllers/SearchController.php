@@ -14,10 +14,11 @@ class SearchController extends Zend_Controller_Action
     {
         $request = $this->getRequest();
         $form    = new Application_Form_Search();
+		$this->view->q = "";
 		
 		if ($request->isPost() && $request->getParam('formname') == 'searchform') {
 			if ($form->isValid($request->getPost())) {
-				// On récupère l'identifiant du visualisateur, 0 si il n'est pas loggé
+				// On rï¿½cupï¿½re l'identifiant du visualisateur, 0 si il n'est pas loggï¿½
 				if($this->_auth->hasIdentity()) {
 					$viewer_id = $this->_auth->getIdentity()->usr_id;
 				} else {
@@ -35,8 +36,11 @@ class SearchController extends Zend_Controller_Action
 				$this->view->tabs = $tabs;				
 				
 				$this->view->results = true;
+				$this->view->q = $request->getParam('q');
 			}
 		} 
+		
+		
     }
 
 
