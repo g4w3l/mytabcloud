@@ -20,5 +20,10 @@
 ?>
 <br />
 <h3>Tabs</h3>
-
+<?php 
+	foreach($this->tabs as $tab) {
+		echo $tab->getTitle() . " (" . $tab->getArtist() . ")<br />";
+	} 
+?>
+<br />
 <?php } ?>

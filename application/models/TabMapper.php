@@ -223,5 +223,72 @@ class Application_Model_TabMapper
         }
         return $entries;
 	}
+	
+	public function findByName($tab_name, $viewer_id) {
+		// Adapter pour les jointures
+		$db = $this->getDbTable()->getAdapter();
+		
+		$friend_table 			= new Application_Model_DbTable_Friendship();
+		$user_table				= new Application_Model_DbTable_User();
+		$instrument_table		= new Application_Model_DbTable_Instrument();
+		
+		$select_public = $db->select()
+							->from($this->getDbTable()->getName())
+							->join($user_table->getName(), 'tab_user = usr_id', array('usr_name'))
+							->join($instrument_table->getName(), 'tab_instrument = ins_id', array('ins_name'))
+							->where("tab_artist LIKE '%".$tab_name."%' OR tab_title LIKE '%".$tab_name."%'")
+							->where('tab_visibility = ?', MyTabCloud_Constants::VISIBILITY_PUBLIC);
+		
+		$select_friends = $db->select()
+							->from($this->getDbTable()->getName())
+							->join($friend_table->getName(), 'fri_user_1 = tab_user', array())
+							->join($user_table->getName(), 'tab_user = usr_id', array('usr_name'))
+							->join($instrument_table->getName(), 'tab_instrument = ins_id', array('ins_name'))
+							->where("tab_artist LIKE '%".$tab_name."%' OR tab_title LIKE '%".$tab_name."%'")
+							->where('fri_user_2 = ?', $viewer_id)
+							->where('fri_active = ?', true)
+							->where('tab_visibility = ?', MyTabCloud_Constants::VISIBILITY_FRIENDS);
+		
+		
+		$select_private = $db->select()
+							->from($this->getDbTable()->getName())
+							->join($user_table->getName(), 'tab_user = usr_id', array('usr_name'))
+							->join($instrument_table->getName(), 'tab_instrument = ins_id', array('ins_name'))
+							->where("tab_artist LIKE '%".$tab_name."%' OR tab_title LIKE '%".$tab_name."%'")
+							->where('tab_user = ?', $viewer_id)
+							->where('tab_visibility IN (?)', array(MyTabCloud_Constants::VISIBILITY_FRIENDS,MyTabCloud_Constants::VISIBILITY_PRIVATE));
+		
+		
+		$select = $db->select()
+					->union(array($select_public,$select_friends,$select_private))
+					->order('tab_id');
+				
+		
+		// Requête permettant de r�cup�rer une tablature par son ID
+		$stmt = $db->query($select);
+		$resultSet = $stmt->fetchAll();	
+        if (0 == count($resultSet)) { return false; }
+		
+		$entries   = array();
+        foreach ($resultSet as $row) {
+            $entry = new Application_Model_Tab();
+            $entry->setId($row['tab_id'])
+			->setArtist($row['tab_artist'])
+			->setTitle($row['tab_title'])
+			->setNbStrings($row['tab_nb_strings'])
+			->setCapo($row['tab_capo'])
+			->setTuning($row['tab_tuning'])
+			->setDescription($row['tab_desc'])
+			->setInstrument($row['tab_instrument'])
+			->setInstrumentName($row['ins_name'])
+			->setUser($row['tab_user'])
+			->setUserName($row['usr_name'])
+			->setVisibility($row['tab_visibility'])
+			->setCreated($row['tab_created']);
+            $entries[] = $entry;
+        }
+        return $entries;
+
+	}
 }
 
