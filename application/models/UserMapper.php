@@ -108,5 +108,35 @@ class Application_Model_UserMapper
 		$user->setFriends($entries);		
         return count($resultSet);
 	}
+	
+	public function findByName($name) {
+		// Requête permettant de récupérer un utilisateur par son nom
+		$db = $this->getDbTable()->getAdapter();
+		//$resultSet = $this->getDbTable()->select('');
+		$select = $db->select()
+					->from($this->getDbTable()->getName())
+					->where("usr_name like '%".$name."%'")
+					->orWhere("usr_login like '%".$name."%'");
+					
+		$stmt = $db->query($select);
+		$resultSet = $stmt->fetchAll();
+		
+        if (0 == count($resultSet)) { return; }
+		
+		$entries   = array();
+        foreach ($resultSet as $row) {
+            $entry = new Application_Model_User();
+            $entry->setId($row['usr_id'])
+				 ->setLogin($row['usr_login'])
+				 ->setPassword($row['usr_password'])
+				 ->setName($row['usr_name'])
+				 ->setLocation($row['usr_location'])
+				 ->setCreated($row['usr_created'])
+				 ->setMail($row['usr_mail'])
+				 ->setRole($row['usr_role']);
+            $entries[] = $entry;
+        }
+        return $entries;
+	}
 }
 

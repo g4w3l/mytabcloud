@@ -32,5 +32,9 @@
 				</profile>
 			</pages>
 		</user>
+		<search>
+			<label>Recherche</label>
+			<controller>search</controller>
+		</search>
 	</nav>
 </configdata>
