@@ -304,4 +304,7 @@ window.onload = (function(){
 	$(function() {
 		$("#tab_pane").tabs();
 	});
+	
+	
+	$('.flashmessage').delay(3000).hide('slow');
 });
