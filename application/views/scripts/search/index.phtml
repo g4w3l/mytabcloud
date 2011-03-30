@@ -14,6 +14,7 @@
 <?php if($this->results) { ?>
 <h3>Users</h3>
 <?php 
+
 	if($this->users) {
 		foreach($this->users as $usr) {
 			echo '<a href="' . $this->url(array('controller' => 'user', 'action' => 'profile', 'id' => $usr->getId()), 'default', true) . '">' . $usr->getName() . "</a> (" . $usr->getLogin() . ")<br />";
@@ -23,6 +24,7 @@
 <br />
 <h3>Tabs</h3>
 <?php 
+
 	if($this->tabs) {
 		foreach($this->tabs as $tab) {
 			echo '<a href="' . $this->url(array('controller' => 'tab', 'action' => 'display', 'id' => $tab->getId()), 'default', true) . '">' . $tab->getTitle() . "</a> (" . $tab->getArtist() . ")<br />";

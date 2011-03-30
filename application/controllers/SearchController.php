@@ -18,6 +18,7 @@ class SearchController extends Zend_Controller_Action
 		
 		if ($request->isPost() && $request->getParam('formname') == 'searchform') {
 			if ($form->isValid($request->getPost())) {
+
 				// On récupère l'identifiant du visualisateur, 0 si il n'est pas loggé
 				if($this->_auth->hasIdentity()) {
 					$viewer_id = $this->_auth->getIdentity()->usr_id;
