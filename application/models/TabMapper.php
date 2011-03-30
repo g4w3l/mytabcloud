@@ -267,7 +267,8 @@ class Application_Model_TabMapper
 		// Requête permettant de r�cup�rer une tablature par son ID
 		$stmt = $db->query($select);
 		$resultSet = $stmt->fetchAll();	
-        if (0 == count($resultSet)) { return false; }
+        
+		if (0 == count($resultSet)) { return false; }
 		
 		$entries   = array();
         foreach ($resultSet as $row) {

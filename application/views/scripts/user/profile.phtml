@@ -23,27 +23,32 @@
 		<?php } else { ?>
 		<?php
 			// On vérifie le statut de l'amitié entre l'utilisateur connecté et l'utilisateur dont on affiche le profil 
-			switch($friendship_status) {
-				case MyTabCloud_Friendship::NO_FRIENDSHIP:
-					echo '<a href="#" onclick="javascript:ask();" class="button"><span class="icon user"></span>Add to friends</a>';
-					break;
-				case MyTabCloud_Friendship::PENDING_REQUEST:
-					echo '<a href="#" class="button"><span class="icon user"></span>Friend request pending</a>';
-					break;
-				case MyTabCloud_Friendship::FRIENDSHIP:
-					echo '<a href="#" onclick="javascript:remove();" class="button negative" id="already_friends"><span class="icon user"></span><span id="already_friends_text">You\'re friends</span></a>';
-					break;
-				case MyTabCloud_Friendship::FRIENDSHIP_REQUESTED:
-					echo $this->username . ' wants to be your friend !';
-					echo '<a href="#" onclick="javascript:accept();" class="positive button"><span class="icon check"></span>Accept</a>';
-					echo '&nbsp;';
-					echo '<a href="#" onclick="javascript:decline();" class="negative button"><span class="icon cross"></span>Decline</a>';
-					break;
-				}
+			if($this->useridHelper() != "") {
+				switch($friendship_status) {
+					case MyTabCloud_Friendship::NO_FRIENDSHIP:
+						echo '<a href="#" onclick="javascript:ask();" class="button"><span class="icon user"></span>Add to friends</a>';
+						break;
+					case MyTabCloud_Friendship::PENDING_REQUEST:
+						echo '<a href="#" class="button"><span class="icon user"></span>Friend request pending</a>';
+						break;
+					case MyTabCloud_Friendship::FRIENDSHIP:
+						echo '<a href="#" onclick="javascript:remove();" class="button negative" id="already_friends"><span class="icon user"></span><span id="already_friends_text">You\'re friends</span></a>';
+						break;
+					case MyTabCloud_Friendship::FRIENDSHIP_REQUESTED:
+						echo $this->username . ' wants to be your friend !';
+						echo '<a href="#" onclick="javascript:accept();" class="positive button"><span class="icon check"></span>Accept</a>';
+						echo '&nbsp;';
+						echo '<a href="#" onclick="javascript:decline();" class="negative button"><span class="icon cross"></span>Decline</a>';
+						break;
+					}
+		?>
+			<br />
+			<br />
+		<?php
+			}
 		?>
 		<?php } ?>
-		<br />
-		<br />
+		
 		<h3>Friends</h3>
 		<?php
 			//echo print_r($this->userobj->getFriends());

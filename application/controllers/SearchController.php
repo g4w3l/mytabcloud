@@ -14,10 +14,11 @@ class SearchController extends Zend_Controller_Action
     {
         $request = $this->getRequest();
         $form    = new Application_Form_Search();
+		$this->view->q = "";
 		
 		if ($request->isPost() && $request->getParam('formname') == 'searchform') {
 			if ($form->isValid($request->getPost())) {
-				// On récupère l'identifiant du visualisateur, 0 si il n'est pas loggé
+				// On rÃ©cupÃ¨re l'identifiant du visualisateur, 0 si il n'est pas loggÃ©
 				if($this->_auth->hasIdentity()) {
 					$viewer_id = $this->_auth->getIdentity()->usr_id;
 				} else {
@@ -32,11 +33,14 @@ class SearchController extends Zend_Controller_Action
 				// Recherche des tablatures
 				$tabmapper 	= new Application_Model_TabMapper();
 				$tabs 		= $tabmapper->findByName($request->getParam('q'), $viewer_id);
-				$this->view->tabs = $tabs;				
+				$this->view->tabs = $tabs;			
 				
 				$this->view->results = true;
+				$this->view->q = $request->getParam('q');
 			}
 		} 
+		
+		
     }
 
 

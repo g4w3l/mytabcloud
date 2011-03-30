@@ -22,7 +22,7 @@ class Application_Model_FriendshipMapper
 		$data = array(
 			'fri_user_1' => $user1,
 			'fri_user_2' => $user2,
-			'fri_active' => false,
+			'fri_active' => 0,
 			'fri_ask_date' => date('Y-m-d H:i:s')
 		);
 		
@@ -66,7 +66,7 @@ class Application_Model_FriendshipMapper
 				->from(array('n' => $this->getDbTable()->getName()), array('fri_active'))
 				->where('fri_user_1 = ?', $user2)
 				->where('fri_user_2 = ?', $user1)
-				->where('fri_active = ?', false);
+				->where('fri_active = ?', 0);
 		
 			$stmt = $select->query();
 			$result = $stmt->fetchAll();
@@ -87,14 +87,14 @@ class Application_Model_FriendshipMapper
 		if($this->fetchStatus($user1, $user2) == MyTabCloud_Friendship::FRIENDSHIP_REQUESTED) {
 						
 			// On met à jour la demande en l'activant
-			$this->getDbTable()->update(array('fri_active' => true), array('fri_user_1 = ?' => $user2, 'fri_user_2 = ?' => $user1));
+			$this->getDbTable()->update(array('fri_active' => 1), array('fri_user_1 = ?' => $user2, 'fri_user_2 = ?' => $user1));
 			
 			// On crée une amitié de user 1 vers user 2 active
 			// champ de table -> attribut de l'objet
 			$data = array(
 				'fri_user_1' => $user1,
 				'fri_user_2' => $user2,
-				'fri_active' => true,
+				'fri_active' => 1,
 				'fri_ask_date' => date('Y-m-d H:i:s')
 			);
 			

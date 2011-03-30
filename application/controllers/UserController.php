@@ -126,9 +126,14 @@ class UserController extends Zend_Controller_Action
             	$user_id = $this->_auth->getIdentity()->usr_id;
 				$this->view->selfProfile = true;
 			} 
-			
-			//$this->view->asker = $this->_auth->getIdentity()->usr_id;
-        }
+		}
+		
+		// On récupère l'identifiant du visualisateur, 0 si il n'est pas loggé
+		if($this->_auth->hasIdentity()) {
+			$viewer_id = $this->_auth->getIdentity()->usr_id;
+		} else {
+			$viewer_id = 0;
+		}
 		
 		if($user_id != "") {				
 			$mapper  = new Application_Model_UserMapper();
@@ -153,7 +158,7 @@ class UserController extends Zend_Controller_Action
 				$tabmapper  = new Application_Model_TabMapper();
 				
 				// Récupération des tablatures
-				$tabs    = $tabmapper->findByUser($user_id, $this->_auth->getIdentity()->usr_id);
+				$tabs    = $tabmapper->findByUser($user_id, $viewer_id);
 				$this->view->tabs = $tabs;        
 			}
 		} else {

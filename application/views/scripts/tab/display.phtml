@@ -17,7 +17,7 @@
 	</div>
 	<div>
 		<ul class="tab_info">
-			<li>Author : <?php echo $this->tablature->getUserName(); ?></li>
+			<li>Author : <?php echo '<a href="' . $this->url(array('controller' => 'user', 'action' => 'profile', 'id' => $this->tablature->getUser()), 'default', true) . '">' . $this->tablature->getUserName() . '</a>'; ?></li>
 			<li>Created : <?php echo $this->tablature->getCreated(); ?></li>
 			<li>Visibility : <?php echo $this->tablature->getVisibility(); ?></li>
 			<li>Instrument : <?php echo $this->tablature->getInstrumentName(); ?></li>

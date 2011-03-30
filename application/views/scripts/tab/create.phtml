@@ -1,4 +1,11 @@
-<?php ?>
+<?php 
+
+$visibilities = array(
+	MyTabCloud_Constants::VISIBILITY_PUBLIC => 'Public',
+	MyTabCloud_Constants::VISIBILITY_FRIENDS => 'Friends',
+	MyTabCloud_Constants::VISIBILITY_PRIVATE => 'Private'
+);
+?>
 <?php
     if($this->user()) {
         if($this->display_form) {
@@ -50,11 +57,7 @@
 							</td>
 							<td><?php echo $this->formLabel('visibility', 'Visibility', array('class' => 'required')); ?></td>
 							<td>
-								<select name="visibility" id="visibility">
-									<option value="<?php echo MyTabCloud_Constants::VISIBILITY_PUBLIC; ?>">Public</option>
-									<option value="<?php echo MyTabCloud_Constants::VISIBILITY_FRIENDS; ?>">Friends</option>
-									<option value="<?php echo MyTabCloud_Constants::VISIBILITY_PRIVATE; ?>">Private</option>
-								</select>
+								<?php echo $this->formSelect('visibility', $this->params['visibility'], null, $visibilities); ?>
 							</td>
 						</tr>
 						<tr>

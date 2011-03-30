@@ -19,6 +19,6 @@
 			echo "Welcome, " . $this->user() . "<br />";
 			echo '<a href="'.$this->signoutURL.'">Logout</a>';
 		echo '</td><td class="gravatar">';
-			echo $this->gravatarHelper();
+			echo $this->gravatarHelper(GRAVATAR_SIZE, $this->userMail());
 		echo "</td></tr></table>";		
 	}

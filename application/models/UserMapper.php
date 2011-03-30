@@ -121,7 +121,7 @@ class Application_Model_UserMapper
 		$stmt = $db->query($select);
 		$resultSet = $stmt->fetchAll();
 		
-        if (0 == count($resultSet)) { return; }
+        if (0 == count($resultSet)) { return false; }
 		
 		$entries   = array();
         foreach ($resultSet as $row) {

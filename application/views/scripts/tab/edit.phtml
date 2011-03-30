@@ -13,20 +13,21 @@ if($this->has_tab) {
     if($this->user()) {
         if($this->display_form) {
 ?>
-        <map name='nb_strings_map'>                        
-           <area shape='rect' coords='0,11,20,22' href="javascript:fctDown('#nb_strings', 1);" />                        
-           <area shape='rect' coords='0,0,20,10' href="javascript:fctUp('#nb_strings', 10);" />                        
+        <map name='nb_strings_map' id="nb_strings_map">                        
+           <area shape='rect' coords='0,11,20,22' href="javascript:fctDown('#nb_strings', 1);" alt="Down" />                        
+           <area shape='rect' coords='0,0,20,10' href="javascript:fctUp('#nb_strings', 10);" alt="Up" />                        
         </map>
         
-        <map name='capo_map'>                        
-           <area shape='rect' coords='0,11,20,22' href="javascript:fctDown('#capo', 0);" />                        
-           <area shape='rect' coords='0,0,20,10' href="javascript:fctUp('#capo', 25);" />                        
+        <map name='capo_map' id="capo_map">                        
+           <area shape='rect' coords='0,11,20,22' href="javascript:fctDown('#capo', 0);" alt="Down" />                        
+           <area shape='rect' coords='0,0,20,10' href="javascript:fctUp('#capo', 25);" alt="Up" />                        
         </map>
         
         <form id="edittab" enctype="application/x-www-form-urlencoded" method="post" action="<?php echo $this->url(array('controller' => 'tab', 'action' => 'edit', 'id' => $this->params['id']), 'default', true); ?>">
         <div class="container">
 			<?php echo $this->formHidden('formname', $this->form_name, null); ?>
-            <div id="tab_pane" class="span-18">
+        	
+            <div id="tab_pane" class="span-24">
             	<ul>
             		<li><a href="#tab-song">Song Information</a></li>
             		<li><a href="#tab-config">Tab configuration</a></li>
@@ -87,10 +88,10 @@ if($this->has_tab) {
 								for($tun_str = 0 ; $tun_str < $this->params['nb_strings'] ; $tun_str++) {
 									echo '<div id="tuning_div_' . $tun_str . '">';
 									echo $this->formText('tuning_' . $tun_str, $this->params['tuning'][$tun_str], array('size' => '3'));
-									echo '<img src="' . $this->baseUrl() .'/images/updown.png" width="14" height="19" class="updownimg" usemap="#map_tuning_'.$tun_str.'"></img>';
-									echo '<map name="map_tuning_'.$tun_str.'">';
-									echo '	<area shape="rect" coords="0,11,20,22" href="javascript:fctTuneDown(\'#tuning_'.$tun_str.'\');" />';
-									echo '	<area shape="rect" coords="0,0,20,10" href="javascript:fctTuneUp(\'#tuning_'.$tun_str.'\');" />';                        
+									echo '<img src="' . $this->baseUrl() .'/images/updown.png" width="14" height="19" class="updownimg" usemap="#map_tuning_'.$tun_str.'" alt="Up Down"></img>';
+									echo '<map name="map_tuning_'.$tun_str.'" id="map_tuning_'.$tun_str.'">';
+									echo '	<area shape="rect" coords="0,11,20,22" href="javascript:fctTuneDown(\'#tuning_'.$tun_str.'\');" alt="Down" />';
+									echo '	<area shape="rect" coords="0,0,20,10" href="javascript:fctTuneUp(\'#tuning_'.$tun_str.'\');" alt="Up" />';                        
 									echo '</map>';
 									echo '</div>';
 								}
@@ -103,14 +104,18 @@ if($this->has_tab) {
 					<div id="tab_display">
 						<?php echo $this->tab_display; ?>
 					</div>
-					<p class="add_line"><a href="javascript:addTabLine();">Add Line</a></p>
+					<p class="add_line"><a class="button" href="javascript:addTabLine();"><span class="plus icon"></span>Add Line</a></p>
+					
+					
+				</div>
 				</div>
 			</div>
+		 
+		<div style="width:100%; text-align:center; margin-top:10px;">
+			<a href="javascript:$('#edittab').submit();" class="positive button" style="margin-right:5px;"><span class="icon check"></span>Save</a>
          </div>     
                 
-        <dl class="zend_form">
-            <?php echo $this->formSubmit('submit', 'Save', null); ?>
-        </dl>
+		
         </form>
 <?php
         } else {
