@@ -1,6 +1,13 @@
 <?php
+
+	foreach($this->messages as $msg) {
+		$arr_msg = explode(MyTabCloud_Constants::MSG_SEPARATOR, $msg);
+		echo '<div class="'.$arr_msg[0].'">'.$arr_msg[1].'</div>';
+	}
+
 	if($this->has_tab) {
 ?>	
+
 <div class="container">
 	<div class="span-18 colborder">
 		<div class="tab_page">
@@ -23,7 +30,7 @@
 			<li>Instrument : <?php echo $this->tablature->getInstrumentName(); ?></li>
 		</ul>
 		<?php if($this->canEdit) {
-			echo '<center><a href="' . $this->url(array('controller' => 'tab', 'action' => 'edit', 'id' => $this->tablature->getId()), 'default', true) . '" class="button"><span class="pen icon"></span>Edit this tab</a></center>';
+			echo '<center><a href="' . $this->url(array('controller' => 'tab', 'action' => 'edit', 'id' => $this->tablature->getId()), 'default', true) . '" class="button"><span class="pen icon"></span>Edit this tab</a><a href="' . $this->url(array('controller' => 'tab', 'action' => 'delete', 'id' => $this->tablature->getId()), 'default', true) . '" class="button negative"><span class="cross icon"></span>Delete this tab</a></center>';
 		} ?>
 	</div>
 </div>

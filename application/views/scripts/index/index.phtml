@@ -1,6 +1,12 @@
 <?php  
-    if($this->user()) {
-        echo "Connecté : " . $this->user(); 
+    	
+	foreach($this->messages as $msg) {
+		$arr_msg = explode(MyTabCloud_Constants::MSG_SEPARATOR, $msg);
+		echo '<div class="'.$arr_msg[0].'">'.$arr_msg[1].'</div>';
+	}
+	
+	if($this->user()) {
+        echo "Connecté : " . $this->user() . "<br />";		
     } else {
         echo "Non connecté";
     }

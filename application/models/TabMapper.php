@@ -39,6 +39,9 @@ class Application_Model_TabMapper
 			
             $tab_id = $this->getDbTable()->insert($data);
 			
+			// On récupère l'id de la tablature créée
+			$tab->setId($tab_id);
+			
 			foreach($tab->getContent() as $note) {
 				$note->setTab($tab_id);
 				$mapper->save($note);
@@ -52,9 +55,7 @@ class Application_Model_TabMapper
 				$note->setTab($id);
 				$mapper->save($note);
 			}
-			
-        	//$data['tab_created'] = $tab->getCreated();
-			
+						
             $this->getDbTable()->update($data, array('tab_id = ?' => $id));
 			MyTabCloud_Action::logAction($tab->getUser(), 'update', 'tab', $id);
         }
@@ -146,7 +147,8 @@ class Application_Model_TabMapper
 		
 	public function delete($id)
     {
-        $result = $this->getDbTable()->delete($id);
+		$where = $this->getDbTable()->getAdapter()->quoteInto('tab_id = ?', $id);
+        $result = $this->getDbTable()->delete($where);
     }
 	
 	public function fetchAll() {
