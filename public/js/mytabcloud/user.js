@@ -4,5 +4,5 @@
  
 
 window.onload = (function(){
-	
+	$("a.avatar").tipsy();	
 });

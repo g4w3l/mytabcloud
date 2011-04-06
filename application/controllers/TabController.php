@@ -256,7 +256,7 @@ class TabController extends Zend_Controller_Action
 				$mapper  = new Application_Model_TabMapper();
 				$mapper->save($tab);
 				
-				$this->_flashMessenger->addMessage(MyTabCloud_Constants::INFO_MSG . MyTabCloud_Constants::MSG_SEPARATOR . 'The tab has been saved.');	
+				$this->_flashMessenger->addMessage(MyTabCloud_Constants::INFO_MSG . MyTabCloud_Constants::MSG_SEPARATOR . 'The tab has been saved.');
 				$this->_helper->_redirector('display', 'tab', null, array('id' => $tab->getId()));                  
 				
 				

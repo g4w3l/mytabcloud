@@ -53,7 +53,7 @@
 		<?php
 			//echo print_r($this->userobj->getFriends());
 			foreach($this->userobj->getFriends() as $friend) {
-				echo '<a href="' . $this->url(array('controller' => 'user', 'action' => 'profile', 'id' => $friend['id']), 'default', true) . '">' . $this->gravatarHelper(GRAVATAR_SIZE, $friend['mail'], $friend['name']) . '</a>&nbsp;';
+				echo '<a class="avatar" title="'.$friend['name'].'" href="' . $this->url(array('controller' => 'user', 'action' => 'profile', 'id' => $friend['id']), 'default', true) . '">' . $this->gravatarHelper(GRAVATAR_SIZE, $friend['mail'], $friend['name']) . '</a>&nbsp;';
 			}
 		?>
 	</div>
