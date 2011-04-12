@@ -32,8 +32,17 @@
 		<?php if($this->canEdit) {
 			echo '<center><a href="' . $this->url(array('controller' => 'tab', 'action' => 'edit', 'id' => $this->tablature->getId()), 'default', true) . '" class="button"><span class="pen icon"></span>Edit this tab</a><a href="' . $this->url(array('controller' => 'tab', 'action' => 'delete', 'id' => $this->tablature->getId()), 'default', true) . '" class="button negative"><span class="cross icon"></span>Delete this tab</a></center>';
 		} ?>
+		<br />
+		<h3>Share</h3>
+		<input id="permalink" type="text" size="25" readonly="true" value="http://<?php echo $_SERVER['SERVER_NAME'] . $this->url(array('id'=> $this->tablature->getId(),'name'=> MyTabCloud_Utils::toURL($this->tablature->getTitle())),'viewtab'); ?>" onfocus="javascript:this.select();" />
+		
 	</div>
 </div>
+
+<script type="text/javascript">
+	
+</script>
+
 <?php		
 	} else {
 		echo $this->message;

@@ -256,7 +256,7 @@ class TabController extends Zend_Controller_Action
 				$mapper  = new Application_Model_TabMapper();
 				$mapper->save($tab);
 				
-				$this->_flashMessenger->addMessage(MyTabCloud_Constants::INFO_MSG . MyTabCloud_Constants::MSG_SEPARATOR . 'The tab has been saved.');	
+				$this->_flashMessenger->addMessage(MyTabCloud_Constants::INFO_MSG . MyTabCloud_Constants::MSG_SEPARATOR . 'The tab has been saved.');
 				$this->_helper->_redirector('display', 'tab', null, array('id' => $tab->getId()));                  
 				
 				
@@ -313,5 +313,44 @@ class TabController extends Zend_Controller_Action
 		
 		$this->_helper->_redirector('index', 'index');
 	}
+	
+	/**
+     * Action "display" : Affiche une tablature
+     */   
+    public function imageAction() {
+	
+		//$this->_helper->viewRenderer->setNoRender();
+		// disable layouts for this action:
+        $this->_helper->layout->disableLayout();
+		
+        // Récupération du paramètre ID
+        $tab_id = $this->_getParam("id");
+		$viewer_id = 0;
+		        
+        // Mapper pour récupérer l'entrée                
+        $mapper  = new Application_Model_TabMapper();
+        $tab     = new Application_Model_Tab();
+        
+        if($mapper->find($tab_id, $tab, $viewer_id)) {
+        	/*$this->view->has_tab	= true;
+        	$this->view->tablature 	= $tab;*/
+        	//$this->view->title 		= $tab->getTitle();
+        	
+			//$this->view->tab_display = MyTabCloud_Tab_Display::displayTabForm($tab);  
+			
+			// Si l'utilisateur est le créateur de la tablature, il peut l'éditer
+			/*if($viewer_id == $tab->getUser()) { $this->view->canEdit = true; } 
+			else { $this->view->canEdit = false; }*/
+			$this->view->msg = "Test";
+        	
+        	
+        } else {
+        	/*$this->view->has_tab	= false;
+        	$this->view->message = 'Tablature introuvable';*/
+			$this->view->msg = "Test NOK";
+        }
+        
+        
+    }
 
 }

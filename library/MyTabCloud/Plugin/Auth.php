@@ -62,12 +62,12 @@ class MyTabCloud_Plugin_Auth extends Zend_Controller_Plugin_Abstract	{
 		$default = $front->getDefaultModule() ;
 		
 		// compose le nom de la ressource
-		if ($module == $default)	{
+		if ($module == $default || $module == "")	{
 			$resource = $controller ;
 		} else {
 			$resource = $module.'_'.$controller ;
 		}
-    
+		    
 		// est-ce que la ressource existe ?
 		if (!$this->_acl->has($resource)) {
 		  $resource = null;
