@@ -1,2 +1,79 @@
 <?php
-	echo $this->msg;
+
+$tab_content 			= $this->tab->getContentAsAnArray();
+$tab_display 			= "";
+$beat_line 				= 0;
+$beat_begin_line		= 0;
+$current_beat			= 0;
+$countlines 			= count($tab_content[0])/(int)NB_BEATS;
+$nbstrings				= $this->tab->getNbStrings();
+
+// Quelques constantes
+$margin 	= 20;
+$beatWidth	= 20;
+$lineHeight	= 20;
+$lineSpace 	= 30;
+
+header("Content-type: image/png"); //la ligne qui change tout !
+
+$x = ((int)NB_BEATS*$beatWidth)+($margin*2); 
+$y = $countlines*(($nbstrings*$lineHeight)+$lineSpace)+100; 
+
+
+
+/* on créé l'image en vraies couleurs avec une largeur de 50 pixels et une hauteur de 100 pixels */
+$image = imagecreatetruecolor($x,$y);
+
+$color = "000000";
+$rouge = hexdec(substr($color,0,2)); 
+$vert = hexdec(substr($color,2,4)); 
+$bleu = hexdec(substr($color,4,6)); 
+$frontcolor = imagecolorallocate($image,$rouge,$vert,$bleu);
+
+$color = "FFFFFF";
+$rouge = hexdec(substr($color,0,2)); 
+$vert = hexdec(substr($color,2,4)); 
+$bleu = hexdec(substr($color,4,6)); 
+$bgcolor = imagecolorallocate($image,$rouge,$vert,$bleu);
+
+$color = "ABABAB";
+$stringcolor = imagecolorallocate($image,0xAB,0xAB,0xAB);
+
+imagefill($image,0,0,$bgcolor); // Fond blanc
+
+// On va afficher la tablature    
+for ($ligne = 0 ; $ligne <  $countlines ; $ligne++) {
+	// Pour chaque nouvelle ligne, on retient le premier beat
+	$beat_begin_line = $current_beat;
+		
+	// On va afficher chaque corde
+	for($string = 0 ; $string < $nbstrings ; $string++) {
+		// Pour chaque changement de corde, on se replace au premier beat de la ligne
+		$current_beat = $beat_begin_line;
+		
+		$yString = $margin + $ligne*($lineHeight*$nbstrings+$lineSpace) + ($string*$lineHeight);
+		imageline($image, $margin, $yString, $x-$margin, $yString, $stringcolor); 
+		
+		// Pour chaque temps on va afficher la valeur
+		for ($beat_line = 0 ; $beat_line < (int)NB_BEATS ; $beat_line++) {
+				
+			// Si on a dépassé le beat maximal de la tablature, on va afficher un beat vide
+			if($current_beat > count($tab_content[1])-1) {	
+				$notevalue = "";
+			} else {
+				$notevalue = $tab_content[$string][$current_beat];
+			}
+			
+			imagestring($image, 4, $margin+($beat_line*$beatWidth), $yString-8, $notevalue, $frontcolor);
+			
+			// On passe au beat suivant
+			$current_beat = $current_beat + 1;
+		}		
+	}
+} 
+
+
+
+
+imagepng($image); //renvoie une image sous format png
+imagedestroy($image); //détruit l'image, libérant ainsi de la mémoire

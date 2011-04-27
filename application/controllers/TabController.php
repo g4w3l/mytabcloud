@@ -332,21 +332,12 @@ class TabController extends Zend_Controller_Action
         $tab     = new Application_Model_Tab();
         
         if($mapper->find($tab_id, $tab, $viewer_id)) {
-        	/*$this->view->has_tab	= true;
-        	$this->view->tablature 	= $tab;*/
-        	//$this->view->title 		= $tab->getTitle();
         	
-			//$this->view->tab_display = MyTabCloud_Tab_Display::displayTabForm($tab);  
-			
-			// Si l'utilisateur est le créateur de la tablature, il peut l'éditer
-			/*if($viewer_id == $tab->getUser()) { $this->view->canEdit = true; } 
-			else { $this->view->canEdit = false; }*/
 			$this->view->msg = "Test";
-        	
+        	$this->view->tab = $tab;
         	
         } else {
-        	/*$this->view->has_tab	= false;
-        	$this->view->message = 'Tablature introuvable';*/
+        	
 			$this->view->msg = "Test NOK";
         }
         

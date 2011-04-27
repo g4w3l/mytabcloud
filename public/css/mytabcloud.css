@@ -1,6 +1,6 @@
-body { background-color:#6c4b2e; }
+body { background-color:#6c4b2e; background-image: url('/mytabcloud/public/images/micro_carbon.gif'); background-repeat: repeat; }
 
-.general_container { background-color:#fdf9ed; padding-bottom:20px; }
+.general_container { background-color:#ffffff; padding-bottom:20px; }
 
 .header_container { height: 64px; background-image: url('/mytabcloud/public/images/header_bg.png'); background-position:top center; background-repeat:repeat-x; }
 .header_logo { margin-top: 8px; vertical-align: bottom; }
@@ -8,11 +8,11 @@ body { background-color:#6c4b2e; }
 .gravatar { width:40px; }
 .logo { vertical-align: bottom; }
 
-.footer { width:100%; padding-top:20px; background: url('/mytabcloud/public/images/footer_shadow.png') repeat-x top center; }
+.footer { width:100%; padding-top:20px; background: url('/mytabcloud/public/images/footer_shadow.png') repeat-x top center; color:#ffffff; }
+.footer h3 { color : #ffffff; }
 /* .footer_img { background-image: url('/mytabcloud/public/images/guitar_footer.png'); background-repeat: no-repeat;height:36px; width:380px; margin-left:200px; } */
 
 #tab_display { padding-top:20px;padding-bottom:20px; margin-top:20px; margin-bottom:10px; }
-
 #tab_display p { margin-left: 10px; }
 
 .tab_page { 
