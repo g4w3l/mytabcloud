@@ -29,7 +29,7 @@ body { background-color:#6c4b2e; background-image: url('/mytabcloud/public/image
 .tab_line table { width: auto; margin-left:10px; margin-left: auto; margin-right: auto;}
 .tab_line td { background-color: transparent; padding: 0 0 0 0; margin: 0 0 0 0; background-image: url('/mytabcloud/public/images/tab_line.png'); background-repeat: repeat-x; background-position: center left; }
 .tab_line .tab_tuning { background-image:none; padding-right:3px; }
-.tab_line input { margin: 0 0 0 0; padding: 0 0 0 0; border: 0px; text-align:center; background: transparent; height:1.5em; width:1.7em; }
+.tab_line input { margin: 0 0 0 0; padding: 0 0 0 0; border: 0px; text-align:center; background: transparent; height:1.5em; width:1.7em; -webkit-appearance: none;}
 
 .tuning { }
 .tuning input { }
